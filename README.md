@@ -142,9 +142,11 @@ Create `content/services/<slug>.md` matching the schema in `content.config.ts` (
 
 1. Run `supabase/migrations/0002_create_projects.sql` against your Supabase project (SQL Editor, or `supabase db push` if the CLI is linked). It creates the `projects` table and the public `project-covers` Storage bucket (with RLS policies: public read, authenticated-only write).
 2. Set `NUXT_PUBLIC_SUPABASE_URL` and `NUXT_PUBLIC_SUPABASE_ANON_KEY` in `.env` (Project Settings → API in the Supabase dashboard). These are safe to expose — the anon key only authenticates against Supabase Auth and the Storage policies above, it does not bypass RLS the way the service role key does.
-3. Create at least one admin user in Supabase Dashboard → Authentication → Users → Add user (email + password). There's no public sign-up — this is the only way to provision an admin account.
+3. Create at least one admin user. There's no public sign-up — either use `pnpm seed:admin -- <email> <password>` (uses `SUPABASE_SERVICE_ROLE_KEY` to provision/reset the account, re-running it with the same email updates the password instead of erroring), or add one manually in Supabase Dashboard → Authentication → Users → Add user.
 
 Then sign in at `/admin/login`. From `/admin/projects` you can create, edit, publish/unpublish, and delete projects, including uploading a cover image directly to Storage. Changes appear on `/work` immediately — no rebuild needed, unlike the markdown-based flow above.
+
+Run `pnpm seed:projects` to insert a couple of placeholder projects (`scripts/seed-projects.mjs`) for exercising the admin panel and `/work` listing locally — upserted by `slug`, safe to re-run.
 
 ## 10. Testing Executed (and Results)
 
@@ -198,9 +200,11 @@ The client (`useProjectInquiry.ts`) preserves all entered form data on failure a
 
 ## 15. Deployment (Vercel)
 
+`vercel.json` pins the framework to `nuxt`; `package.json` pins `engines.node` (`22.x`) and `packageManager` (`pnpm@11.9.0`) so Vercel's build image matches local dev. Verified locally with `NITRO_PRESET=vercel pnpm build` — produces `.vercel/output/functions/*` as expected, no build errors.
+
 1. Connect the repository to Vercel.
-2. Set all variables from `.env.example` in the Vercel project's Environment Variables.
-3. Deploy — Nuxt's Vercel preset is auto-detected.
+2. Set all variables from `.env.example` in the Vercel project's Environment Variables (Production **and** Preview — the admin panel and inquiry flow need Supabase/Resend/Turnstile in both).
+3. Deploy — Nuxt's Vercel preset is auto-detected from `VERCEL=1` at build time (confirmed via a local `NITRO_PRESET=vercel` build); `@nuxt/image` also switches to the Vercel image provider automatically in that environment, so the local "sharp binaries built for darwin-arm64" build warning does not carry over.
 4. Post-deploy checklist:
    - [ ] Custom domain + HTTPS
    - [ ] `NUXT_PUBLIC_SITE_URL` matches the live domain (affects sitemap/OG/canonical)
