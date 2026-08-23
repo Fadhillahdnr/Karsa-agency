@@ -1,0 +1,23 @@
+node_modules
+.nuxt
+.output
+.data
+.nitro
+.cache
+dist
+
+.git
+.github
+
+# Test artifacts
+playwright-report
+test-results
+coverage
+
+# Local env files (pass secrets via env_file/-e instead)
+.env
+.env.*
+!.env.example
+
+.DS_Store
+*.log

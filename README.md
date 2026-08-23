@@ -64,6 +64,24 @@ pnpm dev
 
 Runs on `http://localhost:3000` (or the next free port).
 
+### Docker (alternative)
+
+Run the dev server in a container with the source bind-mounted, so edits on your machine hot-reload inside the container exactly like local `pnpm dev`:
+
+```bash
+docker compose up --build
+```
+
+Then open `http://localhost:3000`. Stop with `docker compose down` (add `-v` to also drop the `node_modules` volume, e.g. after changing dependencies).
+
+How it's wired (`Dockerfile` / `docker-compose.yml`):
+
+- The image is Debian-based (`node:22-bookworm-slim`) with `python3`/`make`/`g++` installed, because `pnpm install` compiles a native module (`better-sqlite3`, used by Nuxt Content) via node-gyp.
+- `docker-compose.yml` bind-mounts the whole project into `/app`, but shadows `/app/node_modules` with a separate anonymous volume — the image's `node_modules` contains Linux-native binaries, and letting the bind mount replace it with your host's (macOS/Windows) `node_modules` would break the container.
+- `CHOKIDAR_USEPOLLING=true` is set for the container: Docker Desktop's bind mounts don't reliably forward native file-change events into Linux containers, so without polling, Vite's dev server never notices edits. This is gated behind an env var (see `nuxt.config.ts`) so native/local `pnpm dev` outside Docker keeps using fast native file watching instead.
+- `.env` is loaded automatically if present (`cp .env.example .env` first) — see §5.
+- Host/port are set via `HOST`/`PORT` env vars, not CLI flags — `pnpm dev -- --host 0.0.0.0` is fragile here: an extra `--` reaching Nuxt's CLI gets parsed as its positional `[DIR]` argument, which silently scaffolds a brand-new empty Nuxt project in a directory literally named `--host` and serves that instead. Worth knowing if you ever add CLI args to the container command.
+
 ## 7. Build
 
 ```bash

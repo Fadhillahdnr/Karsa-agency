@@ -1,0 +1,36 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      HOST: 0.0.0.0
+      PORT: '3000'
+      NUXT_TELEMETRY_DISABLED: '1'
+      # Bind mounts on Docker Desktop (macOS/Windows) don't reliably forward
+      # native file-change events into the container — without this, edits
+      # on the host never trigger HMR inside the container. See nuxt.config.ts.
+      CHOKIDAR_USEPOLLING: 'true'
+    env_file:
+      # Optional: copy .env.example to .env to enable Supabase/Resend/
+      # Turnstile/GA locally. Missing the file is fine — the app degrades
+      # gracefully without it (see README §5).
+      - path: .env
+        required: false
+    volumes:
+      # Bind mount the project so any edit on the host is immediately
+      # visible inside the container (Nuxt/Vite picks it up via HMR).
+      - .:/app
+      # This anonymous volume "shadows" node_modules so the host bind mount
+      # above doesn't overwrite it with a missing/wrong-platform copy —
+      # it contains native binaries (better-sqlite3) built for Linux inside
+      # the image, which a macOS/Windows host node_modules would break.
+      # .nuxt/.output are deliberately NOT shadowed: an anonymous volume
+      # over them would get seeded from whatever was in the image at build
+      # time (generated before source existed, i.e. broken/stale) and then
+      # permanently mask the real bind-mounted source underneath it.
+      - /app/node_modules
+    stdin_open: true
+    tty: true

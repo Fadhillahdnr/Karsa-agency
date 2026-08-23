@@ -82,6 +82,16 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    // Docker Desktop's bind mounts don't reliably forward native fsevents
+    // from the macOS/Windows host into the Linux container, so Vite's
+    // watcher never sees file changes there. Polling works everywhere but
+    // costs CPU, so it's opt-in via CHOKIDAR_USEPOLLING (set by
+    // docker-compose.yml) rather than always-on for native host dev.
+    server: {
+      watch: process.env.CHOKIDAR_USEPOLLING === 'true'
+        ? { usePolling: true, interval: 100 }
+        : undefined,
+    },
   },
 
   typescript: {
