@@ -1,17 +1,26 @@
 <script setup lang="ts">
-const route = useRoute()
-const path = `/work/${route.params.slug}`
+import type { WorkApiItem } from '../../../server/api/work/index.get'
 
-const { data: project } = await useAsyncData(`work-${route.params.slug}`, () =>
-  queryCollection('work').path(path).first(),
-)
+const route = useRoute()
+const slug = route.params.slug as string
+const path = `/work/${slug}`
+
+const { data: project } = await useAsyncData(`work-${slug}`, async () => {
+  const fromContent = await queryCollection('work').path(path).first()
+  if (fromContent) return fromContent
+  return $fetch<WorkApiItem | null>(`/api/work/${slug}`).catch(() => null)
+})
 
 if (!project.value) {
   throw createError({ statusCode: 404, statusMessage: 'Project not found', fatal: true })
 }
 
-const { data: nextProject } = await useAsyncData(`work-next-${route.params.slug}`, async () => {
-  const all = await queryCollection('work').order('order', 'ASC').all()
+const { data: nextProject } = await useAsyncData(`work-next-${slug}`, async () => {
+  const [contentItems, dbItems] = await Promise.all([
+    queryCollection('work').order('order', 'ASC').all(),
+    $fetch<WorkApiItem[]>('/api/work').catch(() => []),
+  ])
+  const all = [...contentItems, ...dbItems].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
   const currentIndex = all.findIndex(item => item.path === path)
   if (currentIndex === -1) return null
   return all[(currentIndex + 1) % all.length]
@@ -75,6 +84,7 @@ onMounted(() => track('project_view', { project: route.params.slug as string }))
     </BaseSection>
 
     <BaseSection
+      v-if="'body' in project"
       tight
       narrow
     >

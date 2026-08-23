@@ -1,7 +1,14 @@
 <script setup lang="ts">
-const { data: projects } = await useAsyncData('work-listing', () =>
-  queryCollection('work').order('order', 'ASC').all(),
-)
+import type { WorkApiItem } from '../../../server/api/work/index.get'
+
+const { data: projects } = await useAsyncData('work-listing', async () => {
+  const [contentItems, dbItems] = await Promise.all([
+    queryCollection('work').order('order', 'ASC').all(),
+    $fetch<WorkApiItem[]>('/api/work').catch(() => []),
+  ])
+
+  return [...contentItems, ...dbItems].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+})
 
 useSeoMeta({
   title: 'Work',

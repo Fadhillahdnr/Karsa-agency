@@ -55,11 +55,18 @@ export default defineNuxtConfig({
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://karsastudio.com',
       turnstileSiteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY || '',
       gaMeasurementId: process.env.NUXT_PUBLIC_GA_MEASUREMENT_ID || '',
+      // Anon key is safe to expose: it only authenticates against Supabase
+      // Auth (admin login) and Storage upload policies, both RLS-gated.
+      supabaseUrl: process.env.NUXT_PUBLIC_SUPABASE_URL || '',
+      supabaseAnonKey: process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY || '',
     },
   },
 
   routeRules: {
     '/privacy': { prerender: true },
+    // Admin panel is behind Supabase Auth and rendered client-only — no
+    // point prerendering/indexing an auth-gated dashboard.
+    '/admin/**': { ssr: false, robots: false },
   },
 
   experimental: {

@@ -26,6 +26,29 @@ type LeadRow = {
 type LeadInsert = Omit<LeadRow, 'id' | 'status' | 'metadata' | 'created_at' | 'updated_at'>
   & Partial<Pick<LeadRow, 'status' | 'metadata'>>
 
+export type ProjectRow = {
+  id: string
+  slug: string
+  title: string
+  year: number
+  type: 'Independent Project' | 'Internal Concept' | 'Experimental Work'
+  category: string
+  services: string[]
+  description: string
+  cover: string
+  featured: boolean
+  challenge: string | null
+  approach: string | null
+  outcome: string | null
+  order_index: number
+  published: boolean
+  created_at: string
+  updated_at: string
+}
+
+export type ProjectInsert = Omit<ProjectRow, 'id' | 'created_at' | 'updated_at'>
+export type ProjectUpdate = Partial<ProjectInsert>
+
 type Database = {
   public: {
     Tables: {
@@ -33,6 +56,12 @@ type Database = {
         Row: LeadRow
         Insert: LeadInsert
         Update: Partial<LeadRow>
+        Relationships: []
+      }
+      projects: {
+        Row: ProjectRow
+        Insert: ProjectInsert
+        Update: ProjectUpdate
         Relationships: []
       }
     }

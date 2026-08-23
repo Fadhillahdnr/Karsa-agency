@@ -134,6 +134,18 @@ Only add real, honestly-labeled projects — do not invent clients, metrics, or 
 
 Create `content/services/<slug>.md` matching the schema in `content.config.ts` (`pillar`, `summary`, `whoItsFor`, `problems`, `deliverables`, `faq`, plus a markdown body for "What Karsa Can Build" / "Process"). The route is derived from the filename: `content/services/api-integration.md` → `/services/api-integration`.
 
+### Adding a project via the admin panel
+
+`/admin` is a Supabase-Auth-gated dashboard for adding work projects without touching the codebase or redeploying. Projects created there are stored in a `projects` table (Supabase) and merged at request time with the file-based `content/work/*.md` collection on `/work` and `/work/[slug]` — both sources render through the same templates.
+
+**One-time setup:**
+
+1. Run `supabase/migrations/0002_create_projects.sql` against your Supabase project (SQL Editor, or `supabase db push` if the CLI is linked). It creates the `projects` table and the public `project-covers` Storage bucket (with RLS policies: public read, authenticated-only write).
+2. Set `NUXT_PUBLIC_SUPABASE_URL` and `NUXT_PUBLIC_SUPABASE_ANON_KEY` in `.env` (Project Settings → API in the Supabase dashboard). These are safe to expose — the anon key only authenticates against Supabase Auth and the Storage policies above, it does not bypass RLS the way the service role key does.
+3. Create at least one admin user in Supabase Dashboard → Authentication → Users → Add user (email + password). There's no public sign-up — this is the only way to provision an admin account.
+
+Then sign in at `/admin/login`. From `/admin/projects` you can create, edit, publish/unpublish, and delete projects, including uploading a cover image directly to Storage. Changes appear on `/work` immediately — no rebuild needed, unlike the markdown-based flow above.
+
 ## 10. Testing Executed (and Results)
 
 Run against this codebase at handover time:
@@ -194,6 +206,8 @@ The client (`useProjectInquiry.ts`) preserves all entered form data on failure a
    - [ ] `NUXT_PUBLIC_SITE_URL` matches the live domain (affects sitemap/OG/canonical)
    - [ ] `/sitemap.xml` and `/robots.txt` resolve
    - [ ] Submit a real test inquiry end-to-end (Supabase row + both emails arrive)
+   - [ ] Run both `supabase/migrations/*.sql` (including `0002_create_projects.sql` for the admin panel — see §9) against the production Supabase project
+   - [ ] Sign in at `/admin/login` with a provisioned admin user and confirm a test project appears on `/work`
    - [ ] Run Lighthouse against the live URL
 
 **Known deployment caveat:** the in-memory rate limiter (`server/utils/rate-limit.ts`) is per-instance. On serverless platforms with multiple concurrent function instances, each instance tracks its own counters — it's a best-effort abuse guard, not a hard limit. A distributed store (Upstash Redis, Vercel KV) would be needed for a hard guarantee.
@@ -244,7 +258,9 @@ See `.env.example` for the authoritative list and §5 above for what each unlock
 - **Rate limiting is per-instance**, not distributed (see §15).
 - **Lighthouse/axe audits were not run** — this environment has no way to serve a public/production URL to test against. Run them post-deploy per the §15 checklist.
 - **No response-time SLA is promised anywhere in the copy**, intentionally — the blueprint prohibits promising one that isn't officially set.
+- **`/admin` has no automated test coverage yet** and was verified with `pnpm lint`/`pnpm typecheck`/`pnpm test` plus manual `curl` smoke checks (unauthenticated `/api/admin/*` correctly returns 401, `/work` and `/work/[slug]` still render with Supabase unconfigured) — it was not click-tested in a browser against a live Supabase project, since `NUXT_PUBLIC_SUPABASE_ANON_KEY` isn't set in this environment. Verify the login → create → publish flow manually once real Supabase credentials are in place.
+- **Admin access has no role distinction.** Any Supabase Auth user that can sign in counts as a full admin (create/edit/delete/publish) — there's no separate roles table. Only provision Supabase Auth accounts for people who should have full project-editing access.
 
 ## Recommended Phase 2
 
-Per the blueprint's own Phase 2 list (§59): CMS for non-technical content editing, an `/insights` blog once there's material worth publishing, multilingual ID/EN, and a real GLB-based 3D brand mark once official brand assets exist. None of these block this v1 launch.
+Per the blueprint's own Phase 2 list (§59): non-technical content editing is now covered by the `/admin` panel (see §9); still open are an `/insights` blog once there's material worth publishing, multilingual ID/EN, and a real GLB-based 3D brand mark once official brand assets exist. None of these block this v1 launch.
