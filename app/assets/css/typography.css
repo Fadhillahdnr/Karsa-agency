@@ -1,0 +1,47 @@
+/**
+ * Karsa Studio — Typography
+ * Display: Space Grotesk (editorial character, distinctive at large scale)
+ * Body: Inter (neutral, highly legible for UI/forms/long copy)
+ */
+
+:root {
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --text-display-1: clamp(2.75rem, 6vw + 1rem, 7.5rem);
+  --text-display-2: clamp(2.25rem, 4.5vw + 1rem, 5rem);
+  --text-h1: clamp(2rem, 3vw + 1rem, 3.5rem);
+  --text-h2: clamp(1.5rem, 2vw + 1rem, 2.25rem);
+  --text-h3: clamp(1.25rem, 1vw + 1rem, 1.5rem);
+  --text-body-lg: clamp(1.0625rem, 0.5vw + 1rem, 1.25rem);
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-label: 0.75rem;
+
+  --tracking-tight: -0.02em;
+  --tracking-tighter: -0.04em;
+  --tracking-wide: 0.06em;
+  --tracking-widest: 0.14em;
+
+  --leading-tight: 1.02;
+  --leading-snug: 1.2;
+  --leading-normal: 1.55;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-tight);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.text-eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}

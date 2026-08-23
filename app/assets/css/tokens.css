@@ -1,0 +1,77 @@
+/**
+ * Karsa Studio — Design Tokens
+ * Single source of truth for color, spacing, radius, and layout primitives.
+ * Base palette is frozen per brand blueprint; accent is the only variable hue.
+ */
+
+:root {
+  /* Brand base */
+  --karsa-black: #0b0b0b;
+  --karsa-charcoal: #242424;
+  --karsa-offwhite: #f5f5f2;
+  --karsa-muted: #71717a;
+
+  /* Accent — muted green, chosen for a calm, non-generic tech signal
+     (avoids the default "startup blue" while staying restrained, not neon) */
+  --karsa-accent: #4f9d6e;
+  --karsa-accent-strong: #3d7d57;
+  --karsa-accent-soft: rgba(79, 157, 110, 0.14);
+
+  /* Semantic surface tokens (light-on-dark editorial default) */
+  --color-bg: var(--karsa-black);
+  --color-surface: var(--karsa-charcoal);
+  --color-surface-raised: #1a1a1a;
+  --color-text: var(--karsa-offwhite);
+  --color-text-muted: var(--karsa-muted);
+  --color-border: rgba(245, 245, 242, 0.12);
+  --color-accent: var(--karsa-accent);
+  --color-accent-strong: var(--karsa-accent-strong);
+  --color-accent-soft: var(--karsa-accent-soft);
+  --color-on-accent: var(--karsa-black);
+  --color-danger: #e5484d;
+
+  /* Spacing scale (rem, 4px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-full: 999px;
+
+  /* Layout */
+  --container: 1440px;
+  --container-narrow: 840px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 180ms;
+  --duration-base: 280ms;
+  --duration-slow: 480ms;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.45);
+
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 1ms;
+    --duration-base: 1ms;
+    --duration-slow: 1ms;
+  }
+}

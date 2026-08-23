@@ -1,0 +1,7 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Karsa Studio mark">
+  <circle cx="100" cy="100" r="92" stroke="#F5F5F2" stroke-width="4"/>
+  <circle cx="100" cy="100" r="60" stroke="#F5F5F2" stroke-width="4"/>
+  <line x1="100" y1="8" x2="100" y2="40" stroke="#4F9D6E" stroke-width="6" stroke-linecap="round"/>
+  <line x1="100" y1="160" x2="100" y2="192" stroke="#4F9D6E" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="100" cy="100" r="10" fill="#4F9D6E"/>
+</svg>
