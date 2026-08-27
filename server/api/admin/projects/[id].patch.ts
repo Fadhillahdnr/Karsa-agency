@@ -37,6 +37,8 @@ export default defineEventHandler(async (event) => {
   if (input.challenge !== undefined) update.challenge = input.challenge || null
   if (input.approach !== undefined) update.approach = input.approach || null
   if (input.outcome !== undefined) update.outcome = input.outcome || null
+  if (input.liveUrl !== undefined) update.live_url = input.liveUrl || null
+  if (input.githubUrl !== undefined) update.github_url = input.githubUrl || null
   if (input.order !== undefined) update.order_index = input.order
   if (input.published !== undefined) update.published = input.published
 

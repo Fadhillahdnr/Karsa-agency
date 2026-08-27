@@ -27,6 +27,8 @@ async function handleSubmit(value: ProjectFormValue) {
         challenge: value.challenge,
         approach: value.approach,
         outcome: value.outcome,
+        liveUrl: value.liveUrl,
+        githubUrl: value.githubUrl,
         order: value.order,
         published: value.published,
       },

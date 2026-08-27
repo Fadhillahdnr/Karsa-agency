@@ -15,6 +15,8 @@ export type WorkApiItem = {
   challenge: string | null
   approach: string | null
   outcome: string | null
+  liveUrl: string | null
+  githubUrl: string | null
 }
 
 /**
@@ -50,5 +52,7 @@ export default defineEventHandler(async (): Promise<WorkApiItem[]> => {
     challenge: project.challenge,
     approach: project.approach,
     outcome: project.outcome,
+    liveUrl: project.live_url,
+    githubUrl: project.github_url,
   }))
 })

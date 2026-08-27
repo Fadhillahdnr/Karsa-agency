@@ -15,6 +15,8 @@ export const projectSchema = z.object({
   challenge: z.string().trim().max(2000).optional().or(z.literal('')),
   approach: z.string().trim().max(2000).optional().or(z.literal('')),
   outcome: z.string().trim().max(2000).optional().or(z.literal('')),
+  liveUrl: z.string().trim().url().max(500).optional().or(z.literal('')),
+  githubUrl: z.string().trim().url().max(500).optional().or(z.literal('')),
   order: z.number().int().min(0).default(0),
   published: z.boolean().default(true),
 })

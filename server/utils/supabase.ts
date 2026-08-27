@@ -40,6 +40,8 @@ export type ProjectRow = {
   challenge: string | null
   approach: string | null
   outcome: string | null
+  live_url: string | null
+  github_url: string | null
   order_index: number
   published: boolean
   created_at: string

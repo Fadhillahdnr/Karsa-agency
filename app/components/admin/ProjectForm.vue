@@ -12,6 +12,8 @@ export interface ProjectFormValue {
   challenge: string
   approach: string
   outcome: string
+  liveUrl: string
+  githubUrl: string
   order: number
   published: boolean
 }
@@ -45,6 +47,8 @@ const form = reactive<ProjectFormValue>({
   challenge: props.initial?.challenge ?? '',
   approach: props.initial?.approach ?? '',
   outcome: props.initial?.outcome ?? '',
+  liveUrl: props.initial?.liveUrl ?? '',
+  githubUrl: props.initial?.githubUrl ?? '',
   order: props.initial?.order ?? 0,
   published: props.initial?.published ?? true,
 })
@@ -83,7 +87,19 @@ const errors = computed(() => ({
       : '',
   cover: !form.cover ? 'Upload a cover image.' : '',
   year: !Number.isInteger(form.year) || form.year < 2000 || form.year > 2100 ? 'Enter a valid year.' : '',
+  liveUrl: form.liveUrl.trim() && !isValidUrl(form.liveUrl.trim()) ? 'Enter a valid URL.' : '',
+  githubUrl: form.githubUrl.trim() && !isValidUrl(form.githubUrl.trim()) ? 'Enter a valid URL.' : '',
 }))
+
+function isValidUrl(value: string) {
+  try {
+    new URL(value)
+    return true
+  }
+  catch {
+    return false
+  }
+}
 
 const isValid = computed(() => Object.values(errors.value).every(message => !message))
 
@@ -467,6 +483,61 @@ function handleSubmit() {
             class="mt-2 text-xs text-[var(--color-danger)]"
           >
             {{ errors.cover }}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6">
+      <h2 class="font-display text-base font-medium">
+        Links
+      </h2>
+      <p class="mt-1 text-xs text-[var(--color-text-muted)]">
+        Optional. Shown as buttons on the project detail page when filled in.
+      </p>
+      <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div>
+          <label
+            for="project-live-url"
+            class="mb-2 block text-sm font-medium"
+          >Live demo URL</label>
+          <input
+            id="project-live-url"
+            v-model="form.liveUrl"
+            type="url"
+            placeholder="https://example.com"
+            class="w-full rounded-[var(--radius-md)] border bg-[var(--color-bg)] px-4 py-3 text-sm focus-visible:border-[var(--color-accent)]"
+            :class="shouldShowError('liveUrl') ? 'border-[var(--color-danger)]' : 'border-[var(--color-border)]'"
+            :aria-invalid="shouldShowError('liveUrl')"
+            @blur="markTouched('liveUrl')"
+          >
+          <p
+            v-if="shouldShowError('liveUrl')"
+            class="mt-1.5 text-xs text-[var(--color-danger)]"
+          >
+            {{ errors.liveUrl }}
+          </p>
+        </div>
+        <div>
+          <label
+            for="project-github-url"
+            class="mb-2 block text-sm font-medium"
+          >GitHub repo URL</label>
+          <input
+            id="project-github-url"
+            v-model="form.githubUrl"
+            type="url"
+            placeholder="https://github.com/org/repo"
+            class="w-full rounded-[var(--radius-md)] border bg-[var(--color-bg)] px-4 py-3 text-sm focus-visible:border-[var(--color-accent)]"
+            :class="shouldShowError('githubUrl') ? 'border-[var(--color-danger)]' : 'border-[var(--color-border)]'"
+            :aria-invalid="shouldShowError('githubUrl')"
+            @blur="markTouched('githubUrl')"
+          >
+          <p
+            v-if="shouldShowError('githubUrl')"
+            class="mt-1.5 text-xs text-[var(--color-danger)]"
+          >
+            {{ errors.githubUrl }}
           </p>
         </div>
       </div>

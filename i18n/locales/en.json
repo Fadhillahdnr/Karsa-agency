@@ -132,6 +132,8 @@
     "approach": "Approach",
     "outcome": "Outcome",
     "services": "Services",
+    "liveDemo": "View live demo",
+    "viewCode": "View code",
     "nextProject": "Next Project"
   },
   "servicesIndex": {

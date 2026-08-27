@@ -69,6 +69,27 @@ onMounted(() => track('project_view', { project: route.params.slug as string }))
       <p class="mt-6 max-w-xl text-[length:var(--text-body-lg)] text-[var(--color-text-muted)]">
         {{ project.description }}
       </p>
+      <div
+        v-if="project.liveUrl || project.githubUrl"
+        class="mt-6 flex flex-wrap gap-3"
+      >
+        <BaseButton
+          v-if="project.liveUrl"
+          :href="project.liveUrl"
+          external
+          variant="primary"
+        >
+          {{ t('workDetail.liveDemo') }}
+        </BaseButton>
+        <BaseButton
+          v-if="project.githubUrl"
+          :href="project.githubUrl"
+          external
+          variant="secondary"
+        >
+          {{ t('workDetail.viewCode') }}
+        </BaseButton>
+      </div>
     </BaseSection>
 
     <BaseSection

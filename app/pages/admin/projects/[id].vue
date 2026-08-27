@@ -29,6 +29,8 @@ const initialFormValue = computed<ProjectFormValue | undefined>(() => {
     challenge: project.value.challenge ?? '',
     approach: project.value.approach ?? '',
     outcome: project.value.outcome ?? '',
+    liveUrl: project.value.live_url ?? '',
+    githubUrl: project.value.github_url ?? '',
     order: project.value.order_index,
     published: project.value.published,
   }
@@ -67,6 +69,8 @@ async function handleSubmit(value: ProjectFormValue) {
         challenge: value.challenge,
         approach: value.approach,
         outcome: value.outcome,
+        liveUrl: value.liveUrl,
+        githubUrl: value.githubUrl,
         order: value.order,
         published: value.published,
       },

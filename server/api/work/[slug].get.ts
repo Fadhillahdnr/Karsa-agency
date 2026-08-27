@@ -32,5 +32,7 @@ export default defineEventHandler(async (event): Promise<WorkApiItem | null> => 
     challenge: data.challenge,
     approach: data.approach,
     outcome: data.outcome,
+    liveUrl: data.live_url,
+    githubUrl: data.github_url,
   }
 })

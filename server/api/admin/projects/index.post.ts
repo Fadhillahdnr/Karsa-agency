@@ -33,6 +33,8 @@ export default defineEventHandler(async (event) => {
       challenge: input.challenge || null,
       approach: input.approach || null,
       outcome: input.outcome || null,
+      live_url: input.liveUrl || null,
+      github_url: input.githubUrl || null,
       order_index: input.order,
       published: input.published,
     })

@@ -12,6 +12,8 @@ const workSchema = z.object({
   challenge: z.string().optional(),
   approach: z.string().optional(),
   outcome: z.string().optional(),
+  liveUrl: z.string().optional(),
+  githubUrl: z.string().optional(),
   order: z.number().default(0),
 })
 
