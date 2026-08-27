@@ -2,6 +2,7 @@
 const { contactChannels } = useKarsaConfig()
 const secondaryChannel = computed(() => contactChannels.value[0])
 const { track } = useAnalytics()
+const { t } = useI18n()
 </script>
 
 <template>
@@ -11,12 +12,12 @@ const { track } = useAnalytics()
   >
     <TextReveal>
       <h2 class="font-display text-[length:var(--text-display-2)] font-medium uppercase leading-[1.02] tracking-tight">
-        Have a Karsa<br>
-        in mind?
+        {{ t('finalCta.titleLine1') }}<br>
+        {{ t('finalCta.titleLine1b') }}
       </h2>
       <p class="mt-4 font-display text-[length:var(--text-display-2)] font-medium uppercase leading-[1.02] tracking-tight text-[var(--color-text-muted)]">
-        Let's turn it<br>
-        into a Karya.
+        {{ t('finalCta.titleLine2') }}<br>
+        {{ t('finalCta.titleLine2b') }}
       </p>
     </TextReveal>
 
@@ -26,7 +27,7 @@ const { track } = useAnalytics()
         variant="primary"
         @click="track('cta_start_project')"
       >
-        Start a Project ↗
+        {{ t('finalCta.start') }} ↗
       </BaseButton>
       <BaseButton
         v-if="secondaryChannel"
@@ -34,7 +35,7 @@ const { track } = useAnalytics()
         variant="secondary"
         external
       >
-        Talk to Karsa
+        {{ t('finalCta.talk') }}
       </BaseButton>
     </div>
   </BaseSection>

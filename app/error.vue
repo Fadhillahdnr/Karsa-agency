@@ -4,6 +4,7 @@ import type { NuxtError } from '#app'
 const props = defineProps<{ error: NuxtError }>()
 
 const isNotFound = computed(() => props.error.statusCode === 404)
+const { t } = useI18n()
 
 useSeoMeta({
   title: isNotFound.value ? 'Page Not Found' : 'Something Went Wrong',
@@ -24,18 +25,18 @@ function handleRetry() {
         </p>
         <h1 class="font-display text-[length:var(--text-display-2)] font-medium uppercase leading-[1.02] tracking-tight">
           <template v-if="isNotFound">
-            Page not found.
+            {{ t('error.notFoundTitle') }}
           </template>
           <template v-else>
-            Something went wrong.
+            {{ t('error.genericTitle') }}
           </template>
         </h1>
         <p class="mt-6 max-w-md text-[length:var(--text-body-lg)] text-[var(--color-text-muted)]">
           <template v-if="isNotFound">
-            The page you're looking for doesn't exist or may have moved.
+            {{ t('error.notFoundBody') }}
           </template>
           <template v-else>
-            An unexpected error occurred on our end. Please try again.
+            {{ t('error.genericBody') }}
           </template>
         </p>
         <div class="mt-10 flex flex-wrap gap-4">
@@ -43,13 +44,13 @@ function handleRetry() {
             variant="primary"
             @click="handleRetry"
           >
-            Back to Home
+            {{ t('error.backHome') }}
           </BaseButton>
           <BaseButton
             to="/work"
             variant="secondary"
           >
-            Explore Work
+            {{ t('error.exploreWork') }}
           </BaseButton>
         </div>
       </BaseContainer>

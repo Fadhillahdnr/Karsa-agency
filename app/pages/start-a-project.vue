@@ -1,7 +1,9 @@
 <script setup lang="ts">
+const { t } = useI18n()
+
 useSeoMeta({
-  title: 'Start a Project',
-  description: 'Tell us about your project — Karsa Studio will follow up with next steps.',
+  title: t('startAProject.title'),
+  description: t('startAProject.metaDescription'),
 })
 </script>
 
@@ -13,15 +15,14 @@ useSeoMeta({
       class="pt-32"
     >
       <BaseHeading
-        eyebrow="Start a Project"
+        :eyebrow="t('startAProject.eyebrow')"
         size="display-2"
         as="h1"
       >
-        Tell us what you're building.
+        {{ t('startAProject.title') }}
       </BaseHeading>
       <p class="mt-6 max-w-xl text-[length:var(--text-body-lg)] text-[var(--color-text-muted)]">
-        Share a few details about your project. We'll review it and follow up with next steps — no obligation,
-        no automated sales pitch.
+        {{ t('startAProject.description') }}
       </p>
     </BaseSection>
 

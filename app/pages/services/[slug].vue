@@ -1,17 +1,21 @@
 <script setup lang="ts">
 const route = useRoute()
+const { t, locale } = useI18n()
+const localePath = useLocalePath()
 const path = `/services/${route.params.slug}`
+const servicesCollection = computed(() => locale.value === 'id' ? 'servicesId' : 'services')
+const workCollection = computed(() => locale.value === 'id' ? 'workId' : 'work')
 
-const { data: service } = await useAsyncData(`service-${route.params.slug}`, () =>
-  queryCollection('services').path(path).first(),
+const { data: service } = await useAsyncData(`service-${route.params.slug}-${locale.value}`, () =>
+  queryCollection(servicesCollection.value).path(path).first(),
 )
 
 if (!service.value) {
   throw createError({ statusCode: 404, statusMessage: 'Service not found', fatal: true })
 }
 
-const { data: relatedWork } = await useAsyncData(`service-related-work-${route.params.slug}`, async () => {
-  const all = await queryCollection('work').order('order', 'ASC').all()
+const { data: relatedWork } = await useAsyncData(`service-related-work-${route.params.slug}-${locale.value}`, async () => {
+  const all = await queryCollection(workCollection.value).order('order', 'ASC').all()
   const matched = all.filter(item => item.services.includes(service.value!.title))
   return matched.length ? matched : all.slice(0, 2)
 })
@@ -40,6 +44,15 @@ useSchemaOrg([
 
 const { track } = useAnalytics()
 onMounted(() => track('service_view', { service: route.params.slug as string }))
+
+// Stable English identifiers matching content.config.ts's `pillar` enum —
+// `service.pillar` itself is never translated (see services/index.vue).
+const pillarKeys = ['Design', 'Build', 'Grow'] as const
+const pillarsData = useTmList<{ name: string }[]>('servicesPillars.pillars')
+const pillarLabel = computed(() => {
+  const index = pillarKeys.indexOf(service.value!.pillar as typeof pillarKeys[number])
+  return pillarsData.value[index]?.name ?? service.value!.pillar
+})
 </script>
 
 <template>
@@ -49,7 +62,7 @@ onMounted(() => track('service_view', { service: route.params.slug as string }))
       class="pt-32"
     >
       <p class="text-eyebrow">
-        {{ service.pillar }}
+        {{ pillarLabel }}
       </p>
       <BaseHeading
         size="display-2"
@@ -63,7 +76,7 @@ onMounted(() => track('service_view', { service: route.params.slug as string }))
       </p>
       <div class="mt-10">
         <BaseButton to="/start-a-project">
-          Start a Project ↗
+          {{ t('serviceDetail.start') }} ↗
         </BaseButton>
       </div>
     </BaseSection>
@@ -74,7 +87,7 @@ onMounted(() => track('service_view', { service: route.params.slug as string }))
     >
       <div>
         <p class="text-eyebrow mb-4">
-          Who It's For
+          {{ t('serviceDetail.whoItsFor') }}
         </p>
         <ul class="flex flex-col gap-3">
           <li
@@ -91,7 +104,7 @@ onMounted(() => track('service_view', { service: route.params.slug as string }))
       </div>
       <div>
         <p class="text-eyebrow mb-4">
-          Business Problems
+          {{ t('serviceDetail.businessProblems') }}
         </p>
         <ul class="flex flex-col gap-3">
           <li
@@ -122,7 +135,7 @@ onMounted(() => track('service_view', { service: route.params.slug as string }))
       class="border-t border-[var(--color-border)]"
     >
       <p class="text-eyebrow mb-6">
-        Typical Deliverables
+        {{ t('serviceDetail.deliverables') }}
       </p>
       <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <li
@@ -141,13 +154,13 @@ onMounted(() => track('service_view', { service: route.params.slug as string }))
       class="border-t border-[var(--color-border)]"
     >
       <p class="text-eyebrow mb-6">
-        Related Work
+        {{ t('serviceDetail.relatedWork') }}
       </p>
       <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
         <NuxtLink
           v-for="project in relatedWork"
           :key="project.path"
-          :to="project.path"
+          :to="localePath(project.path)"
           class="group"
         >
           <div class="overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-surface)]">
@@ -173,7 +186,7 @@ onMounted(() => track('service_view', { service: route.params.slug as string }))
       class="border-t border-[var(--color-border)]"
     >
       <p class="text-eyebrow mb-6">
-        FAQ
+        {{ t('serviceDetail.faq') }}
       </p>
       <div class="flex flex-col divide-y divide-[var(--color-border)] border-t border-[var(--color-border)]">
         <details

@@ -1,0 +1,250 @@
+{
+  "common": {
+    "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "viewCaseStudy": "View Case Study",
+    "learnMore": "Learn more",
+    "language": "Language"
+  },
+  "nav": {
+    "work": "Work",
+    "services": "Services",
+    "studio": "Studio",
+    "startProject": "Start a Project"
+  },
+  "footer": {
+    "menu": "Menu",
+    "contact": "Contact"
+  },
+  "site": {
+    "title": "Digital Product & Software Studio",
+    "description": "Karsa Studio is a digital product & software studio helping businesses design, build, and grow websites, e-commerce, web applications, and custom software.",
+    "availability": "Available for selected projects"
+  },
+  "hero": {
+    "eyebrow": "Digital Product & Software Studio",
+    "subtitle": "Turning Vision Into Meaningful Digital Experiences.",
+    "ctaExplore": "Explore Work",
+    "ctaStart": "Start a Project"
+  },
+  "brandStatement": {
+    "line1": "Every digital product begins with an intention.",
+    "line2Muted": "Karsa is the beginning. Karya is the result.",
+    "line2Highlight": "We build what happens in between."
+  },
+  "servicesPillars": {
+    "eyebrow": "What We Do",
+    "title": "Design, build, and grow — under one roof.",
+    "pillars": [
+      {
+        "index": "01",
+        "name": "Design",
+        "items": ["UI/UX Design", "Product Design", "Prototype", "Design Systems", "Digital Brand Experience"]
+      },
+      {
+        "index": "02",
+        "name": "Build",
+        "items": ["Websites", "E-Commerce", "Web Applications", "Custom Software", "Internal Systems", "Dashboards & Portals", "API & Integrations"]
+      },
+      {
+        "index": "03",
+        "name": "Grow",
+        "items": ["Maintenance & Support", "Performance Optimization", "Analytics", "Technical SEO", "Continuous Development"]
+      }
+    ]
+  },
+  "selectedWork": {
+    "eyebrow": "Selected Work",
+    "title": "Work we can stand behind.",
+    "viewAll": "View all work",
+    "empty": "Case studies are being prepared. In the meantime, get in touch to see work in progress."
+  },
+  "karsaMethod": {
+    "eyebrow": "Karsa Method",
+    "title": "A process built for clarity, not ceremony.",
+    "steps": [
+      { "step": "01", "name": "Understand", "description": "Business, user, problem, and goals." },
+      { "step": "02", "name": "Define", "description": "Requirement, scope, assumptions, dependencies, and risk." },
+      { "step": "03", "name": "Design", "description": "Flow, interaction, and interface." },
+      { "step": "04", "name": "Build", "description": "Engineering and integration." },
+      { "step": "05", "name": "Validate", "description": "QA, UAT, and acceptance." },
+      { "step": "06", "name": "Grow", "description": "Warranty, maintenance, and optimization." }
+    ]
+  },
+  "capabilities": {
+    "eyebrow": "Capabilities",
+    "title": "Everything a digital product needs to work.",
+    "items": [
+      "Digital Experiences",
+      "Web Development",
+      "E-Commerce",
+      "Web Applications",
+      "Custom Software",
+      "Internal Systems",
+      "Dashboards & Portals",
+      "API & Integrations",
+      "UI/UX Design",
+      "Product Strategy",
+      "Maintenance & Support"
+    ]
+  },
+  "whyKarsa": {
+    "eyebrow": "Why Karsa",
+    "title": "Three principles behind every project.",
+    "pillars": [
+      { "name": "Design-Driven.", "description": "Digital experiences that are thoughtful, clear, and enjoyable to use." },
+      { "name": "Technology-Backed.", "description": "Systems designed to be maintainable, reliable, and ready to evolve." },
+      { "name": "Business-Focused.", "description": "Every decision starts with the problem the product needs to solve." }
+    ],
+    "footer": "Clear Scope. Clear Process. Clear Investment."
+  },
+  "deliveryTrust": {
+    "eyebrow": "Delivery & Trust",
+    "title": "How a project moves from idea to launch.",
+    "stages": ["Discovery", "Scope & Proposal", "Design", "Development", "QA & UAT", "Launch", "Warranty", "Continuous Support"],
+    "trust": [
+      "Clear scope before work begins",
+      "Milestone-based delivery",
+      "Structured QA on every build",
+      "User acceptance testing before launch",
+      "Documented handover",
+      "Warranty period after launch",
+      "Optional ongoing maintenance"
+    ]
+  },
+  "finalCta": {
+    "titleLine1": "Have a Karsa",
+    "titleLine1b": "in mind?",
+    "titleLine2": "Let's turn it",
+    "titleLine2b": "into a Karya.",
+    "start": "Start a Project",
+    "talk": "Talk to Karsa"
+  },
+  "workIndex": {
+    "eyebrow": "Work",
+    "title": "Work we can stand behind.",
+    "description": "A collection of independent projects, internal concepts, and experimental work — labeled honestly, not padded with clients we haven't worked with.",
+    "empty": "Case studies are being prepared. Get in touch to see work in progress."
+  },
+  "workDetail": {
+    "challenge": "Challenge",
+    "approach": "Approach",
+    "outcome": "Outcome",
+    "services": "Services",
+    "nextProject": "Next Project"
+  },
+  "servicesIndex": {
+    "eyebrow": "Services",
+    "title": "Design, build, and grow — under one roof.",
+    "description": "Every engagement sits under one of three pillars, moved through the Karsa Method from understanding to growth.",
+    "metaDescription": "UI/UX design, web development, e-commerce, web applications, custom software, and ongoing maintenance from Karsa Studio."
+  },
+  "serviceDetail": {
+    "whoItsFor": "Who It's For",
+    "businessProblems": "Business Problems",
+    "deliverables": "Typical Deliverables",
+    "relatedWork": "Related Work",
+    "faq": "FAQ",
+    "start": "Start a Project"
+  },
+  "studio": {
+    "eyebrow": "Studio",
+    "heroTitleLine1": "Karsa is the beginning.",
+    "heroTitleLine2": "Karya is the result.",
+    "heroSubtitle": "Karsa Studio is the space in between — where a business intention becomes a working digital product.",
+    "philosophyTitle": "Design-driven. Technology-backed. Business-focused.",
+    "philosophyBody": "Karsa Studio helps businesses build, improve, and digitalize products and processes through a combination of business understanding, thoughtful design, and reliable technology. Business explains why something is built. Design shapes how people use and feel it. Technology makes sure it works — reliably, maintainably, and ready to grow.",
+    "principlesEyebrow": "Working Principles",
+    "principlesTitle": "How we approach every project.",
+    "values": [
+      { "name": "Thoughtful", "description": "Every decision is made deliberately, not by default or convention." },
+      { "name": "Modern", "description": "Current tools and practices, applied without chasing trends for their own sake." },
+      { "name": "Professional", "description": "Clear communication, realistic scope, and follow-through on what's agreed." },
+      { "name": "Honest", "description": "No inflated claims, no fabricated portfolio, no promises we can't keep." },
+      { "name": "Human", "description": "Software is built for people — that stays the starting point, not an afterthought." }
+    ],
+    "processEyebrow": "Process",
+    "processTitle": "The Karsa Method.",
+    "metaDescription": "Karsa Studio's philosophy, positioning, and working principles as a digital product & software studio."
+  },
+  "startAProject": {
+    "eyebrow": "Start a Project",
+    "title": "Tell us what you're building.",
+    "description": "Share a few details about your project. We'll review it and follow up with next steps — no obligation, no automated sales pitch.",
+    "metaDescription": "Tell us about your project — Karsa Studio will follow up with next steps."
+  },
+  "privacy": {
+    "eyebrow": "Privacy",
+    "title": "Privacy Policy",
+    "metaDescription": "How Karsa Studio collects, uses, and stores information submitted through this website.",
+    "whatWeCollectTitle": "What we collect",
+    "whatWeCollectBody": "When you submit the Start a Project form, we collect the information you provide directly: name, email address, company (optional), phone (optional), the service you're inquiring about, budget range (optional), timeline (optional), your project description, and how you heard about us (optional).",
+    "whyWeCollectTitle": "Why we collect it",
+    "whyWeCollectBody": "This information is used solely to evaluate your project inquiry, respond to you, and — if we move forward — to scope and deliver the engagement. We don't use it for unrelated marketing without your separate consent.",
+    "storageTitle": "How it's stored",
+    "storageBody": "Submitted inquiries are stored in a Supabase-hosted database accessible only to Karsa Studio. Your submission also triggers two emails: one internal notification to Karsa, and one confirmation email sent to the address you provided.",
+    "thirdPartyTitle": "Third-party processors",
+    "thirdPartyIntro": "We rely on a small number of third-party services to operate this website and process inquiries:",
+    "thirdPartyItems": [
+      "A database provider, to store submitted inquiries.",
+      "A transactional email provider, to deliver notification and confirmation emails.",
+      "A bot-protection service, to verify that form submissions come from a real visitor."
+    ],
+    "thirdPartyOutro": "These providers process data on our behalf and are not permitted to use it for their own purposes.",
+    "analyticsTitle": "Analytics",
+    "analyticsBody": "We may use privacy-conscious website analytics to understand how the site is used. Analytics events never include your email, phone number, or project description.",
+    "yourDataTitle": "Your data",
+    "yourDataBody": "You can request access to, correction of, or deletion of the information you've submitted at any time by contacting us.",
+    "contactTitle": "Contact",
+    "contactWithChannels": "Reach out via",
+    "contactWithoutChannelsPrefix": "Reach out via the",
+    "contactWithoutChannelsSuffix": "form."
+  },
+  "inquiryForm": {
+    "name": "Name",
+    "email": "Email",
+    "company": "Company",
+    "phone": "Phone",
+    "service": "Service",
+    "selectService": "Select a service",
+    "budgetRange": "Budget Range",
+    "selectBudget": "Select a range",
+    "timeline": "Timeline",
+    "selectTimeline": "Select a timeline",
+    "referralSource": "How did you hear about us?",
+    "projectDescription": "Project Description",
+    "submit": "Send Inquiry",
+    "submitting": "Sending…",
+    "successTitle": "Thank you — your inquiry is in.",
+    "successBody": "We've received your project details. Your reference ID is",
+    "successNote": "A confirmation email is on its way.",
+    "submitAnother": "Submit another inquiry",
+    "serviceOptions": {
+      "website": "Website / Company Profile",
+      "ecommerce": "E-Commerce",
+      "web-application": "Web Application",
+      "custom-software": "Custom Software",
+      "ui-ux": "UI/UX Design",
+      "maintenance": "Maintenance / Support",
+      "other": "Other"
+    },
+    "budgetOptions": ["Under Rp10m", "Rp10m – Rp25m", "Rp25m – Rp50m", "Rp50m – Rp100m", "Rp100m+", "Not sure yet"],
+    "timelineOptions": ["ASAP", "1–2 months", "2–3 months", "3–6 months", "Flexible"],
+    "errors": {
+      "name": "Please enter your name (at least 2 characters).",
+      "email": "Please enter a valid email address.",
+      "service": "Please select a service.",
+      "projectDescription": "Please describe your project in at least 30 characters.",
+      "verification": "Please complete the verification challenge before submitting."
+    }
+  },
+  "error": {
+    "notFoundTitle": "Page not found.",
+    "notFoundBody": "The page you're looking for doesn't exist or may have moved.",
+    "genericTitle": "Something went wrong.",
+    "genericBody": "An unexpected error occurred on our end. Please try again.",
+    "backHome": "Back to Home",
+    "exploreWork": "Explore Work"
+  }
+}

@@ -106,10 +106,10 @@ if (!props.reducedMotion) {
     <TresMesh :position="[0, 1.95, 0] as unknown as Vector3">
       <TresCylinderGeometry :args="[0.045, 0.045, 0.5, 12]" />
       <TresMeshStandardMaterial
-        color="#4F9D6E"
+        color="#F5F5F5"
         :roughness="0.35"
         :metalness="0.2"
-        :emissive="'#2d5f42'"
+        :emissive="'#8a8a8a'"
         :emissive-intensity="0.4"
       />
     </TresMesh>
@@ -117,10 +117,10 @@ if (!props.reducedMotion) {
     <TresMesh>
       <TresSphereGeometry :args="[0.14, tier === 'high' ? 24 : 12, tier === 'high' ? 24 : 12]" />
       <TresMeshStandardMaterial
-        color="#4F9D6E"
+        color="#F5F5F5"
         :roughness="0.3"
         :metalness="0.25"
-        :emissive="'#2d5f42'"
+        :emissive="'#8a8a8a'"
         :emissive-intensity="0.5"
       />
     </TresMesh>

@@ -8,6 +8,6 @@
     <line x1="800" y1="0" x2="800" y2="1000"/>
     <line x1="1200" y1="0" x2="1200" y2="1000"/>
   </g>
-  <circle cx="800" cy="500" r="140" stroke="#4F9D6E" stroke-width="3"/>
+  <circle cx="800" cy="500" r="140" stroke="#F5F5F5" stroke-width="3"/>
   <text x="800" y="515" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="42" fill="#F5F5F2" letter-spacing="4">AANAYA</text>
 </svg>

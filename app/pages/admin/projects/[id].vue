@@ -99,7 +99,7 @@ onMounted(loadProject)
 
     <div
       v-else-if="initialFormValue"
-      class="mt-8 max-w-3xl"
+      class="mt-8 max-w-4xl"
     >
       <ProjectForm
         :initial="initialFormValue"

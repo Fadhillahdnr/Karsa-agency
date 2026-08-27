@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { site, navLinks, primaryCta, contactChannels } = useKarsaConfig()
 const year = new Date().getFullYear()
+const { t } = useI18n()
 </script>
 
 <template>
@@ -21,7 +22,7 @@ const year = new Date().getFullYear()
 
         <nav aria-label="Footer">
           <p class="text-eyebrow mb-4">
-            Menu
+            {{ t('footer.menu') }}
           </p>
           <ul class="flex flex-col gap-3">
             <li
@@ -48,7 +49,7 @@ const year = new Date().getFullYear()
 
         <div v-if="contactChannels.length">
           <p class="text-eyebrow mb-4">
-            Contact
+            {{ t('footer.contact') }}
           </p>
           <ul class="flex flex-col gap-3">
             <li

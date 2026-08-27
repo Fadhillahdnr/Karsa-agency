@@ -42,7 +42,7 @@ const dpr = computed(() => {
     <TresDirectionalLight
       :position="[-4, -2, -3] as unknown as Vector3"
       :intensity="0.35"
-      color="#4F9D6E"
+      color="#F5F5F5"
     />
 
     <KarsaLogoModel

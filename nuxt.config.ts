@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@nuxtjs/sitemap',
     '@nuxtjs/robots',
     'nuxt-schema-org',
+    '@nuxtjs/i18n',
   ],
 
   components: [{ path: '~/components', pathPrefix: false }],
@@ -17,7 +18,6 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      htmlAttrs: { lang: 'en' },
       link: [{ rel: 'icon', type: 'image/svg+xml', href: '/brand/favicon.svg' }],
     },
     pageTransition: { name: 'page', mode: 'out-in' },
@@ -65,8 +65,12 @@ export default defineNuxtConfig({
   routeRules: {
     '/privacy': { prerender: true },
     // Admin panel is behind Supabase Auth and rendered client-only — no
-    // point prerendering/indexing an auth-gated dashboard.
+    // point prerendering/indexing an auth-gated dashboard. The admin panel
+    // is intentionally not localized (see i18n config below), but
+    // prefix_except_default still generates a /id/admin/** alias for every
+    // page, so both forms need this rule.
     '/admin/**': { ssr: false, robots: false },
+    '/id/admin/**': { ssr: false, robots: false },
   },
 
   experimental: {
@@ -109,6 +113,21 @@ export default defineNuxtConfig({
   eslint: {
     config: {
       stylistic: true,
+    },
+  },
+
+  i18n: {
+    baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://karsastudio.com',
+    locales: [
+      { code: 'en', language: 'en-US', name: 'English', file: 'en.json' },
+      { code: 'id', language: 'id-ID', name: 'Indonesia', file: 'id.json' },
+    ],
+    defaultLocale: 'en',
+    strategy: 'prefix_except_default',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'karsa_locale',
+      redirectOn: 'root',
     },
   },
 

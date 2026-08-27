@@ -2,11 +2,14 @@
 import type { WorkApiItem } from '../../../server/api/work/index.get'
 
 const route = useRoute()
+const { t, locale } = useI18n()
+const localePath = useLocalePath()
 const slug = route.params.slug as string
 const path = `/work/${slug}`
+const workCollection = computed(() => locale.value === 'id' ? 'workId' : 'work')
 
-const { data: project } = await useAsyncData(`work-${slug}`, async () => {
-  const fromContent = await queryCollection('work').path(path).first()
+const { data: project } = await useAsyncData(`work-${slug}-${locale.value}`, async () => {
+  const fromContent = await queryCollection(workCollection.value).path(path).first()
   if (fromContent) return fromContent
   return $fetch<WorkApiItem | null>(`/api/work/${slug}`).catch(() => null)
 })
@@ -15,9 +18,9 @@ if (!project.value) {
   throw createError({ statusCode: 404, statusMessage: 'Project not found', fatal: true })
 }
 
-const { data: nextProject } = await useAsyncData(`work-next-${slug}`, async () => {
+const { data: nextProject } = await useAsyncData(`work-next-${slug}-${locale.value}`, async () => {
   const [contentItems, dbItems] = await Promise.all([
-    queryCollection('work').order('order', 'ASC').all(),
+    queryCollection(workCollection.value).order('order', 'ASC').all(),
     $fetch<WorkApiItem[]>('/api/work').catch(() => []),
   ])
   const all = [...contentItems, ...dbItems].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
@@ -100,7 +103,7 @@ onMounted(() => track('project_view', { project: route.params.slug as string }))
     >
       <div v-if="project.challenge">
         <p class="text-eyebrow mb-3">
-          Challenge
+          {{ t('workDetail.challenge') }}
         </p>
         <p class="text-sm text-[var(--color-text-muted)]">
           {{ project.challenge }}
@@ -108,7 +111,7 @@ onMounted(() => track('project_view', { project: route.params.slug as string }))
       </div>
       <div v-if="project.approach">
         <p class="text-eyebrow mb-3">
-          Approach
+          {{ t('workDetail.approach') }}
         </p>
         <p class="text-sm text-[var(--color-text-muted)]">
           {{ project.approach }}
@@ -116,7 +119,7 @@ onMounted(() => track('project_view', { project: route.params.slug as string }))
       </div>
       <div v-if="project.outcome">
         <p class="text-eyebrow mb-3">
-          Outcome
+          {{ t('workDetail.outcome') }}
         </p>
         <p class="text-sm text-[var(--color-text-muted)]">
           {{ project.outcome }}
@@ -129,7 +132,7 @@ onMounted(() => track('project_view', { project: route.params.slug as string }))
       narrow
     >
       <p class="text-eyebrow mb-4">
-        Services
+        {{ t('workDetail.services') }}
       </p>
       <ul class="flex flex-wrap gap-3">
         <li
@@ -148,10 +151,10 @@ onMounted(() => track('project_view', { project: route.params.slug as string }))
       class="border-t border-[var(--color-border)]"
     >
       <p class="text-eyebrow mb-4">
-        Next Project
+        {{ t('workDetail.nextProject') }}
       </p>
       <NuxtLink
-        :to="nextProject.path"
+        :to="localePath(nextProject.path)"
         class="group flex items-center justify-between gap-4"
       >
         <span class="font-display text-3xl font-medium md:text-5xl">{{ nextProject.title }}</span>

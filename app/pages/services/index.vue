@@ -1,13 +1,19 @@
 <script setup lang="ts">
-const { data: services } = await useAsyncData('services-listing', () =>
-  queryCollection('services').order('order', 'ASC').all(),
+const { t, locale } = useI18n()
+const localePath = useLocalePath()
+const { data: services } = await useAsyncData(`services-listing-${locale.value}`, () =>
+  queryCollection(locale.value === 'id' ? 'servicesId' : 'services').order('order', 'ASC').all(),
 )
 
-const pillars = ['Design', 'Build', 'Grow'] as const
+// Stable English identifiers matching content.config.ts's `pillar` enum —
+// content frontmatter is filtered against these regardless of locale.
+const pillarKeys = ['Design', 'Build', 'Grow'] as const
+const pillarsData = useTmList<{ name: string }[]>('servicesPillars.pillars')
+const pillarLabels = computed(() => pillarsData.value.map(p => p.name))
 
 useSeoMeta({
-  title: 'Services',
-  description: 'UI/UX design, web development, e-commerce, web applications, custom software, and ongoing maintenance from Karsa Studio.',
+  title: t('servicesIndex.title'),
+  description: t('servicesIndex.metaDescription'),
 })
 </script>
 
@@ -18,31 +24,31 @@ useSeoMeta({
       class="pt-32"
     >
       <BaseHeading
-        eyebrow="Services"
+        :eyebrow="t('servicesIndex.eyebrow')"
         size="display-2"
         as="h1"
       >
-        Design, build, and grow — under one roof.
+        {{ t('servicesIndex.title') }}
       </BaseHeading>
       <p class="mt-6 max-w-xl text-[length:var(--text-body-lg)] text-[var(--color-text-muted)]">
-        Every engagement sits under one of three pillars, moved through the Karsa Method from understanding to growth.
+        {{ t('servicesIndex.description') }}
       </p>
     </BaseSection>
 
     <BaseSection
-      v-for="pillar in pillars"
+      v-for="(pillar, i) in pillarKeys"
       :key="pillar"
       tight
       class="pt-0"
     >
       <p class="text-eyebrow mb-6">
-        {{ pillar }}
+        {{ pillarLabels[i] }}
       </p>
       <div class="grid grid-cols-1 gap-px overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-border)] sm:grid-cols-2">
         <NuxtLink
           v-for="service in services?.filter((s) => s.pillar === pillar)"
           :key="service.path"
-          :to="service.path"
+          :to="localePath(service.path)"
           class="group bg-[var(--color-bg)] p-8 transition-colors duration-[var(--duration-base)] hover:bg-[var(--color-accent-soft)]"
         >
           <h2 class="font-display text-2xl font-medium">
@@ -52,7 +58,7 @@ useSeoMeta({
             {{ service.summary }}
           </p>
           <span class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium group-hover:text-[var(--color-accent)]">
-            Learn more <span aria-hidden="true">↗</span>
+            {{ t('common.learnMore') }} <span aria-hidden="true">↗</span>
           </span>
         </NuxtLink>
       </div>

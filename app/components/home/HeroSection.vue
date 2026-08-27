@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { site } = useKarsaConfig()
 const { track } = useAnalytics()
+const { t } = useI18n()
 </script>
 
 <template>
@@ -14,7 +15,7 @@ const { track } = useAnalytics()
 
     <BaseContainer class="relative">
       <p class="text-eyebrow mb-6">
-        Digital Product &amp; Software Studio
+        {{ t('hero.eyebrow') }}
       </p>
 
       <h1 class="font-display text-[length:var(--text-display-1)] font-medium uppercase leading-[0.95] tracking-tight">
@@ -23,7 +24,7 @@ const { track } = useAnalytics()
       </h1>
 
       <p class="mt-8 max-w-xl text-[length:var(--text-body-lg)] text-[var(--color-text-muted)]">
-        {{ site.taglineEn }}
+        {{ t('hero.subtitle') }}
       </p>
 
       <p class="mt-4 text-sm text-[var(--color-text-muted)]">
@@ -36,14 +37,14 @@ const { track } = useAnalytics()
           variant="secondary"
           @click="track('cta_view_work')"
         >
-          Explore Work
+          {{ t('hero.ctaExplore') }}
         </BaseButton>
         <BaseButton
           to="/start-a-project"
           variant="primary"
           @click="track('cta_start_project')"
         >
-          Start a Project ↗
+          {{ t('hero.ctaStart') }} ↗
         </BaseButton>
       </div>
     </BaseContainer>

@@ -1,17 +1,6 @@
 <script setup lang="ts">
-const capabilities = [
-  'Digital Experiences',
-  'Web Development',
-  'E-Commerce',
-  'Web Applications',
-  'Custom Software',
-  'Internal Systems',
-  'Dashboards & Portals',
-  'API & Integrations',
-  'UI/UX Design',
-  'Product Strategy',
-  'Maintenance & Support',
-]
+const { t } = useI18n()
+const capabilities = useTmList<string[]>('capabilities.items')
 </script>
 
 <template>
@@ -22,10 +11,10 @@ const capabilities = [
   >
     <BaseContainer>
       <BaseHeading
-        eyebrow="Capabilities"
+        :eyebrow="t('capabilities.eyebrow')"
         size="h1"
       >
-        Everything a digital product needs to work.
+        {{ t('capabilities.title') }}
       </BaseHeading>
     </BaseContainer>
 

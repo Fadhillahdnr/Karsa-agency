@@ -1,27 +1,20 @@
 <script setup lang="ts">
-const pillars = [
-  {
-    name: 'Design-Driven.',
-    description: 'Digital experiences that are thoughtful, clear, and enjoyable to use.',
-  },
-  {
-    name: 'Technology-Backed.',
-    description: 'Systems designed to be maintainable, reliable, and ready to evolve.',
-  },
-  {
-    name: 'Business-Focused.',
-    description: 'Every decision starts with the problem the product needs to solve.',
-  },
-]
+interface Pillar {
+  name: string
+  description: string
+}
+
+const { t } = useI18n()
+const pillars = useTmList<Pillar[]>('whyKarsa.pillars')
 </script>
 
 <template>
   <BaseSection id="why-karsa">
     <BaseHeading
-      eyebrow="Why Karsa"
+      :eyebrow="t('whyKarsa.eyebrow')"
       size="h1"
     >
-      Three principles behind every project.
+      {{ t('whyKarsa.title') }}
     </BaseHeading>
 
     <div class="mt-16 grid grid-cols-1 gap-12 md:grid-cols-3">
@@ -40,7 +33,7 @@ const pillars = [
     </div>
 
     <p class="mt-20 border-t border-[var(--color-border)] pt-10 font-display text-2xl font-medium uppercase tracking-tight">
-      Clear Scope. Clear Process. Clear Investment.
+      {{ t('whyKarsa.footer') }}
     </p>
   </BaseSection>
 </template>

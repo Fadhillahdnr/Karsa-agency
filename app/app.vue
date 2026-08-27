@@ -1,26 +1,29 @@
 <script setup lang="ts">
 const { site } = useKarsaConfig()
+const i18nHead = useLocaleHead()
 
-useHead({
-  titleTemplate: title => (title ? `${title} — ${site.name}` : `${site.name} — ${site.title}`),
-  htmlAttrs: { lang: 'en' },
-})
+useHead(() => ({
+  titleTemplate: title => (title ? `${title} — ${site.value.name}` : `${site.value.name} — ${site.value.title}`),
+  htmlAttrs: i18nHead.value.htmlAttrs,
+  link: i18nHead.value.link,
+  meta: i18nHead.value.meta,
+}))
 
 useSeoMeta({
-  ogSiteName: site.name,
+  ogSiteName: () => site.value.name,
   twitterCard: 'summary_large_image',
 })
 
 useSchemaOrg([
   defineOrganization({
-    name: site.name,
-    description: site.description,
+    name: () => site.value.name,
+    description: () => site.value.description,
     url: useRuntimeConfig().public.siteUrl,
     logo: '/brand/karsa-mark.svg',
   }),
   defineWebSite({
-    name: site.name,
-    description: site.description,
+    name: () => site.value.name,
+    description: () => site.value.description,
   }),
 ])
 

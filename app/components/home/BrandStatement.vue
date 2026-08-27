@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { t } = useI18n()
 </script>
 
 <template>
@@ -7,15 +8,15 @@
       as="p"
       class="max-w-3xl font-display text-[length:var(--text-display-2)] font-medium leading-[1.1]"
     >
-      Every digital product begins with an intention.
+      {{ t('brandStatement.line1') }}
     </TextReveal>
     <TextReveal
       as="p"
       :delay="0.1"
       class="mt-8 max-w-3xl font-display text-[length:var(--text-display-2)] font-medium leading-[1.1] text-[var(--color-text-muted)]"
     >
-      Karsa is the beginning. Karya is the result.
-      <span class="text-[var(--color-text)]">We build what happens in between.</span>
+      {{ t('brandStatement.line2Muted') }}
+      <span class="text-[var(--color-text)]">{{ t('brandStatement.line2Highlight') }}</span>
     </TextReveal>
   </BaseSection>
 </template>

@@ -1,15 +1,16 @@
 <script setup lang="ts">
-const values = [
-  { name: 'Thoughtful', description: 'Every decision is made deliberately, not by default or convention.' },
-  { name: 'Modern', description: 'Current tools and practices, applied without chasing trends for their own sake.' },
-  { name: 'Professional', description: 'Clear communication, realistic scope, and follow-through on what\'s agreed.' },
-  { name: 'Honest', description: 'No inflated claims, no fabricated portfolio, no promises we can\'t keep.' },
-  { name: 'Human', description: 'Software is built for people — that stays the starting point, not an afterthought.' },
-]
+interface Value {
+  name: string
+  description: string
+}
+
+const { t } = useI18n()
+const { karsaMethod } = useKarsaConfig()
+const values = useTmList<Value[]>('studio.values')
 
 useSeoMeta({
-  title: 'Studio',
-  description: 'Karsa Studio\'s philosophy, positioning, and working principles as a digital product & software studio.',
+  title: t('studio.eyebrow'),
+  description: t('studio.metaDescription'),
 })
 </script>
 
@@ -20,15 +21,15 @@ useSeoMeta({
       class="pt-32"
     >
       <BaseHeading
-        eyebrow="Studio"
+        :eyebrow="t('studio.eyebrow')"
         size="display-2"
         as="h1"
       >
-        Karsa is the beginning.<br>
-        Karya is the result.
+        {{ t('studio.heroTitleLine1') }}<br>
+        {{ t('studio.heroTitleLine2') }}
       </BaseHeading>
       <p class="mt-6 max-w-xl text-[length:var(--text-body-lg)] text-[var(--color-text-muted)]">
-        Karsa Studio is the space in between — where a business intention becomes a working digital product.
+        {{ t('studio.heroSubtitle') }}
       </p>
     </BaseSection>
 
@@ -38,13 +39,10 @@ useSeoMeta({
     >
       <TextReveal class="max-w-3xl">
         <BaseHeading size="h1">
-          Design-driven. Technology-backed. Business-focused.
+          {{ t('studio.philosophyTitle') }}
         </BaseHeading>
         <p class="mt-6 text-[length:var(--text-body-lg)] text-[var(--color-text-muted)]">
-          Karsa Studio helps businesses build, improve, and digitalize products and processes through a combination
-          of business understanding, thoughtful design, and reliable technology. Business explains why something
-          is built. Design shapes how people use and feel it. Technology makes sure it works — reliably,
-          maintainably, and ready to grow.
+          {{ t('studio.philosophyBody') }}
         </p>
       </TextReveal>
     </BaseSection>
@@ -54,10 +52,10 @@ useSeoMeta({
       class="border-t border-[var(--color-border)]"
     >
       <BaseHeading
-        eyebrow="Working Principles"
+        :eyebrow="t('studio.principlesEyebrow')"
         size="h1"
       >
-        How we approach every project.
+        {{ t('studio.principlesTitle') }}
       </BaseHeading>
       <div class="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2">
         <TextReveal
@@ -80,10 +78,10 @@ useSeoMeta({
       class="border-t border-[var(--color-border)]"
     >
       <BaseHeading
-        eyebrow="Process"
+        :eyebrow="t('studio.processEyebrow')"
         size="h1"
       >
-        The Karsa Method.
+        {{ t('studio.processTitle') }}
       </BaseHeading>
       <ol class="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-3">
         <li

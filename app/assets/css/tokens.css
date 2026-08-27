@@ -1,21 +1,23 @@
 /**
  * Karsa Studio — Design Tokens
  * Single source of truth for color, spacing, radius, and layout primitives.
- * Base palette is frozen per brand blueprint; accent is the only variable hue.
+ * Monochrome palette: pure black/white/gray only, no hue anywhere in the
+ * brand system. --color-danger is a deliberate exception (destructive/error
+ * semantics, not brand identity — see accessible-color guidance).
  */
 
 :root {
   /* Brand base */
-  --karsa-black: #0b0b0b;
-  --karsa-charcoal: #242424;
-  --karsa-offwhite: #f5f5f2;
-  --karsa-muted: #71717a;
+  --karsa-black: #000000;
+  --karsa-charcoal: #1a1a1a;
+  --karsa-offwhite: #e2e2e2;
+  --karsa-muted: #8a8a8a;
 
-  /* Accent — muted green, chosen for a calm, non-generic tech signal
-     (avoids the default "startup blue" while staying restrained, not neon) */
-  --karsa-accent: #4f9d6e;
-  --karsa-accent-strong: #3d7d57;
-  --karsa-accent-soft: rgba(79, 157, 110, 0.14);
+  /* Accent — pure white. Interactive/emphasis elements are differentiated
+     by weight, fill, and contrast rather than hue. */
+  --karsa-accent: #ffffff;
+  --karsa-accent-strong: #d4d4d4;
+  --karsa-accent-soft: rgba(255, 255, 255, 0.12);
 
   /* Semantic surface tokens (light-on-dark editorial default) */
   --color-bg: var(--karsa-black);
@@ -23,7 +25,7 @@
   --color-surface-raised: #1a1a1a;
   --color-text: var(--karsa-offwhite);
   --color-text-muted: var(--karsa-muted);
-  --color-border: rgba(245, 245, 242, 0.12);
+  --color-border: rgba(245, 245, 245, 0.14);
   --color-accent: var(--karsa-accent);
   --color-accent-strong: var(--karsa-accent-strong);
   --color-accent-soft: var(--karsa-accent-soft);

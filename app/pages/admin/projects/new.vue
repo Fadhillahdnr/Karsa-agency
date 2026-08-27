@@ -47,7 +47,7 @@ async function handleSubmit(value: ProjectFormValue) {
     <h1 class="font-display text-2xl font-medium">
       New project
     </h1>
-    <div class="mt-8 max-w-3xl">
+    <div class="mt-8 max-w-4xl">
       <ProjectForm
         :submitting="submitting"
         :error-message="errorMessage"

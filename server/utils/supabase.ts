@@ -4,7 +4,7 @@ import { createClient } from '@supabase/supabase-js'
 // Relation['Insert']> conditional generic silently resolves named
 // interfaces to `never` here (verified in isolation), while structurally
 // identical `type` object shapes infer correctly.
-type LeadRow = {
+export type LeadRow = {
   id: string
   reference_id: string
   name: string

@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import type { WorkApiItem } from '../../../server/api/work/index.get'
 
-const { data: projects } = await useAsyncData('work-listing', async () => {
+const { t, locale } = useI18n()
+const localePath = useLocalePath()
+
+const { data: projects } = await useAsyncData(`work-listing-${locale.value}`, async () => {
   const [contentItems, dbItems] = await Promise.all([
-    queryCollection('work').order('order', 'ASC').all(),
+    queryCollection(locale.value === 'id' ? 'workId' : 'work').order('order', 'ASC').all(),
     $fetch<WorkApiItem[]>('/api/work').catch(() => []),
   ])
 
@@ -11,8 +14,8 @@ const { data: projects } = await useAsyncData('work-listing', async () => {
 })
 
 useSeoMeta({
-  title: 'Work',
-  description: 'Selected work from Karsa Studio — independent projects, internal concepts, and experimental builds.',
+  title: t('workIndex.title'),
+  description: t('workIndex.description'),
 })
 </script>
 
@@ -23,14 +26,14 @@ useSeoMeta({
       class="pt-32"
     >
       <BaseHeading
-        eyebrow="Work"
+        :eyebrow="t('workIndex.eyebrow')"
         size="display-2"
         as="h1"
       >
-        Work we can stand behind.
+        {{ t('workIndex.title') }}
       </BaseHeading>
       <p class="mt-6 max-w-xl text-[length:var(--text-body-lg)] text-[var(--color-text-muted)]">
-        A collection of independent projects, internal concepts, and experimental work — labeled honestly, not padded with clients we haven't worked with.
+        {{ t('workIndex.description') }}
       </p>
     </BaseSection>
 
@@ -49,7 +52,7 @@ useSeoMeta({
           :delay="Math.min(index * 0.05, 0.3)"
         >
           <NuxtLink
-            :to="project.path"
+            :to="localePath(project.path)"
             class="group grid grid-cols-1 gap-6 md:grid-cols-2 md:items-center md:gap-12"
           >
             <div class="overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-surface)]">
@@ -79,7 +82,7 @@ useSeoMeta({
                 {{ project.services.join(' · ') }}
               </p>
               <span class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-text)] group-hover:text-[var(--color-accent)]">
-                View Case Study <span aria-hidden="true">↗</span>
+                {{ t('common.viewCaseStudy') }} <span aria-hidden="true">↗</span>
               </span>
             </div>
           </NuxtLink>
@@ -90,7 +93,7 @@ useSeoMeta({
         v-else
         class="max-w-md text-[var(--color-text-muted)]"
       >
-        Case studies are being prepared. Get in touch to see work in progress.
+        {{ t('workIndex.empty') }}
       </p>
     </BaseSection>
 

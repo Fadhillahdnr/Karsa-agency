@@ -1,22 +1,16 @@
 <script setup lang="ts">
-const trustElements = [
-  'Clear scope before work begins',
-  'Milestone-based delivery',
-  'Structured QA on every build',
-  'User acceptance testing before launch',
-  'Documented handover',
-  'Warranty period after launch',
-  'Optional ongoing maintenance',
-]
+const { t } = useI18n()
+const { deliveryStages } = useKarsaConfig()
+const trustElements = useTmList<string[]>('deliveryTrust.trust')
 </script>
 
 <template>
   <BaseSection id="delivery">
     <BaseHeading
-      eyebrow="Delivery & Trust"
+      :eyebrow="t('deliveryTrust.eyebrow')"
       size="h1"
     >
-      How a project moves from idea to launch.
+      {{ t('deliveryTrust.title') }}
     </BaseHeading>
 
     <ol class="mt-16 flex flex-wrap gap-x-3 gap-y-4">

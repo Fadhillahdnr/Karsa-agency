@@ -1,24 +1,13 @@
 <script setup lang="ts">
-const serviceOptions = [
-  { value: 'website', label: 'Website / Company Profile' },
-  { value: 'ecommerce', label: 'E-Commerce' },
-  { value: 'web-application', label: 'Web Application' },
-  { value: 'custom-software', label: 'Custom Software' },
-  { value: 'ui-ux', label: 'UI/UX Design' },
-  { value: 'maintenance', label: 'Maintenance / Support' },
-  { value: 'other', label: 'Other' },
-]
+const { t } = useI18n()
 
-const budgetOptions = [
-  'Under Rp10m',
-  'Rp10m – Rp25m',
-  'Rp25m – Rp50m',
-  'Rp50m – Rp100m',
-  'Rp100m+',
-  'Not sure yet',
-]
+const serviceValues = ['website', 'ecommerce', 'web-application', 'custom-software', 'ui-ux', 'maintenance', 'other'] as const
+const serviceOptions = computed(() =>
+  serviceValues.map(value => ({ value, label: t(`inquiryForm.serviceOptions.${value}`) })),
+)
 
-const timelineOptions = ['ASAP', '1–2 months', '2–3 months', '3–6 months', 'Flexible']
+const budgetOptions = useTmList<string[]>('inquiryForm.budgetOptions')
+const timelineOptions = useTmList<string[]>('inquiryForm.timelineOptions')
 
 const form = reactive<InquiryFormState>(createEmptyInquiryForm())
 const errors = reactive<Partial<Record<keyof InquiryFormState, string>>>({})
@@ -40,15 +29,15 @@ function trackStartOnce() {
 function validateField(field: keyof InquiryFormState): string {
   switch (field) {
     case 'name':
-      return form.name.trim().length >= 2 ? '' : 'Please enter your name (at least 2 characters).'
+      return form.name.trim().length >= 2 ? '' : t('inquiryForm.errors.name')
     case 'email':
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()) ? '' : 'Please enter a valid email address.'
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()) ? '' : t('inquiryForm.errors.email')
     case 'service':
-      return form.service ? '' : 'Please select a service.'
+      return form.service ? '' : t('inquiryForm.errors.service')
     case 'projectDescription':
       return form.projectDescription.trim().length >= 30
         ? ''
-        : 'Please describe your project in at least 30 characters.'
+        : t('inquiryForm.errors.projectDescription')
     default:
       return ''
   }
@@ -75,7 +64,7 @@ async function handleSubmit() {
   if (!valid) return
 
   if (publicConfig.turnstileSiteKey && !turnstileToken.value) {
-    errorMessageOverride.value = 'Please complete the verification challenge before submitting.'
+    errorMessageOverride.value = t('inquiryForm.errors.verification')
     return
   }
 
@@ -109,18 +98,18 @@ function handleReset() {
       class="rounded-[var(--radius-lg)] border border-[var(--color-accent)] bg-[var(--color-accent-soft)] p-8"
     >
       <p class="font-display text-2xl font-medium">
-        Thank you — your inquiry is in.
+        {{ t('inquiryForm.successTitle') }}
       </p>
       <p class="mt-3 text-sm text-[var(--color-text-muted)]">
-        We've received your project details. Your reference ID is
-        <strong class="text-[var(--color-text)]">{{ referenceId }}</strong>. A confirmation email is on its way.
+        {{ t('inquiryForm.successBody') }}
+        <strong class="text-[var(--color-text)]">{{ referenceId }}</strong>. {{ t('inquiryForm.successNote') }}
       </p>
       <BaseButton
         class="mt-6"
         variant="secondary"
         @click="handleReset"
       >
-        Submit another inquiry
+        {{ t('inquiryForm.submitAnother') }}
       </BaseButton>
     </div>
 
@@ -144,7 +133,7 @@ function handleReset() {
           <label
             for="inquiry-name"
             class="mb-2 block text-sm font-medium"
-          >Name <span aria-hidden="true">*</span></label>
+          >{{ t('inquiryForm.name') }} <span aria-hidden="true">*</span></label>
           <input
             id="inquiry-name"
             v-model="form.name"
@@ -168,7 +157,7 @@ function handleReset() {
           <label
             for="inquiry-email"
             class="mb-2 block text-sm font-medium"
-          >Email <span aria-hidden="true">*</span></label>
+          >{{ t('inquiryForm.email') }} <span aria-hidden="true">*</span></label>
           <input
             id="inquiry-email"
             v-model="form.email"
@@ -192,7 +181,7 @@ function handleReset() {
           <label
             for="inquiry-company"
             class="mb-2 block text-sm font-medium"
-          >Company</label>
+          >{{ t('inquiryForm.company') }}</label>
           <input
             id="inquiry-company"
             v-model="form.company"
@@ -206,7 +195,7 @@ function handleReset() {
           <label
             for="inquiry-phone"
             class="mb-2 block text-sm font-medium"
-          >Phone</label>
+          >{{ t('inquiryForm.phone') }}</label>
           <input
             id="inquiry-phone"
             v-model="form.phone"
@@ -220,7 +209,7 @@ function handleReset() {
           <label
             for="inquiry-service"
             class="mb-2 block text-sm font-medium"
-          >Service <span aria-hidden="true">*</span></label>
+          >{{ t('inquiryForm.service') }} <span aria-hidden="true">*</span></label>
           <select
             id="inquiry-service"
             v-model="form.service"
@@ -233,7 +222,7 @@ function handleReset() {
               value=""
               disabled
             >
-              Select a service
+              {{ t('inquiryForm.selectService') }}
             </option>
             <option
               v-for="option in serviceOptions"
@@ -256,14 +245,14 @@ function handleReset() {
           <label
             for="inquiry-budget"
             class="mb-2 block text-sm font-medium"
-          >Budget Range</label>
+          >{{ t('inquiryForm.budgetRange') }}</label>
           <select
             id="inquiry-budget"
             v-model="form.budgetRange"
             class="w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm focus-visible:border-[var(--color-accent)]"
           >
             <option value="">
-              Select a range
+              {{ t('inquiryForm.selectBudget') }}
             </option>
             <option
               v-for="option in budgetOptions"
@@ -279,14 +268,14 @@ function handleReset() {
           <label
             for="inquiry-timeline"
             class="mb-2 block text-sm font-medium"
-          >Timeline</label>
+          >{{ t('inquiryForm.timeline') }}</label>
           <select
             id="inquiry-timeline"
             v-model="form.timeline"
             class="w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm focus-visible:border-[var(--color-accent)]"
           >
             <option value="">
-              Select a timeline
+              {{ t('inquiryForm.selectTimeline') }}
             </option>
             <option
               v-for="option in timelineOptions"
@@ -302,7 +291,7 @@ function handleReset() {
           <label
             for="inquiry-referral"
             class="mb-2 block text-sm font-medium"
-          >How did you hear about us?</label>
+          >{{ t('inquiryForm.referralSource') }}</label>
           <input
             id="inquiry-referral"
             v-model="form.referralSource"
@@ -317,7 +306,7 @@ function handleReset() {
           for="inquiry-description"
           class="mb-2 block text-sm font-medium"
         >
-          Project Description <span aria-hidden="true">*</span>
+          {{ t('inquiryForm.projectDescription') }} <span aria-hidden="true">*</span>
         </label>
         <textarea
           id="inquiry-description"
@@ -350,7 +339,7 @@ function handleReset() {
           variant="primary"
           :disabled="status === 'submitting'"
         >
-          {{ status === 'submitting' ? 'Sending…' : 'Send Inquiry' }}
+          {{ status === 'submitting' ? t('inquiryForm.submitting') : t('inquiryForm.submit') }}
         </BaseButton>
       </div>
     </form>

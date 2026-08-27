@@ -1,0 +1,250 @@
+{
+  "common": {
+    "skipToContent": "Lewati ke konten",
+    "openMenu": "Buka menu",
+    "closeMenu": "Tutup menu",
+    "viewCaseStudy": "Lihat Studi Kasus",
+    "learnMore": "Pelajari lebih lanjut",
+    "language": "Bahasa"
+  },
+  "nav": {
+    "work": "Karya",
+    "services": "Layanan",
+    "studio": "Studio",
+    "startProject": "Mulai Proyek"
+  },
+  "footer": {
+    "menu": "Menu",
+    "contact": "Kontak"
+  },
+  "site": {
+    "title": "Studio Produk Digital & Perangkat Lunak",
+    "description": "Karsa Studio adalah studio produk digital & perangkat lunak yang membantu bisnis merancang, membangun, dan mengembangkan website, e-commerce, aplikasi web, dan perangkat lunak custom.",
+    "availability": "Tersedia untuk proyek pilihan"
+  },
+  "hero": {
+    "eyebrow": "Studio Produk Digital & Perangkat Lunak",
+    "subtitle": "Mengubah Visi Menjadi Pengalaman Digital yang Bermakna.",
+    "ctaExplore": "Lihat Karya",
+    "ctaStart": "Mulai Proyek"
+  },
+  "brandStatement": {
+    "line1": "Setiap produk digital berawal dari sebuah niat.",
+    "line2Muted": "Karsa adalah awal. Karya adalah hasil.",
+    "line2Highlight": "Kami membangun apa yang terjadi di antara keduanya."
+  },
+  "servicesPillars": {
+    "eyebrow": "Yang Kami Kerjakan",
+    "title": "Merancang, membangun, dan mengembangkan — dalam satu atap.",
+    "pillars": [
+      {
+        "index": "01",
+        "name": "Desain",
+        "items": ["Desain UI/UX", "Desain Produk", "Prototipe", "Design System", "Pengalaman Brand Digital"]
+      },
+      {
+        "index": "02",
+        "name": "Bangun",
+        "items": ["Website", "E-Commerce", "Aplikasi Web", "Perangkat Lunak Custom", "Sistem Internal", "Dashboard & Portal", "API & Integrasi"]
+      },
+      {
+        "index": "03",
+        "name": "Kembangkan",
+        "items": ["Maintenance & Support", "Optimasi Performa", "Analitik", "SEO Teknis", "Pengembangan Berkelanjutan"]
+      }
+    ]
+  },
+  "selectedWork": {
+    "eyebrow": "Karya Pilihan",
+    "title": "Karya yang bisa kami pertanggungjawabkan.",
+    "viewAll": "Lihat semua karya",
+    "empty": "Studi kasus sedang disiapkan. Sementara itu, hubungi kami untuk melihat karya yang sedang berjalan."
+  },
+  "karsaMethod": {
+    "eyebrow": "Metode Karsa",
+    "title": "Proses yang dibangun untuk kejelasan, bukan formalitas.",
+    "steps": [
+      { "step": "01", "name": "Memahami", "description": "Bisnis, pengguna, masalah, dan tujuan." },
+      { "step": "02", "name": "Menentukan", "description": "Kebutuhan, ruang lingkup, asumsi, dependensi, dan risiko." },
+      { "step": "03", "name": "Mendesain", "description": "Alur, interaksi, dan antarmuka." },
+      { "step": "04", "name": "Membangun", "description": "Rekayasa dan integrasi." },
+      { "step": "05", "name": "Validasi", "description": "QA, UAT, dan persetujuan." },
+      { "step": "06", "name": "Kembangkan", "description": "Garansi, maintenance, dan optimasi." }
+    ]
+  },
+  "capabilities": {
+    "eyebrow": "Kapabilitas",
+    "title": "Semua yang dibutuhkan produk digital agar berjalan.",
+    "items": [
+      "Pengalaman Digital",
+      "Pengembangan Web",
+      "E-Commerce",
+      "Aplikasi Web",
+      "Perangkat Lunak Custom",
+      "Sistem Internal",
+      "Dashboard & Portal",
+      "API & Integrasi",
+      "Desain UI/UX",
+      "Strategi Produk",
+      "Maintenance & Support"
+    ]
+  },
+  "whyKarsa": {
+    "eyebrow": "Mengapa Karsa",
+    "title": "Tiga prinsip di balik setiap proyek.",
+    "pillars": [
+      { "name": "Berbasis Desain.", "description": "Pengalaman digital yang dipikirkan matang, jelas, dan nyaman digunakan." },
+      { "name": "Didukung Teknologi.", "description": "Sistem yang dirancang agar mudah dirawat, andal, dan siap berkembang." },
+      { "name": "Berfokus Bisnis.", "description": "Setiap keputusan dimulai dari masalah yang perlu diselesaikan produk." }
+    ],
+    "footer": "Ruang Lingkup Jelas. Proses Jelas. Investasi Jelas."
+  },
+  "deliveryTrust": {
+    "eyebrow": "Pengerjaan & Kepercayaan",
+    "title": "Bagaimana sebuah proyek bergerak dari ide hingga rilis.",
+    "stages": ["Discovery", "Ruang Lingkup & Proposal", "Desain", "Pengembangan", "QA & UAT", "Rilis", "Garansi", "Dukungan Berkelanjutan"],
+    "trust": [
+      "Ruang lingkup jelas sebelum pengerjaan dimulai",
+      "Pengiriman berbasis milestone",
+      "QA terstruktur pada setiap build",
+      "User acceptance testing sebelum rilis",
+      "Serah terima terdokumentasi",
+      "Masa garansi setelah rilis",
+      "Maintenance lanjutan bersifat opsional"
+    ]
+  },
+  "finalCta": {
+    "titleLine1": "Punya Karsa",
+    "titleLine1b": "di kepala?",
+    "titleLine2": "Mari kita ubah",
+    "titleLine2b": "menjadi Karya.",
+    "start": "Mulai Proyek",
+    "talk": "Hubungi Karsa"
+  },
+  "workIndex": {
+    "eyebrow": "Karya",
+    "title": "Karya yang bisa kami pertanggungjawabkan.",
+    "description": "Kumpulan proyek independen, konsep internal, dan karya eksperimental — dilabeli secara jujur, tidak ditambah-tambah dengan klien yang belum pernah kami kerjakan.",
+    "empty": "Studi kasus sedang disiapkan. Hubungi kami untuk melihat karya yang sedang berjalan."
+  },
+  "workDetail": {
+    "challenge": "Tantangan",
+    "approach": "Pendekatan",
+    "outcome": "Hasil",
+    "services": "Layanan",
+    "nextProject": "Proyek Berikutnya"
+  },
+  "servicesIndex": {
+    "eyebrow": "Layanan",
+    "title": "Merancang, membangun, dan mengembangkan — dalam satu atap.",
+    "description": "Setiap proyek berada di bawah salah satu dari tiga pilar, dijalankan melalui Metode Karsa dari pemahaman hingga pengembangan.",
+    "metaDescription": "Desain UI/UX, pengembangan web, e-commerce, aplikasi web, perangkat lunak custom, dan maintenance berkelanjutan dari Karsa Studio."
+  },
+  "serviceDetail": {
+    "whoItsFor": "Untuk Siapa",
+    "businessProblems": "Masalah Bisnis",
+    "deliverables": "Deliverable Umum",
+    "relatedWork": "Karya Terkait",
+    "faq": "Tanya Jawab",
+    "start": "Mulai Proyek"
+  },
+  "studio": {
+    "eyebrow": "Studio",
+    "heroTitleLine1": "Karsa adalah awal.",
+    "heroTitleLine2": "Karya adalah hasil.",
+    "heroSubtitle": "Karsa Studio adalah ruang di antara keduanya — tempat niat bisnis menjadi produk digital yang berfungsi.",
+    "philosophyTitle": "Berbasis desain. Didukung teknologi. Berfokus bisnis.",
+    "philosophyBody": "Karsa Studio membantu bisnis membangun, meningkatkan, dan mendigitalisasi produk serta proses melalui kombinasi pemahaman bisnis, desain yang matang, dan teknologi yang andal. Bisnis menjelaskan mengapa sesuatu dibangun. Desain membentuk bagaimana orang menggunakan dan merasakannya. Teknologi memastikan semuanya berjalan — andal, mudah dirawat, dan siap berkembang.",
+    "principlesEyebrow": "Prinsip Kerja",
+    "principlesTitle": "Bagaimana kami mendekati setiap proyek.",
+    "values": [
+      { "name": "Cermat", "description": "Setiap keputusan diambil secara sengaja, bukan karena default atau kebiasaan." },
+      { "name": "Modern", "description": "Tools dan praktik terkini, diterapkan tanpa mengejar tren demi tren." },
+      { "name": "Profesional", "description": "Komunikasi jelas, ruang lingkup realistis, dan konsisten menepati apa yang disepakati." },
+      { "name": "Jujur", "description": "Tanpa klaim berlebihan, tanpa portofolio palsu, tanpa janji yang tidak bisa kami tepati." },
+      { "name": "Human", "description": "Perangkat lunak dibangun untuk manusia — itu tetap jadi titik awal, bukan renungan belakangan." }
+    ],
+    "processEyebrow": "Proses",
+    "processTitle": "Metode Karsa.",
+    "metaDescription": "Filosofi, positioning, dan prinsip kerja Karsa Studio sebagai studio produk digital & perangkat lunak."
+  },
+  "startAProject": {
+    "eyebrow": "Mulai Proyek",
+    "title": "Ceritakan apa yang sedang kamu bangun.",
+    "description": "Bagikan beberapa detail tentang proyekmu. Kami akan meninjau dan menghubungi kembali dengan langkah selanjutnya — tanpa kewajiban, tanpa penawaran otomatis.",
+    "metaDescription": "Ceritakan tentang proyekmu — Karsa Studio akan menghubungi kembali dengan langkah selanjutnya."
+  },
+  "privacy": {
+    "eyebrow": "Privasi",
+    "title": "Kebijakan Privasi",
+    "metaDescription": "Bagaimana Karsa Studio mengumpulkan, menggunakan, dan menyimpan informasi yang dikirimkan melalui website ini.",
+    "whatWeCollectTitle": "Apa yang kami kumpulkan",
+    "whatWeCollectBody": "Saat kamu mengirimkan formulir Mulai Proyek, kami mengumpulkan informasi yang kamu berikan secara langsung: nama, alamat email, perusahaan (opsional), telepon (opsional), layanan yang ditanyakan, kisaran anggaran (opsional), timeline (opsional), deskripsi proyek, dan dari mana kamu mengetahui kami (opsional).",
+    "whyWeCollectTitle": "Mengapa kami mengumpulkannya",
+    "whyWeCollectBody": "Informasi ini digunakan semata-mata untuk mengevaluasi pertanyaan proyekmu, merespons, dan — jika kami melanjutkan — untuk menyusun ruang lingkup serta mengerjakan proyek. Kami tidak menggunakannya untuk pemasaran yang tidak terkait tanpa persetujuan terpisah darimu.",
+    "storageTitle": "Bagaimana data disimpan",
+    "storageBody": "Pertanyaan yang dikirimkan disimpan dalam database yang di-host di Supabase dan hanya dapat diakses oleh Karsa Studio. Pengirimanmu juga memicu dua email: satu notifikasi internal ke Karsa, dan satu email konfirmasi ke alamat yang kamu berikan.",
+    "thirdPartyTitle": "Pemroses pihak ketiga",
+    "thirdPartyIntro": "Kami mengandalkan beberapa layanan pihak ketiga untuk mengoperasikan website ini dan memproses pertanyaan:",
+    "thirdPartyItems": [
+      "Penyedia database, untuk menyimpan pertanyaan yang dikirimkan.",
+      "Penyedia email transaksional, untuk mengirimkan email notifikasi dan konfirmasi.",
+      "Layanan proteksi bot, untuk memverifikasi bahwa pengiriman formulir berasal dari pengunjung nyata."
+    ],
+    "thirdPartyOutro": "Penyedia ini memproses data atas nama kami dan tidak diizinkan menggunakannya untuk kepentingan mereka sendiri.",
+    "analyticsTitle": "Analitik",
+    "analyticsBody": "Kami mungkin menggunakan analitik website yang menjaga privasi untuk memahami bagaimana situs ini digunakan. Data analitik tidak pernah menyertakan email, nomor telepon, atau deskripsi proyekmu.",
+    "yourDataTitle": "Data kamu",
+    "yourDataBody": "Kamu dapat meminta akses, koreksi, atau penghapusan informasi yang telah kamu kirimkan kapan saja dengan menghubungi kami.",
+    "contactTitle": "Kontak",
+    "contactWithChannels": "Hubungi kami melalui",
+    "contactWithoutChannelsPrefix": "Hubungi kami melalui formulir",
+    "contactWithoutChannelsSuffix": "."
+  },
+  "inquiryForm": {
+    "name": "Nama",
+    "email": "Email",
+    "company": "Perusahaan",
+    "phone": "Telepon",
+    "service": "Layanan",
+    "selectService": "Pilih layanan",
+    "budgetRange": "Kisaran Anggaran",
+    "selectBudget": "Pilih kisaran",
+    "timeline": "Timeline",
+    "selectTimeline": "Pilih timeline",
+    "referralSource": "Dari mana kamu mengetahui kami?",
+    "projectDescription": "Deskripsi Proyek",
+    "submit": "Kirim Pertanyaan",
+    "submitting": "Mengirim…",
+    "successTitle": "Terima kasih — pertanyaanmu sudah kami terima.",
+    "successBody": "Kami telah menerima detail proyekmu. ID referensimu adalah",
+    "successNote": "Email konfirmasi sedang dalam perjalanan.",
+    "submitAnother": "Kirim pertanyaan lain",
+    "serviceOptions": {
+      "website": "Website / Company Profile",
+      "ecommerce": "E-Commerce",
+      "web-application": "Aplikasi Web",
+      "custom-software": "Perangkat Lunak Custom",
+      "ui-ux": "Desain UI/UX",
+      "maintenance": "Maintenance / Support",
+      "other": "Lainnya"
+    },
+    "budgetOptions": ["Di bawah Rp10jt", "Rp10jt – Rp25jt", "Rp25jt – Rp50jt", "Rp50jt – Rp100jt", "Rp100jt+", "Belum yakin"],
+    "timelineOptions": ["Secepatnya", "1–2 bulan", "2–3 bulan", "3–6 bulan", "Fleksibel"],
+    "errors": {
+      "name": "Mohon masukkan nama kamu (minimal 2 karakter).",
+      "email": "Mohon masukkan alamat email yang valid.",
+      "service": "Mohon pilih salah satu layanan.",
+      "projectDescription": "Mohon jelaskan proyekmu minimal 30 karakter.",
+      "verification": "Mohon selesaikan verifikasi sebelum mengirim."
+    }
+  },
+  "error": {
+    "notFoundTitle": "Halaman tidak ditemukan.",
+    "notFoundBody": "Halaman yang kamu cari tidak ada atau mungkin telah dipindahkan.",
+    "genericTitle": "Terjadi kesalahan.",
+    "genericBody": "Terjadi kesalahan tak terduga di sisi kami. Silakan coba lagi.",
+    "backHome": "Kembali ke Beranda",
+    "exploreWork": "Lihat Karya"
+  }
+}

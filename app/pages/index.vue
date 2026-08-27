@@ -2,10 +2,10 @@
 const { site } = useKarsaConfig()
 
 useSeoMeta({
-  title: site.title,
-  description: site.description,
-  ogTitle: `${site.name} — ${site.title}`,
-  ogDescription: site.description,
+  title: () => site.value.title,
+  description: () => site.value.description,
+  ogTitle: () => `${site.value.name} — ${site.value.title}`,
+  ogDescription: () => site.value.description,
 })
 </script>
 

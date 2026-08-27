@@ -1,6 +1,8 @@
 <script setup lang="ts">
-const { data: projects } = await useAsyncData('home-selected-work', () =>
-  queryCollection('work').order('order', 'ASC').limit(3).all(),
+const { t, locale } = useI18n()
+const localePath = useLocalePath()
+const { data: projects } = await useAsyncData(`home-selected-work-${locale.value}`, () =>
+  queryCollection(locale.value === 'id' ? 'workId' : 'work').order('order', 'ASC').limit(3).all(),
 )
 </script>
 
@@ -8,16 +10,16 @@ const { data: projects } = await useAsyncData('home-selected-work', () =>
   <BaseSection id="selected-work">
     <div class="flex flex-wrap items-end justify-between gap-6">
       <BaseHeading
-        eyebrow="Selected Work"
+        :eyebrow="t('selectedWork.eyebrow')"
         size="h1"
       >
-        Work we can stand behind.
+        {{ t('selectedWork.title') }}
       </BaseHeading>
       <BaseLink
         to="/work"
         show-arrow
       >
-        View all work
+        {{ t('selectedWork.viewAll') }}
       </BaseLink>
     </div>
 
@@ -32,7 +34,7 @@ const { data: projects } = await useAsyncData('home-selected-work', () =>
         :delay="index * 0.05"
       >
         <NuxtLink
-          :to="project.path"
+          :to="localePath(project.path)"
           class="group grid grid-cols-1 gap-6 md:grid-cols-2 md:items-center md:gap-12"
         >
           <div class="overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-surface)]">
@@ -62,7 +64,7 @@ const { data: projects } = await useAsyncData('home-selected-work', () =>
               {{ project.services.join(' · ') }}
             </p>
             <span class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-text)] group-hover:text-[var(--color-accent)]">
-              View Case Study <span aria-hidden="true">↗</span>
+              {{ t('common.viewCaseStudy') }} <span aria-hidden="true">↗</span>
             </span>
           </div>
         </NuxtLink>
@@ -73,7 +75,7 @@ const { data: projects } = await useAsyncData('home-selected-work', () =>
       v-else
       class="mt-16 max-w-md text-[var(--color-text-muted)]"
     >
-      Case studies are being prepared. In the meantime, get in touch to see work in progress.
+      {{ t('selectedWork.empty') }}
     </p>
   </BaseSection>
 </template>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { navLinks, primaryCta, site } = useKarsaConfig()
 const route = useRoute()
+const { t } = useI18n()
 
 const scrolled = ref(false)
 const menuOpen = ref(false)
@@ -36,7 +37,7 @@ function toggleMenu() {
       href="#main-content"
       class="sr-only-focusable fixed left-4 top-4 z-[60] rounded bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-[var(--color-on-accent)]"
     >
-      Skip to content
+      {{ t('common.skipToContent') }}
     </a>
 
     <BaseContainer>
@@ -68,6 +69,7 @@ function toggleMenu() {
           >
             {{ primaryCta.label }} <span aria-hidden="true">↗</span>
           </BaseButton>
+          <LocaleSwitcher />
         </nav>
 
         <button
@@ -75,7 +77,7 @@ function toggleMenu() {
           class="flex h-11 w-11 items-center justify-center rounded-full md:hidden"
           :aria-expanded="menuOpen"
           aria-controls="site-mobile-menu"
-          :aria-label="menuOpen ? 'Close menu' : 'Open menu'"
+          :aria-label="menuOpen ? t('common.closeMenu') : t('common.openMenu')"
           @click="toggleMenu"
         >
           <span class="relative block h-4 w-6">

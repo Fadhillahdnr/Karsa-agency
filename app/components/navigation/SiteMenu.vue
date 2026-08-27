@@ -108,6 +108,10 @@ onUnmounted(() => {
               </a>
             </li>
           </ul>
+
+          <div class="mt-8">
+            <LocaleSwitcher />
+          </div>
         </BaseContainer>
       </div>
     </Transition>

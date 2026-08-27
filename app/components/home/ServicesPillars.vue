@@ -1,38 +1,21 @@
 <script setup lang="ts">
-const pillars = [
-  {
-    index: '01',
-    name: 'Design',
-    items: ['UI/UX Design', 'Product Design', 'Prototype', 'Design Systems', 'Digital Brand Experience'],
-  },
-  {
-    index: '02',
-    name: 'Build',
-    items: [
-      'Websites',
-      'E-Commerce',
-      'Web Applications',
-      'Custom Software',
-      'Internal Systems',
-      'Dashboards & Portals',
-      'API & Integrations',
-    ],
-  },
-  {
-    index: '03',
-    name: 'Grow',
-    items: ['Maintenance & Support', 'Performance Optimization', 'Analytics', 'Technical SEO', 'Continuous Development'],
-  },
-]
+interface Pillar {
+  index: string
+  name: string
+  items: string[]
+}
+
+const { t } = useI18n()
+const pillars = useTmList<Pillar[]>('servicesPillars.pillars')
 </script>
 
 <template>
   <BaseSection id="what-we-do">
     <BaseHeading
-      eyebrow="What We Do"
+      :eyebrow="t('servicesPillars.eyebrow')"
       size="h1"
     >
-      Design, build, and grow&nbsp;— under one roof.
+      {{ t('servicesPillars.title') }}
     </BaseHeading>
 
     <div class="mt-16 grid grid-cols-1 divide-y divide-[var(--color-border)] border-t border-[var(--color-border)] md:grid-cols-3 md:divide-x md:divide-y-0">
