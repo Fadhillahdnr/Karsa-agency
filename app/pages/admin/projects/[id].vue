@@ -74,8 +74,7 @@ async function handleSubmit(value: ProjectFormValue) {
     await navigateTo('/admin/projects')
   }
   catch (error) {
-    const data = (error as { data?: { statusMessage?: string } })?.data
-    errorMessage.value = data?.statusMessage || 'Could not update project.'
+    errorMessage.value = extractErrorMessage(error, 'Could not update project.')
   }
   finally {
     submitting.value = false
