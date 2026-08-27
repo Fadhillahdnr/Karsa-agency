@@ -51,11 +51,12 @@ const form = reactive<ProjectFormValue>({
 
 const typeOptions: ProjectFormValue['type'][] = ['Independent Project', 'Internal Concept', 'Experimental Work']
 
-const { $supabase } = useNuxtApp()
+const { authFetch } = useAdminAuth()
 const uploading = ref(false)
 const uploadError = ref('')
 const dragActive = ref(false)
 const fileInput = ref<HTMLInputElement | null>(null)
+const coverIsVideo = ref(/\.(mp4|webm|mov|ogg)($|\?)/i.test(props.initial?.cover ?? ''))
 
 const touched = reactive<Record<string, boolean>>({})
 const attemptedSubmit = ref(false)
@@ -91,33 +92,32 @@ function shouldShowError(field: keyof typeof errors.value) {
 }
 
 async function uploadFile(file: File) {
-  if (!$supabase) return
-  if (!file.type.startsWith('image/')) {
-    uploadError.value = 'Please upload an image file.'
+  if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
+    uploadError.value = 'Please upload an image or video file.'
     return
   }
 
   uploading.value = true
   uploadError.value = ''
 
-  const extension = file.name.split('.').pop() || 'jpg'
-  const path = `${crypto.randomUUID()}.${extension}`
+  const body = new FormData()
+  body.append('file', file)
 
-  const { error } = await $supabase.storage.from('project-covers').upload(path, file, {
-    cacheControl: '3600',
-    upsert: false,
-  })
-
-  if (error) {
-    uploadError.value = `Upload failed: ${error.message}`
-    uploading.value = false
-    return
+  try {
+    const result = await authFetch<{ url: string, resourceType: string }>('/api/admin/upload', {
+      method: 'POST',
+      body,
+    })
+    form.cover = result.url
+    coverIsVideo.value = result.resourceType === 'video'
+    touched.cover = true
   }
-
-  const { data } = $supabase.storage.from('project-covers').getPublicUrl(path)
-  form.cover = data.publicUrl
-  uploading.value = false
-  touched.cover = true
+  catch (error) {
+    uploadError.value = extractErrorMessage(error, 'Upload failed.')
+  }
+  finally {
+    uploading.value = false
+  }
 }
 
 function handleFileChange(event: Event) {
@@ -133,6 +133,7 @@ function handleDrop(event: DragEvent) {
 
 function removeCover() {
   form.cover = ''
+  coverIsVideo.value = false
   touched.cover = true
   if (fileInput.value) fileInput.value.value = ''
 }
@@ -374,7 +375,7 @@ function handleSubmit() {
 
     <section class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6">
       <h2 class="font-display text-base font-medium">
-        Cover image
+        Cover image or video
       </h2>
 
       <div
@@ -388,7 +389,17 @@ function handleSubmit() {
           v-if="form.cover"
           class="relative h-24 w-40 shrink-0 overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-bg)]"
         >
+          <video
+            v-if="coverIsVideo"
+            :src="form.cover"
+            muted
+            loop
+            autoplay
+            playsinline
+            class="h-full w-full object-cover"
+          />
           <img
+            v-else
             :src="form.cover"
             alt="Cover preview"
             class="h-full w-full object-cover"
@@ -417,7 +428,7 @@ function handleSubmit() {
 
         <div class="flex-1">
           <p class="text-sm font-medium">
-            Drag and drop an image, or
+            Drag and drop an image or video, or
             <button
               type="button"
               class="text-[var(--color-accent)] underline-offset-2 hover:underline"
@@ -427,12 +438,12 @@ function handleSubmit() {
             </button>
           </p>
           <p class="mt-1 text-xs text-[var(--color-text-muted)]">
-            JPG, PNG, or WebP. Uploaded directly to Supabase Storage.
+            Image or video. Uploaded to Cloudinary.
           </p>
           <input
             ref="fileInput"
             type="file"
-            accept="image/*"
+            accept="image/*,video/*"
             class="sr-only"
             @change="handleFileChange"
           >
