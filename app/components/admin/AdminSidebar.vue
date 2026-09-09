@@ -41,6 +41,9 @@ const navGroups: NavGroup[] = [
       { label: 'Work / Case Studies', to: '/admin/projects', icon: 'projects', roles: ['super_admin', 'content_editor', 'viewer'] },
       { label: 'Clients', to: '/admin/clients', icon: 'building', roles: ['super_admin', 'content_editor', 'viewer'] },
       { label: 'Testimonials', to: '/admin/testimonials', icon: 'mail', roles: ['super_admin', 'content_editor', 'viewer'] },
+      { label: 'Insights', to: '/admin/articles', icon: 'edit', roles: ['super_admin', 'content_editor', 'viewer'] },
+      { label: 'Updates', to: '/admin/updates', icon: 'edit', roles: ['super_admin', 'content_editor', 'viewer'] },
+      { label: 'FAQ', to: '/admin/faqs', icon: 'edit', roles: ['super_admin', 'content_editor', 'viewer'] },
     ],
   },
   {

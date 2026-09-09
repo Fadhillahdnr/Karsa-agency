@@ -212,6 +212,95 @@ export type PageSectionRow = {
 
 export type PageSectionUpdate = Partial<Pick<PageSectionRow, 'enabled' | 'order_index' | 'theme_variant' | 'content' | 'settings'>>
 
+export type ArticleCategory = 'Website' | 'Design' | 'Photography' | 'Video' | 'Branding' | 'Business' | 'Creative Process'
+
+export type ArticleRow = {
+  id: string
+  slug: string
+  cover_media_id: string | null
+  author: string | null
+  category: ArticleCategory | null
+  tags: string[]
+  featured: boolean
+  status: ContentStatus
+  published_at: string | null
+  reading_time: number | null
+  canonical_url: string | null
+  og_media_id: string | null
+  created_by: string | null
+  updated_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+export type ArticleInsert = Omit<ArticleRow, 'id' | 'created_at' | 'updated_at'>
+export type ArticleUpdate = Partial<ArticleInsert>
+
+export type ArticleTranslationRow = {
+  id: string
+  article_id: string
+  locale: Locale
+  title: string
+  excerpt: string | null
+  content: Record<string, unknown>
+  seo_title: string | null
+  seo_description: string | null
+}
+
+export type ArticleTranslationUpsert = Omit<ArticleTranslationRow, 'id'>
+
+export type CompanyUpdateRow = {
+  id: string
+  slug: string
+  cover_media_id: string | null
+  status: ContentStatus
+  published_at: string | null
+  created_by: string | null
+  updated_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+export type CompanyUpdateInsert = Omit<CompanyUpdateRow, 'id' | 'created_at' | 'updated_at'>
+export type CompanyUpdateUpdate = Partial<CompanyUpdateInsert>
+
+export type CompanyUpdateTranslationRow = {
+  id: string
+  update_id: string
+  locale: Locale
+  title: string
+  excerpt: string | null
+  content: Record<string, unknown>
+  seo_title: string | null
+  seo_description: string | null
+}
+
+export type CompanyUpdateTranslationUpsert = Omit<CompanyUpdateTranslationRow, 'id'>
+
+export type FaqRow = {
+  id: string
+  category: string | null
+  related_service: string | null
+  order_index: number
+  featured: boolean
+  status: 'draft' | 'published' | 'archived'
+  created_at: string
+  updated_at: string
+}
+
+export type FaqInsert = Omit<FaqRow, 'id' | 'created_at' | 'updated_at'>
+export type FaqUpdate = Partial<FaqInsert>
+
+export type FaqTranslationRow = {
+  id: string
+  faq_id: string
+  locale: Locale
+  question: string
+  answer: string
+}
+
+export type FaqTranslationUpsert = Omit<FaqTranslationRow, 'id'>
+
 export type ClientRow = {
   id: string
   name: string
@@ -434,6 +523,42 @@ type Database = {
         Row: PageSectionRow
         Insert: Omit<PageSectionRow, 'id' | 'created_at' | 'updated_at'>
         Update: PageSectionUpdate
+        Relationships: []
+      }
+      articles: {
+        Row: ArticleRow
+        Insert: ArticleInsert
+        Update: ArticleUpdate
+        Relationships: []
+      }
+      article_translations: {
+        Row: ArticleTranslationRow
+        Insert: ArticleTranslationUpsert
+        Update: Partial<ArticleTranslationUpsert>
+        Relationships: []
+      }
+      company_updates: {
+        Row: CompanyUpdateRow
+        Insert: CompanyUpdateInsert
+        Update: CompanyUpdateUpdate
+        Relationships: []
+      }
+      company_update_translations: {
+        Row: CompanyUpdateTranslationRow
+        Insert: CompanyUpdateTranslationUpsert
+        Update: Partial<CompanyUpdateTranslationUpsert>
+        Relationships: []
+      }
+      faqs: {
+        Row: FaqRow
+        Insert: FaqInsert
+        Update: FaqUpdate
+        Relationships: []
+      }
+      faq_translations: {
+        Row: FaqTranslationRow
+        Insert: FaqTranslationUpsert
+        Update: Partial<FaqTranslationUpsert>
         Relationships: []
       }
     }

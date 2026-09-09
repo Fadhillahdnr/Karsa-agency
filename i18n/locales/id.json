@@ -17,6 +17,7 @@
     "work": "Karya",
     "services": "Layanan",
     "packages": "Paket",
+    "insights": "Wawasan",
     "about": "Tentang",
     "startProject": "Mulai Proyek"
   },
@@ -173,6 +174,28 @@
     "startingFrom": "Mulai dari",
     "custom": "Harga custom",
     "monthly": "/bulan"
+  },
+  "insightsIndex": {
+    "eyebrow": "Insights",
+    "title": "Catatan seputar membangun brand, website, dan kehadiran visual.",
+    "metaDescription": "Artikel praktis seputar website, desain, fotografi, dan video dari Karsa Agency.",
+    "empty": "Artikel sedang disiapkan. Kembali lagi nanti.",
+    "readingTime": "{minutes} menit baca",
+    "backToInsights": "Kembali ke Insights"
+  },
+  "updatesIndex": {
+    "eyebrow": "Updates",
+    "title": "Apa yang sedang kami kerjakan.",
+    "metaDescription": "Peluncuran proyek, kolaborasi, dan pencapaian dari Karsa Agency.",
+    "empty": "Belum ada update. Kembali lagi nanti.",
+    "backToUpdates": "Kembali ke Updates"
+  },
+  "faqIndex": {
+    "eyebrow": "FAQ",
+    "title": "Pertanyaan umum, dijawab dengan jujur.",
+    "metaDescription": "Jawaban seputar harga, timeline, revisi, kepemilikan, dan lainnya dari Karsa Agency.",
+    "empty": "FAQ sedang disiapkan. Hubungi kami kalau ada pertanyaan sementara ini.",
+    "allCategory": "Semua"
   },
   "clientLogos": {
     "eyebrow": "Dipercaya Oleh"

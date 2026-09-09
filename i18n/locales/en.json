@@ -17,6 +17,7 @@
     "work": "Work",
     "services": "Services",
     "packages": "Packages",
+    "insights": "Insights",
     "about": "About",
     "startProject": "Start a Project"
   },
@@ -173,6 +174,28 @@
     "startingFrom": "Starting from",
     "custom": "Custom pricing",
     "monthly": "/month"
+  },
+  "insightsIndex": {
+    "eyebrow": "Insights",
+    "title": "Notes on building brands, websites, and visual presence.",
+    "metaDescription": "Practical articles on website, design, photography, and video from Karsa Agency.",
+    "empty": "Articles are being prepared. Check back soon.",
+    "readingTime": "{minutes} min read",
+    "backToInsights": "Back to Insights"
+  },
+  "updatesIndex": {
+    "eyebrow": "Updates",
+    "title": "What we've been working on.",
+    "metaDescription": "Project launches, collaborations, and milestones from Karsa Agency.",
+    "empty": "No updates yet. Check back soon.",
+    "backToUpdates": "Back to Updates"
+  },
+  "faqIndex": {
+    "eyebrow": "FAQ",
+    "title": "Common questions, answered honestly.",
+    "metaDescription": "Answers on price, timeline, revisions, ownership, and more from Karsa Agency.",
+    "empty": "FAQs are being prepared. Get in touch with any questions in the meantime.",
+    "allCategory": "All"
   },
   "clientLogos": {
     "eyebrow": "Trusted By"
