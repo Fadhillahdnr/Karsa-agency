@@ -3,24 +3,37 @@ import type { LeadRow } from '../../../../server/utils/supabase'
 
 definePageMeta({ layout: 'admin', middleware: 'admin-auth' })
 
+type Assignee = { user_id: string, display_name: string, role: string }
+
 const { authFetch } = useAdminAuth()
 const toast = useToast()
 
 const leads = ref<LeadRow[]>([])
+const assignees = ref<Assignee[]>([])
 const loading = ref(true)
 const errorMessage = ref('')
 const search = ref('')
 const statusFilter = ref<'all' | LeadStatus>('all')
+const priorityFilter = ref<'all' | LeadPriority>('all')
+const assigneeFilter = ref<'all' | 'unassigned' | string>('all')
 
 let searchDebounce: ReturnType<typeof setTimeout> | null = null
 
 const filterTabs: { label: string, value: 'all' | LeadStatus }[] = [
   { label: 'All', value: 'all' },
-  { label: 'New', value: 'new' },
-  { label: 'Contacted', value: 'contacted' },
-  { label: 'Won', value: 'won' },
-  { label: 'Archived', value: 'archived' },
+  ...leadStatuses.map(value => ({ label: leadStatusLabel[value], value })),
 ]
+
+const assigneeNameById = computed(() => new Map(assignees.value.map(a => [a.user_id, a.display_name])))
+
+async function loadAssignees() {
+  try {
+    assignees.value = await authFetch<Assignee[]>('/api/admin/leads/assignees')
+  }
+  catch {
+    // Non-critical — assignee filter/labels just stay empty.
+  }
+}
 
 async function loadLeads() {
   loading.value = true
@@ -28,9 +41,13 @@ async function loadLeads() {
   try {
     const query = new URLSearchParams()
     if (statusFilter.value !== 'all') query.set('status', statusFilter.value)
+    if (priorityFilter.value !== 'all') query.set('priority', priorityFilter.value)
+    if (assigneeFilter.value !== 'all' && assigneeFilter.value !== 'unassigned') query.set('assignedTo', assigneeFilter.value)
     if (search.value.trim()) query.set('search', search.value.trim())
 
-    leads.value = await authFetch<LeadRow[]>(`/api/admin/leads?${query.toString()}`)
+    let result = await authFetch<LeadRow[]>(`/api/admin/leads?${query.toString()}`)
+    if (assigneeFilter.value === 'unassigned') result = result.filter(l => !l.assigned_to)
+    leads.value = result
   }
   catch {
     errorMessage.value = 'Could not load leads.'
@@ -40,7 +57,7 @@ async function loadLeads() {
   }
 }
 
-watch(statusFilter, loadLeads)
+watch([statusFilter, priorityFilter, assigneeFilter], loadLeads)
 
 watch(search, () => {
   if (searchDebounce) clearTimeout(searchDebounce)
@@ -60,7 +77,10 @@ async function setStatus(lead: LeadRow, status: LeadStatus) {
   }
 }
 
-onMounted(loadLeads)
+onMounted(() => {
+  loadAssignees()
+  loadLeads()
+})
 </script>
 
 <template>
@@ -76,7 +96,7 @@ onMounted(loadLeads)
       </div>
     </div>
 
-    <div class="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div class="mt-6 flex flex-col gap-4">
       <div class="relative w-full sm:max-w-xs">
         <AdminIcon
           name="search"
@@ -104,6 +124,43 @@ onMounted(loadLeads)
         >
           {{ tab.label }}
         </button>
+      </div>
+
+      <div class="flex flex-wrap gap-3">
+        <select
+          v-model="priorityFilter"
+          class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-xs font-medium"
+        >
+          <option value="all">
+            All priorities
+          </option>
+          <option
+            v-for="p in leadPriorities"
+            :key="p"
+            :value="p"
+          >
+            {{ leadPriorityLabel[p] }} priority
+          </option>
+        </select>
+
+        <select
+          v-model="assigneeFilter"
+          class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-xs font-medium"
+        >
+          <option value="all">
+            All assignees
+          </option>
+          <option value="unassigned">
+            Unassigned
+          </option>
+          <option
+            v-for="a in assignees"
+            :key="a.user_id"
+            :value="a.user_id"
+          >
+            {{ a.display_name }}
+          </option>
+        </select>
       </div>
     </div>
 
@@ -169,7 +226,7 @@ onMounted(loadLeads)
 
       <!-- Desktop: table -->
       <div class="mt-6 hidden overflow-x-auto lg:block">
-        <table class="w-full min-w-[820px] border-collapse text-sm">
+        <table class="w-full min-w-[960px] border-collapse text-sm">
           <thead>
             <tr class="border-b border-[var(--color-border)] text-left text-[var(--color-text-muted)]">
               <th class="py-3 pr-4 font-medium">
@@ -180,6 +237,12 @@ onMounted(loadLeads)
               </th>
               <th class="py-3 pr-4 font-medium">
                 Budget
+              </th>
+              <th class="py-3 pr-4 font-medium">
+                Priority
+              </th>
+              <th class="py-3 pr-4 font-medium">
+                Assignee
               </th>
               <th class="py-3 pr-4 font-medium">
                 Submitted
@@ -212,6 +275,15 @@ onMounted(loadLeads)
               </td>
               <td class="py-3 pr-4 text-[var(--color-text-muted)]">
                 {{ lead.budget_range || '—' }}
+              </td>
+              <td class="py-3 pr-4">
+                <StatusBadge
+                  :label="leadPriorityLabel[lead.priority as LeadPriority]"
+                  :tone="leadPriorityTone[lead.priority as LeadPriority]"
+                />
+              </td>
+              <td class="py-3 pr-4 text-[var(--color-text-muted)]">
+                {{ lead.assigned_to ? (assigneeNameById.get(lead.assigned_to) ?? '—') : '—' }}
               </td>
               <td class="py-3 pr-4 text-[var(--color-text-muted)]">
                 {{ formatRelativeDate(lead.created_at) }}

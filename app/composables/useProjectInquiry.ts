@@ -1,30 +1,53 @@
 export interface InquiryFormState {
+  service: string
+  selectedPackageId: string | null
+  projectDescription: string
+  budgetRange: string
+  timeline: string
   name: string
   email: string
   company: string
   phone: string
-  service: string
-  budgetRange: string
-  timeline: string
-  projectDescription: string
+  preferredContact: string
   referralSource: string
+  consentPrivacy: boolean
 }
 
 export function createEmptyInquiryForm(): InquiryFormState {
   return {
+    service: '',
+    selectedPackageId: null,
+    projectDescription: '',
+    budgetRange: '',
+    timeline: '',
     name: '',
     email: '',
     company: '',
     phone: '',
-    service: '',
-    budgetRange: '',
-    timeline: '',
-    projectDescription: '',
+    preferredContact: '',
     referralSource: '',
+    consentPrivacy: false,
   }
 }
 
 type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error'
+
+/** Captured once per form mount — not user-facing fields, sent alongside the form. */
+function captureAttribution() {
+  if (import.meta.server) {
+    return { sourcePage: '', utmSource: '', utmMedium: '', utmCampaign: '', utmContent: '', utmTerm: '' }
+  }
+
+  const params = new URLSearchParams(window.location.search)
+  return {
+    sourcePage: document.referrer || window.location.pathname,
+    utmSource: params.get('utm_source') || '',
+    utmMedium: params.get('utm_medium') || '',
+    utmCampaign: params.get('utm_campaign') || '',
+    utmContent: params.get('utm_content') || '',
+    utmTerm: params.get('utm_term') || '',
+  }
+}
 
 export function useProjectInquiry() {
   const status = ref<SubmitStatus>('idle')
@@ -32,6 +55,8 @@ export function useProjectInquiry() {
   const referenceId = ref('')
 
   const { track } = useAnalytics()
+  const { locale } = useI18n()
+  const attribution = captureAttribution()
 
   async function submit(form: InquiryFormState, turnstileToken: string) {
     status.value = 'submitting'
@@ -42,7 +67,7 @@ export function useProjectInquiry() {
         { success: true, referenceId: string } | { success: false, code: string, message: string }
       >('/api/inquiry', {
         method: 'POST',
-        body: { ...form, turnstileToken },
+        body: { ...form, ...attribution, locale: locale.value, turnstileToken },
       })
 
       if (response.success) {

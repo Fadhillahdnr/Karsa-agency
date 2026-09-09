@@ -53,21 +53,31 @@ export default defineEventHandler(async (event): Promise<InquiryResponse> => {
 
   const supabase = getSupabaseClient()
   if (supabase) {
-    const { error } = await supabase.from('leads').insert({
+    const { data: lead, error } = await supabase.from('leads').insert({
       reference_id: referenceId,
       name: input.name,
       company: input.company || null,
       email: input.email,
       phone: input.phone || null,
       service: input.service,
+      selected_package_id: input.selectedPackageId || null,
       budget_range: input.budgetRange || null,
       timeline: input.timeline || null,
       project_description: input.projectDescription,
+      preferred_contact: input.preferredContact || null,
       referral_source: input.referralSource || null,
+      source_page: input.sourcePage || null,
+      utm_source: input.utmSource || null,
+      utm_medium: input.utmMedium || null,
+      utm_campaign: input.utmCampaign || null,
+      utm_content: input.utmContent || null,
+      utm_term: input.utmTerm || null,
+      locale: input.locale || null,
+      consent_privacy: input.consentPrivacy,
       source: 'website',
-    })
+    }).select('id').single()
 
-    if (error) {
+    if (error || !lead) {
       setResponseStatus(event, 500)
       return {
         success: false,
@@ -75,6 +85,13 @@ export default defineEventHandler(async (event): Promise<InquiryResponse> => {
         message: 'We couldn\'t save your inquiry right now. Please try again shortly.',
       }
     }
+
+    await supabase.from('lead_activities').insert({
+      lead_id: lead.id,
+      actor_id: null,
+      type: 'created',
+      metadata: { source: 'website', service: input.service },
+    })
   }
   else {
     // TODO: business input — Supabase isn't configured (SUPABASE_URL /
@@ -97,6 +114,7 @@ export default defineEventHandler(async (event): Promise<InquiryResponse> => {
         service: input.service,
         budgetRange: input.budgetRange,
         timeline: input.timeline,
+        preferredContact: input.preferredContact,
         projectDescription: input.projectDescription,
         submittedAt,
       })

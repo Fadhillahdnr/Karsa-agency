@@ -2,6 +2,7 @@ import { getSupabaseClient } from '../../utils/supabase'
 import type { Locale } from '../../utils/supabase'
 
 export type PackageApiItem = {
+  id: string
   slug: string
   category: string
   priceType: string
@@ -38,6 +39,7 @@ export default defineEventHandler(async (event): Promise<PackageApiItem[]> => {
   if (error || !data) return []
 
   type Row = {
+    id: string
     slug: string
     category: string
     price_type: string
@@ -53,6 +55,7 @@ export default defineEventHandler(async (event): Promise<PackageApiItem[]> => {
     const t = pkg.package_translations[0]
     const items = [...pkg.package_items].sort((a, b) => a.order_index - b.order_index)
     return {
+      id: pkg.id,
       slug: pkg.slug,
       category: pkg.category,
       priceType: pkg.price_type,

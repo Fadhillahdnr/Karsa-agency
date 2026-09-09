@@ -35,6 +35,7 @@ interface InternalNotificationInput {
   service: string
   budgetRange?: string
   timeline?: string
+  preferredContact?: string
   projectDescription: string
   submittedAt: string
 }
@@ -49,6 +50,7 @@ export function buildInternalNotificationEmail(input: InternalNotificationInput)
     ['Service', input.service],
     ['Budget', input.budgetRange],
     ['Timeline', input.timeline],
+    ['Preferred contact', input.preferredContact],
     ['Reference ID', input.referenceId],
     ['Submitted At', input.submittedAt],
   ]

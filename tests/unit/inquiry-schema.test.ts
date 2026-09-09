@@ -11,6 +11,7 @@ const validPayload = {
   timeline: '1–2 months',
   projectDescription: 'We need a new company profile website with a contact form and blog.',
   referralSource: 'Google',
+  consentPrivacy: true as const,
   turnstileToken: 'test-token',
 }
 
@@ -26,6 +27,7 @@ describe('inquirySchema', () => {
       email: 'jo@example.com',
       service: 'other',
       projectDescription: 'A short but sufficiently long project description for validation.',
+      consentPrivacy: true,
     })
     expect(result.success).toBe(true)
   })
@@ -42,6 +44,11 @@ describe('inquirySchema', () => {
 
   it('rejects an unknown service value', () => {
     const result = inquirySchema.safeParse({ ...validPayload, service: 'not-a-service' })
+    expect(result.success).toBe(false)
+  })
+
+  it('rejects when privacy consent is not given', () => {
+    const result = inquirySchema.safeParse({ ...validPayload, consentPrivacy: false })
     expect(result.success).toBe(false)
   })
 

@@ -4,6 +4,8 @@ import { createClient } from '@supabase/supabase-js'
 // Relation['Insert']> conditional generic silently resolves named
 // interfaces to `never` here (verified in isolation), while structurally
 // identical `type` object shapes infer correctly.
+export type LeadPriority = 'low' | 'normal' | 'high'
+
 export type LeadRow = {
   id: string
   reference_id: string
@@ -19,12 +21,52 @@ export type LeadRow = {
   status: string
   source: string
   metadata: Record<string, unknown>
+  selected_package_id: string | null
+  preferred_contact: string | null
+  source_page: string | null
+  utm_source: string | null
+  utm_medium: string | null
+  utm_campaign: string | null
+  utm_content: string | null
+  utm_term: string | null
+  locale: string | null
+  consent_privacy: boolean
+  assigned_to: string | null
+  last_contacted_at: string | null
+  next_follow_up_at: string | null
+  priority: LeadPriority
   created_at: string
   updated_at: string
 }
 
-type LeadInsert = Omit<LeadRow, 'id' | 'status' | 'metadata' | 'created_at' | 'updated_at'>
-  & Partial<Pick<LeadRow, 'status' | 'metadata'>>
+type LeadInsert = Omit<LeadRow, 'id' | 'status' | 'metadata' | 'priority' | 'consent_privacy' | 'assigned_to' | 'last_contacted_at' | 'next_follow_up_at' | 'created_at' | 'updated_at'>
+  & Partial<Pick<LeadRow, 'status' | 'metadata' | 'priority' | 'consent_privacy' | 'assigned_to' | 'last_contacted_at' | 'next_follow_up_at'>>
+
+export type LeadUpdate = Partial<LeadRow>
+
+export type LeadNoteRow = {
+  id: string
+  lead_id: string
+  author_id: string | null
+  note: string
+  created_at: string
+}
+
+export type LeadNoteInsert = Omit<LeadNoteRow, 'id' | 'created_at'>
+
+export type LeadActivityType = 'created' | 'status_changed' | 'note_added' | 'email_sent' | 'follow_up_set' | 'assigned'
+
+export type LeadActivityRow = {
+  id: string
+  lead_id: string
+  actor_id: string | null
+  type: LeadActivityType
+  metadata: Record<string, unknown>
+  created_at: string
+}
+
+export type LeadActivityInsert = Omit<LeadActivityRow, 'id' | 'created_at'>
+  & Partial<Pick<LeadActivityRow, 'metadata'>>
 
 export type ProjectRow = {
   id: string
@@ -480,7 +522,19 @@ type Database = {
       leads: {
         Row: LeadRow
         Insert: LeadInsert
-        Update: Partial<LeadRow>
+        Update: LeadUpdate
+        Relationships: []
+      }
+      lead_notes: {
+        Row: LeadNoteRow
+        Insert: LeadNoteInsert
+        Update: Partial<LeadNoteInsert>
+        Relationships: []
+      }
+      lead_activities: {
+        Row: LeadActivityRow
+        Insert: LeadActivityInsert
+        Update: Partial<LeadActivityInsert>
         Relationships: []
       }
       projects: {
