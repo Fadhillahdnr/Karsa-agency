@@ -56,9 +56,3 @@ export async function requireAdmin(event: H3Event, allowedRoles?: AdminRole[]): 
 
   return { user: userData.user, profile }
 }
-
-/** Back-compat alias: any active admin, regardless of role. */
-export async function requireAdminUser(event: H3Event): Promise<User> {
-  const { user } = await requireAdmin(event)
-  return user
-}

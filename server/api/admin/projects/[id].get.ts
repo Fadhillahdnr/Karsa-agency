@@ -1,8 +1,8 @@
-import { requireAdminUser } from '../../../utils/require-admin'
+import { requireAdmin } from '../../../utils/require-admin'
 import { getSupabaseClient } from '../../../utils/supabase'
 
 export default defineEventHandler(async (event) => {
-  await requireAdminUser(event)
+  await requireAdmin(event, ['super_admin', 'content_editor', 'viewer'])
 
   const id = getRouterParam(event, 'id')
   if (!id) {

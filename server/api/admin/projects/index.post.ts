@@ -1,9 +1,9 @@
-import { requireAdminUser } from '../../../utils/require-admin'
+import { requireAdmin } from '../../../utils/require-admin'
 import { getSupabaseClient } from '../../../utils/supabase'
 import { projectSchema } from '../../../validation/project'
 
 export default defineEventHandler(async (event) => {
-  await requireAdminUser(event)
+  await requireAdmin(event, ['super_admin', 'content_editor'])
 
   const body = await readBody(event)
   const parsed = projectSchema.safeParse(body)
