@@ -44,6 +44,7 @@ const navGroups: NavGroup[] = [
       { label: 'Insights', to: '/admin/articles', icon: 'edit', roles: ['super_admin', 'content_editor', 'viewer'] },
       { label: 'Updates', to: '/admin/updates', icon: 'edit', roles: ['super_admin', 'content_editor', 'viewer'] },
       { label: 'FAQ', to: '/admin/faqs', icon: 'edit', roles: ['super_admin', 'content_editor', 'viewer'] },
+      { label: 'Careers', to: '/admin/careers', icon: 'building', roles: ['super_admin', 'content_editor', 'viewer'] },
     ],
   },
   {
@@ -64,6 +65,12 @@ const navGroups: NavGroup[] = [
     label: 'Media',
     items: [
       { label: 'Media Library', to: '/admin/media', icon: 'image', roles: ['super_admin', 'content_editor', 'viewer'] },
+    ],
+  },
+  {
+    label: 'Site',
+    items: [
+      { label: 'Legal Pages', to: '/admin/legal', icon: 'edit', roles: ['super_admin', 'content_editor'] },
     ],
   },
 ]

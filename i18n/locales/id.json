@@ -19,11 +19,16 @@
     "packages": "Paket",
     "insights": "Wawasan",
     "about": "Tentang",
-    "startProject": "Mulai Proyek"
+    "startProject": "Mulai Proyek",
+    "legal": "Legal"
   },
   "footer": {
     "menu": "Menu",
-    "contact": "Kontak"
+    "contact": "Kontak",
+    "legalMenu": "Legal",
+    "privacy": "Privasi",
+    "terms": "Ketentuan",
+    "termsOfService": "Syarat Layanan"
   },
   "site": {
     "title": "Agensi Kreatif & Digital",
@@ -197,6 +202,42 @@
     "empty": "FAQ sedang disiapkan. Hubungi kami kalau ada pertanyaan sementara ini.",
     "allCategory": "Semua"
   },
+  "careersIndex": {
+    "eyebrow": "Karier",
+    "title": "Bekerja bersama Karsa.",
+    "description": "Posisi terbuka di Karsa Agency, saat memang ada. Kami lebih memilih menampilkan status kosong yang jujur daripada mengisi halaman ini dengan posisi yang tidak nyata.",
+    "metaDescription": "Posisi terbuka di Karsa Agency.",
+    "empty": "Belum ada posisi terbuka saat ini. Cek kembali nanti, atau hubungi kami — kami selalu terbuka untuk mendengar dari orang-orang yang menghasilkan karya bagus.",
+    "viewRole": "Lihat posisi",
+    "backToCareers": "Kembali ke Karier",
+    "apply": "Lamar posisi ini",
+    "responsibilities": "Tanggung Jawab",
+    "requirements": "Kualifikasi",
+    "niceToHave": "Nilai Tambah"
+  },
+  "process": {
+    "eyebrow": "Proses",
+    "title": "Bagaimana proyek bergerak dari ide hingga rilis.",
+    "subtitle": "Metode yang sama mendasari setiap keterlibatan — website, desain, fotografi, atau film — disesuaikan dengan kebutuhan masing-masing disiplin.",
+    "metaDescription": "Karsa Method — bagaimana proyek bergerak dari discovery hingga delivery dan support.",
+    "disciplinesEyebrow": "Per Disiplin",
+    "disciplinesTitle": "Apa yang berbeda per disiplin.",
+    "disciplines": [
+      { "name": "Website", "description": "Discover mencakup kebutuhan sitemap dan konten; Create bergerak melalui desain sebelum development; Review mencakup QA sebelum peluncuran." },
+      { "name": "Desain", "description": "Define mengunci brief dan arah referensi; Create melakukan iterasi dari konsep menjadi sistem yang matang; Deliver mencakup source file dan panduan penggunaan." },
+      { "name": "Fotografi", "description": "Define menetapkan shot list dan lokasi; Create adalah sesi pemotretan itu sendiri, diikuti seleksi dan retouching; Deliver menyerahkan file final dalam format yang disepakati." },
+      { "name": "Film", "description": "Define mencakup skrip atau konsep serta shot list; Create mencakup produksi dan editing; Review bergerak melalui persetujuan cut sebelum pengiriman final." }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Kontak",
+    "title": "Mari bicarakan proyekmu.",
+    "description": "Hubungi kami langsung, atau mulai dari formulir proyek — keduanya akan dibaca oleh orang sungguhan.",
+    "metaDescription": "Hubungi Karsa Agency.",
+    "channelsTitle": "Hubungi kami",
+    "noChannels": "Kanal kontak sedang difinalisasi. Gunakan formulir Mulai Proyek sementara ini.",
+    "servicesTitle": "Layanan"
+  },
   "clientLogos": {
     "eyebrow": "Dipercaya Oleh"
   },
@@ -270,29 +311,7 @@
   "privacy": {
     "eyebrow": "Privasi",
     "title": "Kebijakan Privasi",
-    "metaDescription": "Bagaimana Karsa Agency mengumpulkan, menggunakan, dan menyimpan informasi yang dikirimkan melalui website ini.",
-    "whatWeCollectTitle": "Apa yang kami kumpulkan",
-    "whatWeCollectBody": "Saat kamu mengirimkan formulir Mulai Proyek, kami mengumpulkan informasi yang kamu berikan secara langsung: nama, alamat email, perusahaan (opsional), telepon (opsional), layanan yang ditanyakan, kisaran anggaran (opsional), timeline (opsional), deskripsi proyek, dan dari mana kamu mengetahui kami (opsional).",
-    "whyWeCollectTitle": "Mengapa kami mengumpulkannya",
-    "whyWeCollectBody": "Informasi ini digunakan semata-mata untuk mengevaluasi pertanyaan proyekmu, merespons, dan — jika kami melanjutkan — untuk menyusun ruang lingkup serta mengerjakan proyek. Kami tidak menggunakannya untuk pemasaran yang tidak terkait tanpa persetujuan terpisah darimu.",
-    "storageTitle": "Bagaimana data disimpan",
-    "storageBody": "Pertanyaan yang dikirimkan disimpan dalam database yang di-host di Supabase dan hanya dapat diakses oleh Karsa Agency. Pengirimanmu juga memicu dua email: satu notifikasi internal ke Karsa, dan satu email konfirmasi ke alamat yang kamu berikan.",
-    "thirdPartyTitle": "Pemroses pihak ketiga",
-    "thirdPartyIntro": "Kami mengandalkan beberapa layanan pihak ketiga untuk mengoperasikan website ini dan memproses pertanyaan:",
-    "thirdPartyItems": [
-      "Penyedia database, untuk menyimpan pertanyaan yang dikirimkan.",
-      "Penyedia email transaksional, untuk mengirimkan email notifikasi dan konfirmasi.",
-      "Layanan proteksi bot, untuk memverifikasi bahwa pengiriman formulir berasal dari pengunjung nyata."
-    ],
-    "thirdPartyOutro": "Penyedia ini memproses data atas nama kami dan tidak diizinkan menggunakannya untuk kepentingan mereka sendiri.",
-    "analyticsTitle": "Analitik",
-    "analyticsBody": "Kami mungkin menggunakan analitik website yang menjaga privasi untuk memahami bagaimana situs ini digunakan. Data analitik tidak pernah menyertakan email, nomor telepon, atau deskripsi proyekmu.",
-    "yourDataTitle": "Data kamu",
-    "yourDataBody": "Kamu dapat meminta akses, koreksi, atau penghapusan informasi yang telah kamu kirimkan kapan saja dengan menghubungi kami.",
-    "contactTitle": "Kontak",
-    "contactWithChannels": "Hubungi kami melalui",
-    "contactWithoutChannelsPrefix": "Hubungi kami melalui formulir",
-    "contactWithoutChannelsSuffix": "."
+    "metaDescription": "Bagaimana Karsa Agency mengumpulkan, menggunakan, dan menyimpan informasi yang dikirimkan melalui website ini."
   },
   "inquiryForm": {
     "name": "Nama",

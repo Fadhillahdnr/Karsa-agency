@@ -2,6 +2,20 @@
 const { site, navLinks, primaryCta, contactChannels } = useKarsaConfig()
 const year = new Date().getFullYear()
 const { t } = useI18n()
+
+// Computed (not plain arrays) for the same reason navLinks is computed in
+// useKarsaConfig — this component persists across locale-only navigation.
+const secondaryLinks = computed(() => [
+  { label: t('process.eyebrow'), to: '/process' },
+  { label: t('contact.eyebrow'), to: '/contact' },
+  { label: t('careersIndex.eyebrow'), to: '/careers' },
+])
+
+const legalLinks = computed(() => [
+  { label: t('footer.privacy'), to: '/privacy' },
+  { label: t('footer.terms'), to: '/terms' },
+  { label: t('footer.termsOfService'), to: '/terms-of-service' },
+])
 </script>
 
 <template>
@@ -27,6 +41,17 @@ const { t } = useI18n()
           <ul class="flex flex-col gap-3">
             <li
               v-for="link in navLinks"
+              :key="link.to"
+            >
+              <NuxtLink
+                :to="link.to"
+                class="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+              >
+                {{ link.label }}
+              </NuxtLink>
+            </li>
+            <li
+              v-for="link in secondaryLinks"
               :key="link.to"
             >
               <NuxtLink
@@ -71,6 +96,19 @@ const { t } = useI18n()
         <p class="font-display text-sm tracking-widest uppercase">
           {{ site.tagline }}
         </p>
+        <nav
+          aria-label="Legal"
+          class="flex flex-wrap gap-x-6 gap-y-2"
+        >
+          <NuxtLink
+            v-for="link in legalLinks"
+            :key="link.to"
+            :to="link.to"
+            class="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+          >
+            {{ link.label }}
+          </NuxtLink>
+        </nav>
         <p class="text-sm text-[var(--color-text-muted)]">
           © {{ year }} {{ site.name.toUpperCase() }}
         </p>

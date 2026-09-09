@@ -301,6 +301,66 @@ export type FaqTranslationRow = {
 
 export type FaqTranslationUpsert = Omit<FaqTranslationRow, 'id'>
 
+export type CareerStatus = 'draft' | 'published' | 'archived'
+
+export type CareerRow = {
+  id: string
+  slug: string
+  department: string | null
+  employment_type: string | null
+  location: string | null
+  work_mode: string | null
+  application_url: string | null
+  application_email: string | null
+  order_index: number
+  status: CareerStatus
+  published_at: string | null
+  closing_at: string | null
+  created_by: string | null
+  updated_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+export type CareerInsert = Omit<CareerRow, 'id' | 'created_at' | 'updated_at'>
+export type CareerUpdate = Partial<CareerInsert>
+
+export type CareerTranslationRow = {
+  id: string
+  career_id: string
+  locale: Locale
+  title: string
+  summary: string | null
+  responsibilities: string[]
+  requirements: string[]
+  nice_to_have: string[]
+  seo_title: string | null
+  seo_description: string | null
+}
+
+export type CareerTranslationUpsert = Omit<CareerTranslationRow, 'id'>
+
+export type LegalPageSlug = 'privacy' | 'terms' | 'terms-of-service'
+
+export type LegalPageRow = {
+  id: string
+  slug: LegalPageSlug
+  updated_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+export type LegalPageTranslationRow = {
+  id: string
+  legal_page_id: string
+  locale: Locale
+  title: string
+  content: Record<string, unknown>
+  seo_description: string | null
+}
+
+export type LegalPageTranslationUpsert = Omit<LegalPageTranslationRow, 'id'>
+
 export type ClientRow = {
   id: string
   name: string
@@ -559,6 +619,30 @@ type Database = {
         Row: FaqTranslationRow
         Insert: FaqTranslationUpsert
         Update: Partial<FaqTranslationUpsert>
+        Relationships: []
+      }
+      careers: {
+        Row: CareerRow
+        Insert: CareerInsert
+        Update: CareerUpdate
+        Relationships: []
+      }
+      career_translations: {
+        Row: CareerTranslationRow
+        Insert: CareerTranslationUpsert
+        Update: Partial<CareerTranslationUpsert>
+        Relationships: []
+      }
+      legal_pages: {
+        Row: LegalPageRow
+        Insert: Omit<LegalPageRow, 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Omit<LegalPageRow, 'id' | 'created_at' | 'updated_at'>>
+        Relationships: []
+      }
+      legal_page_translations: {
+        Row: LegalPageTranslationRow
+        Insert: LegalPageTranslationUpsert
+        Update: Partial<LegalPageTranslationUpsert>
         Relationships: []
       }
     }

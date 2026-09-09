@@ -19,11 +19,16 @@
     "packages": "Packages",
     "insights": "Insights",
     "about": "About",
-    "startProject": "Start a Project"
+    "startProject": "Start a Project",
+    "legal": "Legal"
   },
   "footer": {
     "menu": "Menu",
-    "contact": "Contact"
+    "contact": "Contact",
+    "legalMenu": "Legal",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "termsOfService": "Terms of Service"
   },
   "site": {
     "title": "Creative & Digital Agency",
@@ -197,6 +202,42 @@
     "empty": "FAQs are being prepared. Get in touch with any questions in the meantime.",
     "allCategory": "All"
   },
+  "careersIndex": {
+    "eyebrow": "Careers",
+    "title": "Work with Karsa.",
+    "description": "Open roles at Karsa Agency, when there are any. We'd rather show an honest empty state than pad this page with roles that don't exist.",
+    "metaDescription": "Open roles at Karsa Agency.",
+    "empty": "No open roles right now. Check back later, or reach out — we're always open to hearing from people who do great work.",
+    "viewRole": "View role",
+    "backToCareers": "Back to Careers",
+    "apply": "Apply for this role",
+    "responsibilities": "Responsibilities",
+    "requirements": "Requirements",
+    "niceToHave": "Nice to have"
+  },
+  "process": {
+    "eyebrow": "Process",
+    "title": "How a project moves from idea to launch.",
+    "subtitle": "The same method underlies every engagement — website, design, photography, or film — adapted to what each discipline actually requires.",
+    "metaDescription": "The Karsa Method — how a project moves from discovery to delivery and support.",
+    "disciplinesEyebrow": "By Discipline",
+    "disciplinesTitle": "What changes per discipline.",
+    "disciplines": [
+      { "name": "Website", "description": "Discovery covers sitemap and content needs; Create moves through design before development; Review includes a QA pass before launch." },
+      { "name": "Design", "description": "Define locks the brief and reference direction; Create iterates through concepts to a refined system; Deliver includes source files and usage guidance." },
+      { "name": "Photography", "description": "Define sets shot list and location; Create is the shoot itself, followed by selects and retouching; Deliver hands over final files in the agreed formats." },
+      { "name": "Film", "description": "Define covers script or concept and shot list; Create spans production and edit; Review moves through cut approvals before final delivery." }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Let's talk about your project.",
+    "description": "Reach out directly, or start with the project form — either way, a real person reads it.",
+    "metaDescription": "Get in touch with Karsa Agency.",
+    "channelsTitle": "Reach us",
+    "noChannels": "Contact channels are being finalized. Use the Start a Project form in the meantime.",
+    "servicesTitle": "Services"
+  },
   "clientLogos": {
     "eyebrow": "Trusted By"
   },
@@ -270,29 +311,7 @@
   "privacy": {
     "eyebrow": "Privacy",
     "title": "Privacy Policy",
-    "metaDescription": "How Karsa Agency collects, uses, and stores information submitted through this website.",
-    "whatWeCollectTitle": "What we collect",
-    "whatWeCollectBody": "When you submit the Start a Project form, we collect the information you provide directly: name, email address, company (optional), phone (optional), the service you're inquiring about, budget range (optional), timeline (optional), your project description, and how you heard about us (optional).",
-    "whyWeCollectTitle": "Why we collect it",
-    "whyWeCollectBody": "This information is used solely to evaluate your project inquiry, respond to you, and — if we move forward — to scope and deliver the engagement. We don't use it for unrelated marketing without your separate consent.",
-    "storageTitle": "How it's stored",
-    "storageBody": "Submitted inquiries are stored in a Supabase-hosted database accessible only to Karsa Agency. Your submission also triggers two emails: one internal notification to Karsa, and one confirmation email sent to the address you provided.",
-    "thirdPartyTitle": "Third-party processors",
-    "thirdPartyIntro": "We rely on a small number of third-party services to operate this website and process inquiries:",
-    "thirdPartyItems": [
-      "A database provider, to store submitted inquiries.",
-      "A transactional email provider, to deliver notification and confirmation emails.",
-      "A bot-protection service, to verify that form submissions come from a real visitor."
-    ],
-    "thirdPartyOutro": "These providers process data on our behalf and are not permitted to use it for their own purposes.",
-    "analyticsTitle": "Analytics",
-    "analyticsBody": "We may use privacy-conscious website analytics to understand how the site is used. Analytics events never include your email, phone number, or project description.",
-    "yourDataTitle": "Your data",
-    "yourDataBody": "You can request access to, correction of, or deletion of the information you've submitted at any time by contacting us.",
-    "contactTitle": "Contact",
-    "contactWithChannels": "Reach out via",
-    "contactWithoutChannelsPrefix": "Reach out via the",
-    "contactWithoutChannelsSuffix": "form."
+    "metaDescription": "How Karsa Agency collects, uses, and stores information submitted through this website."
   },
   "inquiryForm": {
     "name": "Name",

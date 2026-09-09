@@ -3,8 +3,8 @@ import type { LegalPageApiItem } from '../../server/api/legal/[slug].get'
 
 const { t, locale } = useI18n()
 
-const { data: page } = await useAsyncData(`legal-privacy-${locale.value}`, () =>
-  $fetch<LegalPageApiItem | null>('/api/legal/privacy', { query: { locale: locale.value } }),
+const { data: page } = await useAsyncData(`legal-terms-of-service-${locale.value}`, () =>
+  $fetch<LegalPageApiItem | null>('/api/legal/terms-of-service', { query: { locale: locale.value } }),
 )
 
 if (!page.value) {
@@ -13,7 +13,7 @@ if (!page.value) {
 
 useSeoMeta({
   title: page.value.title,
-  description: page.value.seoDescription || t('privacy.metaDescription'),
+  description: page.value.seoDescription || undefined,
 })
 </script>
 
@@ -25,7 +25,7 @@ useSeoMeta({
       class="pt-32"
     >
       <BaseHeading
-        :eyebrow="t('privacy.eyebrow')"
+        :eyebrow="t('nav.legal')"
         size="display-2"
         as="h1"
       >
