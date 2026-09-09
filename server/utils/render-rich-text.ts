@@ -6,6 +6,11 @@ import { Table } from '@tiptap/extension-table'
 import TableRow from '@tiptap/extension-table-row'
 import TableHeader from '@tiptap/extension-table-header'
 import TableCell from '@tiptap/extension-table-cell'
+// Exact-pinned in package.json: sanitize-html >=2.17.6 depends on
+// htmlparser2@^12, which dropped its CommonJS build entirely (ESM-only,
+// no `require` export condition). Vercel's Nitro server bundle require()s
+// this synchronously and crashes the whole function at boot — do not
+// bump past 2.17.4 without re-checking htmlparser2's package.json exports.
 import sanitizeHtml from 'sanitize-html'
 import type { JSONContent } from '@tiptap/vue-3'
 
