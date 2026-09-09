@@ -30,7 +30,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     const result = await cloudinary.uploader.upload(dataUri, {
-      folder: 'karsa-studio/projects',
+      folder: 'karsa-agency/projects',
       resource_type: 'auto',
     })
 

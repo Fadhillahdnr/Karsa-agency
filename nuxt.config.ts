@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     '@nuxtjs/robots',
     'nuxt-schema-org',
     '@nuxtjs/i18n',
+    '@nuxtjs/color-mode',
   ],
 
   components: [{ path: '~/components', pathPrefix: false }],
@@ -32,8 +33,20 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: process.env.NUXT_PUBLIC_SITE_URL || 'https://karsastudio.com',
-    name: 'Karsa Studio',
+    url: process.env.NUXT_PUBLIC_SITE_URL || 'https://karsa-agency.vercel.app',
+    name: 'Karsa Agency',
+  },
+
+  // Light/dark/system theme (see app/assets/css/tokens.css for the token
+  // values). `dataValue` writes `data-theme="light|dark"` on <html>, which
+  // is what tokens.css keys off of — not Tailwind's `.dark` class strategy,
+  // to match this repo's existing CSS-custom-property token system.
+  colorMode: {
+    preference: 'system',
+    fallback: 'light',
+    dataValue: 'theme',
+    classSuffix: '',
+    storageKey: 'karsa-color-mode',
   },
 
   content: {
@@ -67,6 +80,12 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/privacy': { prerender: true },
+    // /studio was renamed to /about (Karsa Agency repositioning, see
+    // app/pages/about.vue). Redirect both locale forms — 'en' is currently
+    // the unprefixed default locale (see i18n config below), 'id' is
+    // prefixed — to preserve any indexed/bookmarked /studio links.
+    '/studio': { redirect: { to: '/about', statusCode: 301 } },
+    '/id/studio': { redirect: { to: '/id/about', statusCode: 301 } },
     // Admin panel is behind Supabase Auth and rendered client-only — no
     // point prerendering/indexing an auth-gated dashboard. The admin panel
     // is intentionally not localized (see i18n config below), but
@@ -120,7 +139,7 @@ export default defineNuxtConfig({
   },
 
   i18n: {
-    baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://karsastudio.com',
+    baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://karsa-agency.vercel.app',
     locales: [
       { code: 'en', language: 'en-US', name: 'English', file: 'en.json' },
       { code: 'id', language: 'id-ID', name: 'Indonesia', file: 'id.json' },

@@ -6,11 +6,11 @@ interface Value {
 
 const { t } = useI18n()
 const { karsaMethod } = useKarsaConfig()
-const values = useTmList<Value[]>('studio.values')
+const values = useTmList<Value[]>('about.values')
 
 useSeoMeta({
-  title: t('studio.eyebrow'),
-  description: t('studio.metaDescription'),
+  title: t('about.eyebrow'),
+  description: t('about.metaDescription'),
 })
 </script>
 
@@ -21,15 +21,15 @@ useSeoMeta({
       class="pt-32"
     >
       <BaseHeading
-        :eyebrow="t('studio.eyebrow')"
+        :eyebrow="t('about.eyebrow')"
         size="display-2"
         as="h1"
       >
-        {{ t('studio.heroTitleLine1') }}<br>
-        {{ t('studio.heroTitleLine2') }}
+        {{ t('about.heroTitleLine1') }}<br>
+        {{ t('about.heroTitleLine2') }}
       </BaseHeading>
       <p class="mt-6 max-w-xl text-[length:var(--text-body-lg)] text-[var(--color-text-muted)]">
-        {{ t('studio.heroSubtitle') }}
+        {{ t('about.heroSubtitle') }}
       </p>
     </BaseSection>
 
@@ -39,10 +39,10 @@ useSeoMeta({
     >
       <TextReveal class="max-w-3xl">
         <BaseHeading size="h1">
-          {{ t('studio.philosophyTitle') }}
+          {{ t('about.philosophyTitle') }}
         </BaseHeading>
         <p class="mt-6 text-[length:var(--text-body-lg)] text-[var(--color-text-muted)]">
-          {{ t('studio.philosophyBody') }}
+          {{ t('about.philosophyBody') }}
         </p>
       </TextReveal>
     </BaseSection>
@@ -52,10 +52,10 @@ useSeoMeta({
       class="border-t border-[var(--color-border)]"
     >
       <BaseHeading
-        :eyebrow="t('studio.principlesEyebrow')"
+        :eyebrow="t('about.principlesEyebrow')"
         size="h1"
       >
-        {{ t('studio.principlesTitle') }}
+        {{ t('about.principlesTitle') }}
       </BaseHeading>
       <div class="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2">
         <TextReveal
@@ -78,10 +78,10 @@ useSeoMeta({
       class="border-t border-[var(--color-border)]"
     >
       <BaseHeading
-        :eyebrow="t('studio.processEyebrow')"
+        :eyebrow="t('about.processEyebrow')"
         size="h1"
       >
-        {{ t('studio.processTitle') }}
+        {{ t('about.processTitle') }}
       </BaseHeading>
       <ol class="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-3">
         <li

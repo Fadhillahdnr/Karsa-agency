@@ -18,7 +18,7 @@ const pillars = useTmList<Pillar[]>('servicesPillars.pillars')
       {{ t('servicesPillars.title') }}
     </BaseHeading>
 
-    <div class="mt-16 grid grid-cols-1 divide-y divide-[var(--color-border)] border-t border-[var(--color-border)] md:grid-cols-3 md:divide-x md:divide-y-0">
+    <div class="mt-16 grid grid-cols-1 divide-y divide-[var(--color-border)] border-t border-[var(--color-border)] sm:grid-cols-2 sm:divide-x lg:grid-cols-4 lg:divide-y-0">
       <TextReveal
         v-for="(pillar, i) in pillars"
         :key="pillar.name"

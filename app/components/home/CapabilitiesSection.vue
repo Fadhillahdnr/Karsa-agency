@@ -20,7 +20,7 @@ const capabilities = useTmList<string[]>('capabilities.items')
 
     <div class="mt-16">
       <ScrollMarquee
-        aria-label="Karsa Studio capabilities"
+        aria-label="Karsa Agency capabilities"
         :speed="30"
       >
         <span

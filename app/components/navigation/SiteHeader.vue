@@ -45,7 +45,7 @@ function toggleMenu() {
         <NuxtLink
           to="/"
           class="font-display text-lg font-semibold tracking-tight"
-          aria-label="Karsa Studio — home"
+          aria-label="Karsa Agency — home"
         >
           {{ (site.name.split(' ')[0] ?? site.name).toUpperCase() }}°
         </NuxtLink>
@@ -69,6 +69,7 @@ function toggleMenu() {
           >
             {{ primaryCta.label }} <span aria-hidden="true">↗</span>
           </BaseButton>
+          <ThemeToggle />
           <LocaleSwitcher />
         </nav>
 

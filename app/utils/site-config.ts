@@ -7,8 +7,8 @@ export interface NavLink {
 // title/description/tagline, method steps, delivery stages) lives in
 // i18n/locales/*.json and is read via useKarsaConfig() instead — see there.
 export const siteConfig = {
-  name: 'Karsa Studio',
-  legalName: 'Karsa Studio',
+  name: 'Karsa Agency',
+  legalName: 'Karsa Agency',
   location: 'Indonesia',
 
   // TODO: business input — populate once official channels are confirmed.
@@ -21,5 +21,5 @@ export const siteConfig = {
 
 // Route paths are intentionally identical across locales (no per-locale URL
 // translation) — only the displayed label changes, sourced from i18n.
-export const navRoutes = ['/work', '/services', '/studio'] as const
+export const navRoutes = ['/work', '/services', '/about'] as const
 export const primaryCtaRoute = '/start-a-project'

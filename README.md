@@ -1,12 +1,12 @@
-# Karsa Studio — Website
+# Karsa Agency — Website
 
-**Digital Product & Software Studio.** _Dari Karsa Menjadi Karya._
+**Creative & Digital Agency.** _Dari Karsa Menjadi Karya._
 
 ## 1. Overview
 
-The official marketing and lead-generation website for Karsa Studio: a minimal, editorial Nuxt 4 site with a Karsa-mark 3D hero, a Karsa Method process narrative, honestly-labeled work and services, and a project-inquiry pipeline (Zod validation → Turnstile → Supabase → Resend).
+The official marketing, CMS/admin, and lead-generation website for Karsa Agency: a minimal, editorial Nuxt 4 site — Website · Design · Photography · Film — with a Karsa-mark 3D hero, a Karsa Method process narrative, honestly-labeled work and services, and a project-inquiry pipeline (Zod validation → Turnstile → Supabase → Resend).
 
-Built against `Karsa_Studio_Website_AI_Agent_Blueprint_v1.0.md`. Where the blueprint required business information that doesn't exist yet (contact channels, additional case studies), the site hides those elements gracefully instead of fabricating them — see [§20 Known Limitations](#20-known-limitations).
+Originally built against `Karsa_Studio_Website_AI_Agent_Blueprint_v1.0.md` under the prior "Karsa Studio / digital product & software studio" positioning, now being extended against `Karsa_Agency_Full_Website_CMS_Admin_AI_Agent_Master_Prompt_v2.1.md` (full CMS/admin revamp under the Karsa Agency repositioning — see that document's Milestone plan, §127, for the in-progress roadmap). Where business information doesn't exist yet (contact channels, additional case studies, real clients/testimonials), the site hides those elements gracefully instead of fabricating them — see [§20 Known Limitations](#20-known-limitations).
 
 ## 2. Stack
 

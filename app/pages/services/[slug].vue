@@ -32,7 +32,7 @@ useSchemaOrg([
     name: service.value!.title,
     description: service.value!.summary,
     serviceType: service.value!.title,
-    provider: { '@type': 'Organization', 'name': 'Karsa Studio' },
+    provider: { '@type': 'Organization', 'name': 'Karsa Agency' },
   }),
   defineBreadcrumb({
     itemListElement: [

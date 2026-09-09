@@ -112,7 +112,7 @@ onUnmounted(() => {
     </nav>
 
     <div class="border-t border-[var(--color-border)] px-6 py-4 text-xs text-[var(--color-text-muted)]">
-      Karsa Studio © {{ new Date().getFullYear() }}
+      Karsa Agency © {{ new Date().getFullYear() }}
     </div>
   </aside>
 </template>

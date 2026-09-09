@@ -76,14 +76,14 @@ interface ConfirmationEmailInput {
 }
 
 export function buildConfirmationEmail(input: ConfirmationEmailInput) {
-  const subject = 'We received your project inquiry — Karsa Studio'
+  const subject = 'We received your project inquiry — Karsa Agency'
   const html = `
     <div style="font-family:sans-serif;color:#0B0B0B;">
       <p>Hi ${escapeHtml(input.name)},</p>
-      <p>Terima kasih telah menghubungi Karsa Studio.</p>
+      <p>Terima kasih telah menghubungi Karsa Agency.</p>
       <p>Kami sudah menerima informasi awal mengenai project Anda.</p>
       <p>Reference:<br><strong>${escapeHtml(input.referenceId)}</strong></p>
-      <p>Karsa Studio<br>Dari Karsa Menjadi Karya.</p>
+      <p>Karsa Agency<br>Dari Karsa Menjadi Karya.</p>
     </div>
   `
 

@@ -10,6 +10,18 @@ interface Props {
 
 const props = defineProps<Props>()
 
+// The two accent parts (tick + core sphere) are bright/emissive by design
+// for a dark background. On light mode the same near-white fill would all
+// but disappear against the warm off-white page background, so they swap
+// to the brand accent color instead. The two torus rings stay a constant
+// dark charcoal — that reads with correct contrast against both a light
+// and a dark background already (verified visually), so they're left
+// alone rather than redesigning the whole placeholder mark.
+const colorMode = useColorMode()
+const isLight = computed(() => colorMode.value === 'light')
+const accentColor = computed(() => (isLight.value ? '#8B866A' : '#F5F5F5'))
+const accentEmissive = computed(() => (isLight.value ? '#6F6A52' : '#8a8a8a'))
+
 const groupRef = shallowRef<Group | null>(null)
 
 const canPointerParallax = ref(false)
@@ -106,10 +118,10 @@ if (!props.reducedMotion) {
     <TresMesh :position="[0, 1.95, 0] as unknown as Vector3">
       <TresCylinderGeometry :args="[0.045, 0.045, 0.5, 12]" />
       <TresMeshStandardMaterial
-        color="#F5F5F5"
+        :color="accentColor"
         :roughness="0.35"
         :metalness="0.2"
-        :emissive="'#8a8a8a'"
+        :emissive="accentEmissive"
         :emissive-intensity="0.4"
       />
     </TresMesh>
@@ -117,10 +129,10 @@ if (!props.reducedMotion) {
     <TresMesh>
       <TresSphereGeometry :args="[0.14, tier === 'high' ? 24 : 12, tier === 'high' ? 24 : 12]" />
       <TresMeshStandardMaterial
-        color="#F5F5F5"
+        :color="accentColor"
         :roughness="0.3"
         :metalness="0.25"
-        :emissive="'#8a8a8a'"
+        :emissive="accentEmissive"
         :emissive-intensity="0.5"
       />
     </TresMesh>

@@ -109,7 +109,8 @@ onUnmounted(() => {
             </li>
           </ul>
 
-          <div class="mt-8">
+          <div class="mt-8 flex items-center gap-4">
+            <ThemeToggle />
             <LocaleSwitcher />
           </div>
         </BaseContainer>

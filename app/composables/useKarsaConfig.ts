@@ -28,7 +28,7 @@ export function useKarsaConfig() {
   )
 
   const navLinks = computed(() => {
-    const labels = [t('nav.work'), t('nav.services'), t('nav.studio')]
+    const labels = [t('nav.work'), t('nav.services'), t('nav.about')]
     return navRoutes.map((to, i) => ({ label: labels[i]!, to }))
   })
 

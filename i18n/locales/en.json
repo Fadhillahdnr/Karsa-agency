@@ -7,10 +7,16 @@
     "learnMore": "Learn more",
     "language": "Language"
   },
+  "theme": {
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark",
+    "toggleLabel": "Theme: {current}. Click to switch to {next}."
+  },
   "nav": {
     "work": "Work",
     "services": "Services",
-    "studio": "Studio",
+    "about": "About",
     "startProject": "Start a Project"
   },
   "footer": {
@@ -18,39 +24,44 @@
     "contact": "Contact"
   },
   "site": {
-    "title": "Digital Product & Software Studio",
-    "description": "Karsa Studio is a digital product & software studio helping businesses design, build, and grow websites, e-commerce, web applications, and custom software.",
+    "title": "Creative & Digital Agency",
+    "description": "We help businesses build a complete digital presence through website, design, photography, and video under one creative direction.",
     "availability": "Available for selected projects"
   },
   "hero": {
-    "eyebrow": "Digital Product & Software Studio",
-    "subtitle": "Turning Vision Into Meaningful Digital Experiences.",
+    "eyebrow": "Creative & Digital Agency",
+    "subtitle": "We create digital and visual experiences that make businesses easier to see, understand, and remember.",
     "ctaExplore": "Explore Work",
     "ctaStart": "Start a Project"
   },
   "brandStatement": {
-    "line1": "Every digital product begins with an intention.",
-    "line2Muted": "Karsa is the beginning. Karya is the result.",
-    "line2Highlight": "We build what happens in between."
+    "line1": "One creative direction.",
+    "line2Muted": "Four ways to",
+    "line2Highlight": "bring it to life."
   },
   "servicesPillars": {
     "eyebrow": "What We Do",
-    "title": "Design, build, and grow — under one roof.",
+    "title": "Website, design, photography, and film — under one creative direction.",
     "pillars": [
       {
         "index": "01",
-        "name": "Design",
-        "items": ["UI/UX Design", "Product Design", "Prototype", "Design Systems", "Digital Brand Experience"]
+        "name": "Web",
+        "items": ["Website Development", "Landing Page", "Company Profile", "E-Commerce", "Website Revamp"]
       },
       {
         "index": "02",
-        "name": "Build",
-        "items": ["Websites", "E-Commerce", "Web Applications", "Custom Software", "Internal Systems", "Dashboards & Portals", "API & Integrations"]
+        "name": "Design",
+        "items": ["Brand Identity", "Logo Design", "Social Media Design", "Campaign Design", "Marketing Collateral"]
       },
       {
         "index": "03",
-        "name": "Grow",
-        "items": ["Maintenance & Support", "Performance Optimization", "Analytics", "Technical SEO", "Continuous Development"]
+        "name": "Photo",
+        "items": ["Product Photography", "Brand Photography", "Corporate Photography", "Event Documentation"]
+      },
+      {
+        "index": "04",
+        "name": "Film",
+        "items": ["Reels / Short-form", "Company Profile Video", "Campaign / Brand Film", "Video Editing"]
       }
     ]
   },
@@ -64,53 +75,54 @@
     "eyebrow": "Karsa Method",
     "title": "A process built for clarity, not ceremony.",
     "steps": [
-      { "step": "01", "name": "Understand", "description": "Business, user, problem, and goals." },
-      { "step": "02", "name": "Define", "description": "Requirement, scope, assumptions, dependencies, and risk." },
-      { "step": "03", "name": "Design", "description": "Flow, interaction, and interface." },
-      { "step": "04", "name": "Build", "description": "Engineering and integration." },
-      { "step": "05", "name": "Validate", "description": "QA, UAT, and acceptance." },
-      { "step": "06", "name": "Grow", "description": "Warranty, maintenance, and optimization." }
+      { "step": "01", "name": "Discover", "description": "Understanding the business, audience, and project goals." },
+      { "step": "02", "name": "Define", "description": "Scope, deliverables, and timeline." },
+      { "step": "03", "name": "Create", "description": "Designing and producing — website, visuals, photography, or video." },
+      { "step": "04", "name": "Review", "description": "Staged approvals and revisions per agreed rules." },
+      { "step": "05", "name": "Deliver", "description": "Asset handover and public release." },
+      { "step": "06", "name": "Support", "description": "Warranty, maintenance, and continued development where relevant." }
     ]
   },
   "capabilities": {
     "eyebrow": "Capabilities",
-    "title": "Everything a digital product needs to work.",
+    "title": "One creative partner for a business's entire digital and visual presence.",
     "items": [
-      "Digital Experiences",
-      "Web Development",
+      "Website Development",
+      "Brand Identity",
+      "Product Photography",
+      "Video Editing",
       "E-Commerce",
-      "Web Applications",
-      "Custom Software",
-      "Internal Systems",
-      "Dashboards & Portals",
-      "API & Integrations",
-      "UI/UX Design",
-      "Product Strategy",
-      "Maintenance & Support"
+      "Social Media Design",
+      "Company Profile Video",
+      "Event Documentation",
+      "Landing Page",
+      "Campaign Design",
+      "Brand Photography",
+      "Motion & Film"
     ]
   },
   "whyKarsa": {
     "eyebrow": "Why Karsa",
     "title": "Three principles behind every project.",
     "pillars": [
-      { "name": "Design-Driven.", "description": "Digital experiences that are thoughtful, clear, and enjoyable to use." },
-      { "name": "Technology-Backed.", "description": "Systems designed to be maintainable, reliable, and ready to evolve." },
-      { "name": "Business-Focused.", "description": "Every decision starts with the problem the product needs to solve." }
+      { "name": "One Creative Partner.", "description": "Website, design, photography, and video under one consistent creative direction." },
+      { "name": "Consistent Brand Experience.", "description": "Website, visual identity, photography, and motion speak the same language." },
+      { "name": "Business-Led Creativity.", "description": "Every creative decision starts from what the business needs to communicate and achieve." }
     ],
-    "footer": "Clear Scope. Clear Process. Clear Investment."
+    "footer": "Process Is Proof."
   },
   "deliveryTrust": {
     "eyebrow": "Delivery & Trust",
     "title": "How a project moves from idea to launch.",
-    "stages": ["Discovery", "Scope & Proposal", "Design", "Development", "QA & UAT", "Launch", "Warranty", "Continuous Support"],
+    "stages": ["Discovery", "Scope & Proposal", "Design", "Production", "Review & Approval", "Launch", "Warranty", "Continuous Support"],
     "trust": [
       "Clear scope before work begins",
       "Milestone-based delivery",
-      "Structured QA on every build",
-      "User acceptance testing before launch",
-      "Documented handover",
-      "Warranty period after launch",
-      "Optional ongoing maintenance"
+      "Clear approval process at every stage",
+      "Revision rules agreed upfront",
+      "Website QA before launch",
+      "Documented asset handover",
+      "Ongoing warranty/support where applicable"
     ]
   },
   "finalCta": {
@@ -139,9 +151,9 @@
   },
   "servicesIndex": {
     "eyebrow": "Services",
-    "title": "Design, build, and grow — under one roof.",
-    "description": "Every engagement sits under one of three pillars, moved through the Karsa Method from understanding to growth.",
-    "metaDescription": "UI/UX design, web development, e-commerce, web applications, custom software, and ongoing maintenance from Karsa Studio."
+    "title": "Website, design, photography, and film — under one roof.",
+    "description": "Every engagement sits under one of our creative pillars, moved through the Karsa Method from understanding to handover.",
+    "metaDescription": "Website, design, photography, and video from Karsa Agency — one creative direction for your business's digital and visual presence."
   },
   "serviceDetail": {
     "whoItsFor": "Who It's For",
@@ -151,13 +163,13 @@
     "faq": "FAQ",
     "start": "Start a Project"
   },
-  "studio": {
-    "eyebrow": "Studio",
+  "about": {
+    "eyebrow": "About",
     "heroTitleLine1": "Karsa is the beginning.",
     "heroTitleLine2": "Karya is the result.",
-    "heroSubtitle": "Karsa Studio is the space in between — where a business intention becomes a working digital product.",
+    "heroSubtitle": "Karsa Agency is the space in between — where a business intention becomes a complete digital and visual presence.",
     "philosophyTitle": "Design-driven. Technology-backed. Business-focused.",
-    "philosophyBody": "Karsa Studio helps businesses build, improve, and digitalize products and processes through a combination of business understanding, thoughtful design, and reliable technology. Business explains why something is built. Design shapes how people use and feel it. Technology makes sure it works — reliably, maintainably, and ready to grow.",
+    "philosophyBody": "Karsa Agency helps businesses build a complete digital and visual presence through website, design, photography, and video — under one creative direction. Business explains why something is built. Design shapes how people see and feel it. Technology makes sure it all works — reliably, maintainably, and ready to grow.",
     "principlesEyebrow": "Working Principles",
     "principlesTitle": "How we approach every project.",
     "values": [
@@ -165,28 +177,28 @@
       { "name": "Modern", "description": "Current tools and practices, applied without chasing trends for their own sake." },
       { "name": "Professional", "description": "Clear communication, realistic scope, and follow-through on what's agreed." },
       { "name": "Honest", "description": "No inflated claims, no fabricated portfolio, no promises we can't keep." },
-      { "name": "Human", "description": "Software is built for people — that stays the starting point, not an afterthought." }
+      { "name": "Human", "description": "Every piece of work is made for people — that stays the starting point, not an afterthought." }
     ],
     "processEyebrow": "Process",
     "processTitle": "The Karsa Method.",
-    "metaDescription": "Karsa Studio's philosophy, positioning, and working principles as a digital product & software studio."
+    "metaDescription": "Karsa Agency's philosophy, positioning, and working principles as a creative & digital agency."
   },
   "startAProject": {
     "eyebrow": "Start a Project",
     "title": "Tell us what you're building.",
     "description": "Share a few details about your project. We'll review it and follow up with next steps — no obligation, no automated sales pitch.",
-    "metaDescription": "Tell us about your project — Karsa Studio will follow up with next steps."
+    "metaDescription": "Tell us about your project — Karsa Agency will follow up with next steps."
   },
   "privacy": {
     "eyebrow": "Privacy",
     "title": "Privacy Policy",
-    "metaDescription": "How Karsa Studio collects, uses, and stores information submitted through this website.",
+    "metaDescription": "How Karsa Agency collects, uses, and stores information submitted through this website.",
     "whatWeCollectTitle": "What we collect",
     "whatWeCollectBody": "When you submit the Start a Project form, we collect the information you provide directly: name, email address, company (optional), phone (optional), the service you're inquiring about, budget range (optional), timeline (optional), your project description, and how you heard about us (optional).",
     "whyWeCollectTitle": "Why we collect it",
     "whyWeCollectBody": "This information is used solely to evaluate your project inquiry, respond to you, and — if we move forward — to scope and deliver the engagement. We don't use it for unrelated marketing without your separate consent.",
     "storageTitle": "How it's stored",
-    "storageBody": "Submitted inquiries are stored in a Supabase-hosted database accessible only to Karsa Studio. Your submission also triggers two emails: one internal notification to Karsa, and one confirmation email sent to the address you provided.",
+    "storageBody": "Submitted inquiries are stored in a Supabase-hosted database accessible only to Karsa Agency. Your submission also triggers two emails: one internal notification to Karsa, and one confirmation email sent to the address you provided.",
     "thirdPartyTitle": "Third-party processors",
     "thirdPartyIntro": "We rely on a small number of third-party services to operate this website and process inquiries:",
     "thirdPartyItems": [

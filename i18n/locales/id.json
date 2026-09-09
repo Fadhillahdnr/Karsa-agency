@@ -7,10 +7,16 @@
     "learnMore": "Pelajari lebih lanjut",
     "language": "Bahasa"
   },
+  "theme": {
+    "system": "Mengikuti Sistem",
+    "light": "Terang",
+    "dark": "Gelap",
+    "toggleLabel": "Tema: {current}. Klik untuk beralih ke {next}."
+  },
   "nav": {
     "work": "Karya",
     "services": "Layanan",
-    "studio": "Studio",
+    "about": "Tentang",
     "startProject": "Mulai Proyek"
   },
   "footer": {
@@ -18,39 +24,44 @@
     "contact": "Kontak"
   },
   "site": {
-    "title": "Studio Produk Digital & Perangkat Lunak",
-    "description": "Karsa Studio adalah studio produk digital & perangkat lunak yang membantu bisnis merancang, membangun, dan mengembangkan website, e-commerce, aplikasi web, dan perangkat lunak custom.",
+    "title": "Agensi Kreatif & Digital",
+    "description": "Kami membantu bisnis membangun kehadiran digital yang utuh melalui website, desain, fotografi, dan video dalam satu creative direction.",
     "availability": "Tersedia untuk proyek pilihan"
   },
   "hero": {
-    "eyebrow": "Studio Produk Digital & Perangkat Lunak",
-    "subtitle": "Mengubah Visi Menjadi Pengalaman Digital yang Bermakna.",
+    "eyebrow": "Agensi Kreatif & Digital",
+    "subtitle": "Kami menciptakan pengalaman digital dan visual yang membuat bisnis lebih mudah dilihat, dipahami, dan diingat.",
     "ctaExplore": "Lihat Karya",
     "ctaStart": "Mulai Proyek"
   },
   "brandStatement": {
-    "line1": "Setiap produk digital berawal dari sebuah niat.",
-    "line2Muted": "Karsa adalah awal. Karya adalah hasil.",
-    "line2Highlight": "Kami membangun apa yang terjadi di antara keduanya."
+    "line1": "Satu arah kreatif.",
+    "line2Muted": "Empat cara",
+    "line2Highlight": "mewujudkannya."
   },
   "servicesPillars": {
     "eyebrow": "Yang Kami Kerjakan",
-    "title": "Merancang, membangun, dan mengembangkan — dalam satu atap.",
+    "title": "Website, desain, fotografi, dan film — dalam satu arah kreatif.",
     "pillars": [
       {
         "index": "01",
-        "name": "Desain",
-        "items": ["Desain UI/UX", "Desain Produk", "Prototipe", "Design System", "Pengalaman Brand Digital"]
+        "name": "Web",
+        "items": ["Pengembangan Website", "Landing Page", "Company Profile", "E-Commerce", "Revamp Website"]
       },
       {
         "index": "02",
-        "name": "Bangun",
-        "items": ["Website", "E-Commerce", "Aplikasi Web", "Perangkat Lunak Custom", "Sistem Internal", "Dashboard & Portal", "API & Integrasi"]
+        "name": "Desain",
+        "items": ["Brand Identity", "Desain Logo", "Desain Media Sosial", "Desain Kampanye", "Marketing Collateral"]
       },
       {
         "index": "03",
-        "name": "Kembangkan",
-        "items": ["Maintenance & Support", "Optimasi Performa", "Analitik", "SEO Teknis", "Pengembangan Berkelanjutan"]
+        "name": "Foto",
+        "items": ["Fotografi Produk", "Fotografi Brand", "Fotografi Korporat", "Dokumentasi Acara"]
+      },
+      {
+        "index": "04",
+        "name": "Film",
+        "items": ["Reels / Video Pendek", "Video Company Profile", "Campaign / Brand Film", "Video Editing"]
       }
     ]
   },
@@ -64,53 +75,54 @@
     "eyebrow": "Metode Karsa",
     "title": "Proses yang dibangun untuk kejelasan, bukan formalitas.",
     "steps": [
-      { "step": "01", "name": "Memahami", "description": "Bisnis, pengguna, masalah, dan tujuan." },
-      { "step": "02", "name": "Menentukan", "description": "Kebutuhan, ruang lingkup, asumsi, dependensi, dan risiko." },
-      { "step": "03", "name": "Mendesain", "description": "Alur, interaksi, dan antarmuka." },
-      { "step": "04", "name": "Membangun", "description": "Rekayasa dan integrasi." },
-      { "step": "05", "name": "Validasi", "description": "QA, UAT, dan persetujuan." },
-      { "step": "06", "name": "Kembangkan", "description": "Garansi, maintenance, dan optimasi." }
+      { "step": "01", "name": "Discover", "description": "Memahami bisnis, audiens, dan tujuan proyek." },
+      { "step": "02", "name": "Define", "description": "Menentukan ruang lingkup, deliverable, dan timeline." },
+      { "step": "03", "name": "Create", "description": "Mendesain dan memproduksi — website, visual, foto, atau video." },
+      { "step": "04", "name": "Review", "description": "Persetujuan bertahap dan revisi sesuai kesepakatan." },
+      { "step": "05", "name": "Deliver", "description": "Serah terima aset dan rilis ke publik." },
+      { "step": "06", "name": "Support", "description": "Garansi, maintenance, dan pengembangan lanjutan bila diperlukan." }
     ]
   },
   "capabilities": {
     "eyebrow": "Kapabilitas",
-    "title": "Semua yang dibutuhkan produk digital agar berjalan.",
+    "title": "Satu creative partner untuk seluruh kehadiran digital dan visual bisnis.",
     "items": [
-      "Pengalaman Digital",
-      "Pengembangan Web",
+      "Pengembangan Website",
+      "Brand Identity",
+      "Fotografi Produk",
+      "Video Editing",
       "E-Commerce",
-      "Aplikasi Web",
-      "Perangkat Lunak Custom",
-      "Sistem Internal",
-      "Dashboard & Portal",
-      "API & Integrasi",
-      "Desain UI/UX",
-      "Strategi Produk",
-      "Maintenance & Support"
+      "Desain Media Sosial",
+      "Video Company Profile",
+      "Dokumentasi Acara",
+      "Landing Page",
+      "Desain Kampanye",
+      "Fotografi Brand",
+      "Motion & Film"
     ]
   },
   "whyKarsa": {
     "eyebrow": "Mengapa Karsa",
     "title": "Tiga prinsip di balik setiap proyek.",
     "pillars": [
-      { "name": "Berbasis Desain.", "description": "Pengalaman digital yang dipikirkan matang, jelas, dan nyaman digunakan." },
-      { "name": "Didukung Teknologi.", "description": "Sistem yang dirancang agar mudah dirawat, andal, dan siap berkembang." },
-      { "name": "Berfokus Bisnis.", "description": "Setiap keputusan dimulai dari masalah yang perlu diselesaikan produk." }
+      { "name": "Satu Mitra Kreatif.", "description": "Website, desain, fotografi, dan video di bawah satu arah kreatif yang sama." },
+      { "name": "Pengalaman Brand Konsisten.", "description": "Website, identitas visual, fotografi, dan motion berbicara dalam bahasa yang sama." },
+      { "name": "Kreativitas Berbasis Bisnis.", "description": "Setiap keputusan kreatif dimulai dari apa yang perlu dikomunikasikan dan dicapai bisnis." }
     ],
-    "footer": "Ruang Lingkup Jelas. Proses Jelas. Investasi Jelas."
+    "footer": "Proses Adalah Bukti."
   },
   "deliveryTrust": {
     "eyebrow": "Pengerjaan & Kepercayaan",
     "title": "Bagaimana sebuah proyek bergerak dari ide hingga rilis.",
-    "stages": ["Discovery", "Ruang Lingkup & Proposal", "Desain", "Pengembangan", "QA & UAT", "Rilis", "Garansi", "Dukungan Berkelanjutan"],
+    "stages": ["Discovery", "Ruang Lingkup & Proposal", "Desain", "Produksi", "Review & Persetujuan", "Rilis", "Garansi", "Dukungan Berkelanjutan"],
     "trust": [
       "Ruang lingkup jelas sebelum pengerjaan dimulai",
       "Pengiriman berbasis milestone",
-      "QA terstruktur pada setiap build",
-      "User acceptance testing sebelum rilis",
-      "Serah terima terdokumentasi",
-      "Masa garansi setelah rilis",
-      "Maintenance lanjutan bersifat opsional"
+      "Proses persetujuan yang jelas di setiap tahap",
+      "Aturan revisi yang disepakati di awal",
+      "QA website sebelum rilis",
+      "Serah terima aset yang terdokumentasi",
+      "Masa garansi/dukungan berkelanjutan bila berlaku"
     ]
   },
   "finalCta": {
@@ -139,9 +151,9 @@
   },
   "servicesIndex": {
     "eyebrow": "Layanan",
-    "title": "Merancang, membangun, dan mengembangkan — dalam satu atap.",
-    "description": "Setiap proyek berada di bawah salah satu dari tiga pilar, dijalankan melalui Metode Karsa dari pemahaman hingga pengembangan.",
-    "metaDescription": "Desain UI/UX, pengembangan web, e-commerce, aplikasi web, perangkat lunak custom, dan maintenance berkelanjutan dari Karsa Studio."
+    "title": "Website, desain, fotografi, dan film — dalam satu atap.",
+    "description": "Setiap proyek berada di bawah salah satu pilar kreatif kami, dijalankan melalui Metode Karsa dari pemahaman hingga serah terima.",
+    "metaDescription": "Website, desain, fotografi, dan video dari Karsa Agency — satu arah kreatif untuk kehadiran digital dan visual bisnis Anda."
   },
   "serviceDetail": {
     "whoItsFor": "Untuk Siapa",
@@ -151,13 +163,13 @@
     "faq": "Tanya Jawab",
     "start": "Mulai Proyek"
   },
-  "studio": {
-    "eyebrow": "Studio",
+  "about": {
+    "eyebrow": "Tentang",
     "heroTitleLine1": "Karsa adalah awal.",
     "heroTitleLine2": "Karya adalah hasil.",
-    "heroSubtitle": "Karsa Studio adalah ruang di antara keduanya — tempat niat bisnis menjadi produk digital yang berfungsi.",
+    "heroSubtitle": "Karsa Agency adalah ruang di antara keduanya — tempat niat bisnis menjadi kehadiran digital dan visual yang utuh.",
     "philosophyTitle": "Berbasis desain. Didukung teknologi. Berfokus bisnis.",
-    "philosophyBody": "Karsa Studio membantu bisnis membangun, meningkatkan, dan mendigitalisasi produk serta proses melalui kombinasi pemahaman bisnis, desain yang matang, dan teknologi yang andal. Bisnis menjelaskan mengapa sesuatu dibangun. Desain membentuk bagaimana orang menggunakan dan merasakannya. Teknologi memastikan semuanya berjalan — andal, mudah dirawat, dan siap berkembang.",
+    "philosophyBody": "Karsa Agency membantu bisnis membangun kehadiran digital dan visual yang utuh melalui website, desain, fotografi, dan video — dalam satu creative direction. Bisnis menjelaskan mengapa sesuatu dibangun. Desain membentuk bagaimana orang melihat dan merasakannya. Teknologi memastikan semuanya berjalan — andal, mudah dirawat, dan siap berkembang.",
     "principlesEyebrow": "Prinsip Kerja",
     "principlesTitle": "Bagaimana kami mendekati setiap proyek.",
     "values": [
@@ -165,28 +177,28 @@
       { "name": "Modern", "description": "Tools dan praktik terkini, diterapkan tanpa mengejar tren demi tren." },
       { "name": "Profesional", "description": "Komunikasi jelas, ruang lingkup realistis, dan konsisten menepati apa yang disepakati." },
       { "name": "Jujur", "description": "Tanpa klaim berlebihan, tanpa portofolio palsu, tanpa janji yang tidak bisa kami tepati." },
-      { "name": "Human", "description": "Perangkat lunak dibangun untuk manusia — itu tetap jadi titik awal, bukan renungan belakangan." }
+      { "name": "Human", "description": "Setiap karya dibuat untuk manusia — itu tetap jadi titik awal, bukan renungan belakangan." }
     ],
     "processEyebrow": "Proses",
     "processTitle": "Metode Karsa.",
-    "metaDescription": "Filosofi, positioning, dan prinsip kerja Karsa Studio sebagai studio produk digital & perangkat lunak."
+    "metaDescription": "Filosofi, positioning, dan prinsip kerja Karsa Agency sebagai creative & digital agency."
   },
   "startAProject": {
     "eyebrow": "Mulai Proyek",
     "title": "Ceritakan apa yang sedang kamu bangun.",
     "description": "Bagikan beberapa detail tentang proyekmu. Kami akan meninjau dan menghubungi kembali dengan langkah selanjutnya — tanpa kewajiban, tanpa penawaran otomatis.",
-    "metaDescription": "Ceritakan tentang proyekmu — Karsa Studio akan menghubungi kembali dengan langkah selanjutnya."
+    "metaDescription": "Ceritakan tentang proyekmu — Karsa Agency akan menghubungi kembali dengan langkah selanjutnya."
   },
   "privacy": {
     "eyebrow": "Privasi",
     "title": "Kebijakan Privasi",
-    "metaDescription": "Bagaimana Karsa Studio mengumpulkan, menggunakan, dan menyimpan informasi yang dikirimkan melalui website ini.",
+    "metaDescription": "Bagaimana Karsa Agency mengumpulkan, menggunakan, dan menyimpan informasi yang dikirimkan melalui website ini.",
     "whatWeCollectTitle": "Apa yang kami kumpulkan",
     "whatWeCollectBody": "Saat kamu mengirimkan formulir Mulai Proyek, kami mengumpulkan informasi yang kamu berikan secara langsung: nama, alamat email, perusahaan (opsional), telepon (opsional), layanan yang ditanyakan, kisaran anggaran (opsional), timeline (opsional), deskripsi proyek, dan dari mana kamu mengetahui kami (opsional).",
     "whyWeCollectTitle": "Mengapa kami mengumpulkannya",
     "whyWeCollectBody": "Informasi ini digunakan semata-mata untuk mengevaluasi pertanyaan proyekmu, merespons, dan — jika kami melanjutkan — untuk menyusun ruang lingkup serta mengerjakan proyek. Kami tidak menggunakannya untuk pemasaran yang tidak terkait tanpa persetujuan terpisah darimu.",
     "storageTitle": "Bagaimana data disimpan",
-    "storageBody": "Pertanyaan yang dikirimkan disimpan dalam database yang di-host di Supabase dan hanya dapat diakses oleh Karsa Studio. Pengirimanmu juga memicu dua email: satu notifikasi internal ke Karsa, dan satu email konfirmasi ke alamat yang kamu berikan.",
+    "storageBody": "Pertanyaan yang dikirimkan disimpan dalam database yang di-host di Supabase dan hanya dapat diakses oleh Karsa Agency. Pengirimanmu juga memicu dua email: satu notifikasi internal ke Karsa, dan satu email konfirmasi ke alamat yang kamu berikan.",
     "thirdPartyTitle": "Pemroses pihak ketiga",
     "thirdPartyIntro": "Kami mengandalkan beberapa layanan pihak ketiga untuk mengoperasikan website ini dan memproses pertanyaan:",
     "thirdPartyItems": [
