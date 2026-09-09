@@ -6,7 +6,7 @@ import { Table } from '@tiptap/extension-table'
 import TableRow from '@tiptap/extension-table-row'
 import TableHeader from '@tiptap/extension-table-header'
 import TableCell from '@tiptap/extension-table-cell'
-import DOMPurify from 'isomorphic-dompurify'
+import sanitizeHtml from 'sanitize-html'
 import type { JSONContent } from '@tiptap/vue-3'
 
 const extensions = [
@@ -36,13 +36,16 @@ export function renderRichText(content: JSONContent | null | undefined): string 
     return ''
   }
 
-  return DOMPurify.sanitize(html, {
-    ALLOWED_TAGS: [
+  return sanitizeHtml(html, {
+    allowedTags: [
       'p', 'br', 'strong', 'em', 's', 'code', 'pre',
       'h2', 'h3', 'h4', 'ul', 'ol', 'li', 'blockquote',
       'a', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td',
     ],
-    ALLOWED_ATTR: ['href', 'target', 'rel', 'src', 'alt', 'title'],
-    ALLOW_DATA_ATTR: false,
+    allowedAttributes: {
+      a: ['href', 'target', 'rel', 'title'],
+      img: ['src', 'alt', 'title'],
+    },
+    allowedSchemes: ['http', 'https', 'mailto'],
   })
 }
