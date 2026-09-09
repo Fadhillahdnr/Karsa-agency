@@ -174,6 +174,16 @@
     "custom": "Custom pricing",
     "monthly": "/month"
   },
+  "clientLogos": {
+    "eyebrow": "Trusted By"
+  },
+  "fullPresence": {
+    "eyebrow": "Full Presence",
+    "title": "Website + Design + Photography + Video."
+  },
+  "testimonialsSection": {
+    "eyebrow": "What Clients Say"
+  },
   "portfolio": {
     "design": {
       "eyebrow": "Design",

@@ -35,6 +35,7 @@ const navGroups: NavGroup[] = [
   {
     label: 'Content',
     items: [
+      { label: 'Homepage', to: '/admin/content/home', icon: 'edit', roles: ['super_admin', 'content_editor'] },
       { label: 'Services', to: '/admin/services', icon: 'projects', roles: ['super_admin', 'content_editor', 'viewer'] },
       { label: 'Packages', to: '/admin/packages', icon: 'projects', roles: ['super_admin', 'content_editor', 'viewer'] },
       { label: 'Work / Case Studies', to: '/admin/projects', icon: 'projects', roles: ['super_admin', 'content_editor', 'viewer'] },

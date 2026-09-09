@@ -180,6 +180,38 @@ export type PackageItemRow = {
   order_index: number
 }
 
+export type PageSectionComponentType
+  = | 'hero' | 'client_logos' | 'brand_statement' | 'service_grid' | 'featured_work'
+    | 'integrated_package' | 'why_karsa' | 'process' | 'testimonials' | 'insights'
+    | 'updates' | 'faq' | 'cta'
+
+export type PageRow = {
+  id: string
+  slug: string
+  status: ContentStatus
+  published_at: string | null
+  show_in_navigation: boolean
+  indexable: boolean
+  created_at: string
+  updated_at: string
+}
+
+export type PageSectionRow = {
+  id: string
+  page_id: string
+  section_key: string
+  component_type: PageSectionComponentType
+  enabled: boolean
+  order_index: number
+  theme_variant: 'light' | 'dark' | 'neutral' | 'auto' | null
+  content: Record<string, unknown>
+  settings: Record<string, unknown>
+  created_at: string
+  updated_at: string
+}
+
+export type PageSectionUpdate = Partial<Pick<PageSectionRow, 'enabled' | 'order_index' | 'theme_variant' | 'content' | 'settings'>>
+
 export type ClientRow = {
   id: string
   name: string
@@ -390,6 +422,18 @@ type Database = {
         Row: PortfolioItemRow
         Insert: PortfolioItemInsert
         Update: Partial<PortfolioItemInsert>
+        Relationships: []
+      }
+      pages: {
+        Row: PageRow
+        Insert: Omit<PageRow, 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Omit<PageRow, 'id' | 'created_at' | 'updated_at'>>
+        Relationships: []
+      }
+      page_sections: {
+        Row: PageSectionRow
+        Insert: Omit<PageSectionRow, 'id' | 'created_at' | 'updated_at'>
+        Update: PageSectionUpdate
         Relationships: []
       }
     }
