@@ -77,6 +77,209 @@ export type MediaAssetRow = {
 export type MediaAssetInsert = Omit<MediaAssetRow, 'id' | 'created_at'>
 export type MediaAssetUpdate = Partial<Pick<MediaAssetRow, 'alt_text' | 'caption' | 'rights_status' | 'credit' | 'source'>>
 
+export type ContentStatus = 'draft' | 'scheduled' | 'published' | 'archived'
+export type ServiceCategory = 'web' | 'design' | 'photo' | 'film' | 'integrated'
+export type Locale = 'en' | 'id'
+
+export type ServiceRow = {
+  id: string
+  slug: string
+  parent_id: string | null
+  category: ServiceCategory
+  cover_media_id: string | null
+  featured: boolean
+  show_price: boolean
+  price_type: 'fixed' | 'starting_from' | 'custom' | 'monthly' | null
+  starting_price: number | null
+  currency: string
+  order_index: number
+  status: ContentStatus
+  published_at: string | null
+  created_by: string | null
+  updated_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+export type ServiceInsert = Omit<ServiceRow, 'id' | 'created_at' | 'updated_at' | 'currency'> & { currency?: string }
+export type ServiceUpdate = Partial<Omit<ServiceRow, 'id' | 'created_at' | 'updated_at'>>
+
+export type ServiceTranslationRow = {
+  id: string
+  service_id: string
+  locale: Locale
+  title: string
+  short_title: string | null
+  eyebrow: string | null
+  summary: string | null
+  intro: string | null
+  who_its_for: string | null
+  problems: string | null
+  deliverables: string | null
+  included: string | null
+  excluded: string | null
+  process: string | null
+  cta_label: string | null
+  seo_title: string | null
+  seo_description: string | null
+}
+
+export type ServiceTranslationUpsert = Omit<ServiceTranslationRow, 'id'>
+
+export type ServiceFaqRow = {
+  id: string
+  service_id: string
+  locale: Locale
+  question: string
+  answer: string
+  order_index: number
+}
+
+export type PackageRow = {
+  id: string
+  slug: string
+  category: 'solo' | 'combo' | 'signature' | 'maintenance'
+  price_type: 'fixed' | 'starting_from' | 'custom' | 'monthly'
+  price: number | null
+  currency: string
+  badge: string | null
+  featured: boolean
+  order_index: number
+  status: ContentStatus
+  published_at: string | null
+  created_at: string
+  updated_at: string
+}
+
+export type PackageInsert = Omit<PackageRow, 'id' | 'created_at' | 'updated_at' | 'currency'> & { currency?: string }
+export type PackageUpdate = Partial<Omit<PackageRow, 'id' | 'created_at' | 'updated_at'>>
+
+export type PackageTranslationRow = {
+  id: string
+  package_id: string
+  locale: Locale
+  title: string
+  summary: string | null
+  price_note: string | null
+  recommended_for: string | null
+  duration_note: string | null
+  revision_note: string | null
+  cta_label: string | null
+  seo_title: string | null
+  seo_description: string | null
+}
+
+export type PackageTranslationUpsert = Omit<PackageTranslationRow, 'id'>
+
+export type PackageItemRow = {
+  id: string
+  package_id: string
+  label: string
+  description: string | null
+  is_highlight: boolean
+  order_index: number
+}
+
+export type ClientRow = {
+  id: string
+  name: string
+  slug: string
+  logo_media_id: string | null
+  website_url: string | null
+  industry: string | null
+  description: string | null
+  featured: boolean
+  permission_to_show: boolean
+  order_index: number
+  status: 'draft' | 'published' | 'archived'
+  created_at: string
+  updated_at: string
+}
+
+export type ClientInsert = Omit<ClientRow, 'id' | 'created_at' | 'updated_at'>
+export type ClientUpdate = Partial<ClientInsert>
+
+export type TestimonialRow = {
+  id: string
+  quote: string
+  person_name: string
+  person_role: string | null
+  company: string | null
+  client_id: string | null
+  project_id: string | null
+  avatar_media_id: string | null
+  source: string | null
+  source_url: string | null
+  permission_to_show: boolean
+  featured: boolean
+  order_index: number
+  status: 'draft' | 'published' | 'archived'
+  created_at: string
+  updated_at: string
+}
+
+export type TestimonialInsert = Omit<TestimonialRow, 'id' | 'created_at' | 'updated_at'>
+export type TestimonialUpdate = Partial<TestimonialInsert>
+
+export type PortfolioDiscipline = 'design' | 'photography' | 'videography'
+
+export type PortfolioCollectionRow = {
+  id: string
+  slug: string
+  discipline: PortfolioDiscipline
+  category: string | null
+  client_id: string | null
+  project_id: string | null
+  cover_media_id: string | null
+  featured: boolean
+  permission_to_show: boolean
+  order_index: number
+  status: ContentStatus
+  published_at: string | null
+  created_by: string | null
+  updated_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+export type PortfolioCollectionInsert = Omit<PortfolioCollectionRow, 'id' | 'created_at' | 'updated_at'>
+export type PortfolioCollectionUpdate = Partial<PortfolioCollectionInsert>
+
+export type PortfolioCollectionTranslationRow = {
+  id: string
+  collection_id: string
+  locale: Locale
+  title: string
+  summary: string | null
+  description: string | null
+  credits: string | null
+  seo_title: string | null
+  seo_description: string | null
+}
+
+export type PortfolioCollectionTranslationUpsert = Omit<PortfolioCollectionTranslationRow, 'id'>
+
+export type PortfolioItemType = 'image' | 'mockup' | 'video' | 'external_video' | 'before' | 'after' | 'document'
+
+export type PortfolioItemRow = {
+  id: string
+  collection_id: string
+  media_id: string | null
+  item_type: PortfolioItemType
+  external_url: string | null
+  poster_media_id: string | null
+  caption: string | null
+  alt_text: string | null
+  duration: number | null
+  aspect_ratio: string | null
+  featured: boolean
+  order_index: number
+  metadata: Record<string, unknown>
+  created_at: string
+}
+
+export type PortfolioItemInsert = Omit<PortfolioItemRow, 'id' | 'created_at'>
+
 export type AdminRole = 'super_admin' | 'content_editor' | 'sales' | 'viewer'
 
 export type AdminProfileRow = {
@@ -115,6 +318,78 @@ type Database = {
         Row: MediaAssetRow
         Insert: MediaAssetInsert
         Update: MediaAssetUpdate
+        Relationships: []
+      }
+      services: {
+        Row: ServiceRow
+        Insert: ServiceInsert
+        Update: ServiceUpdate
+        Relationships: []
+      }
+      service_translations: {
+        Row: ServiceTranslationRow
+        Insert: ServiceTranslationUpsert
+        Update: Partial<ServiceTranslationUpsert>
+        Relationships: []
+      }
+      service_faqs: {
+        Row: ServiceFaqRow
+        Insert: Omit<ServiceFaqRow, 'id'>
+        Update: Partial<Omit<ServiceFaqRow, 'id'>>
+        Relationships: []
+      }
+      packages: {
+        Row: PackageRow
+        Insert: PackageInsert
+        Update: PackageUpdate
+        Relationships: []
+      }
+      package_translations: {
+        Row: PackageTranslationRow
+        Insert: PackageTranslationUpsert
+        Update: Partial<PackageTranslationUpsert>
+        Relationships: []
+      }
+      package_items: {
+        Row: PackageItemRow
+        Insert: Omit<PackageItemRow, 'id'>
+        Update: Partial<Omit<PackageItemRow, 'id'>>
+        Relationships: []
+      }
+      package_service_links: {
+        Row: { package_id: string, service_id: string }
+        Insert: { package_id: string, service_id: string }
+        Update: { package_id?: string, service_id?: string }
+        Relationships: []
+      }
+      clients: {
+        Row: ClientRow
+        Insert: ClientInsert
+        Update: ClientUpdate
+        Relationships: []
+      }
+      testimonials: {
+        Row: TestimonialRow
+        Insert: TestimonialInsert
+        Update: TestimonialUpdate
+        Relationships: []
+      }
+      portfolio_collections: {
+        Row: PortfolioCollectionRow
+        Insert: PortfolioCollectionInsert
+        Update: PortfolioCollectionUpdate
+        Relationships: []
+      }
+      portfolio_collection_translations: {
+        Row: PortfolioCollectionTranslationRow
+        Insert: PortfolioCollectionTranslationUpsert
+        Update: Partial<PortfolioCollectionTranslationUpsert>
+        Relationships: []
+      }
+      portfolio_items: {
+        Row: PortfolioItemRow
+        Insert: PortfolioItemInsert
+        Update: Partial<PortfolioItemInsert>
         Relationships: []
       }
     }

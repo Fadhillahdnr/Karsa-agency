@@ -16,6 +16,7 @@
   "nav": {
     "work": "Work",
     "services": "Services",
+    "packages": "Packages",
     "about": "About",
     "startProject": "Start a Project"
   },
@@ -153,7 +154,51 @@
     "eyebrow": "Services",
     "title": "Website, design, photography, and film — under one roof.",
     "description": "Every engagement sits under one of our creative pillars, moved through the Karsa Method from understanding to handover.",
-    "metaDescription": "Website, design, photography, and video from Karsa Agency — one creative direction for your business's digital and visual presence."
+    "metaDescription": "Website, design, photography, and video from Karsa Agency — one creative direction for your business's digital and visual presence.",
+    "categories": {
+      "web": "Web",
+      "design": "Design",
+      "photo": "Photo",
+      "film": "Film",
+      "integrated": "Integrated"
+    },
+    "empty": "Services are being prepared. Get in touch to see what we can build for you."
+  },
+  "packagesIndex": {
+    "eyebrow": "Packages",
+    "title": "Solo services, combos, and signature bundles.",
+    "description": "Karsa Launch Pricing — introductory rates for selected early partner projects.",
+    "metaDescription": "Pricing packages from Karsa Agency across website, design, photography, and film.",
+    "empty": "Packages are being finalized. Get in touch and we'll put together a proposal for your project.",
+    "startingFrom": "Starting from",
+    "custom": "Custom pricing",
+    "monthly": "/month"
+  },
+  "portfolio": {
+    "design": {
+      "eyebrow": "Design",
+      "title": "Brand and product design we've shipped.",
+      "description": "Identity systems, campaign visuals, and product interfaces — real work, not stock mockups.",
+      "metaDescription": "Design work from Karsa Agency — brand identity, campaign visuals, and product interfaces.",
+      "empty": "Design work is being prepared. Get in touch to see what we can build for your brand."
+    },
+    "photography": {
+      "eyebrow": "Photography",
+      "title": "Photography built to sell and to tell.",
+      "description": "Product, brand, and event photography — shot for how it will actually be used.",
+      "metaDescription": "Photography from Karsa Agency — product, brand, and event photography.",
+      "empty": "Photography work is being prepared. Get in touch to see what we can shoot for your brand."
+    },
+    "videography": {
+      "eyebrow": "Film",
+      "title": "Video that moves people and moves the needle.",
+      "description": "Brand films, product videos, and social cutdowns made for how people actually watch.",
+      "metaDescription": "Video and film work from Karsa Agency — brand films, product videos, and social cutdowns.",
+      "empty": "Video work is being prepared. Get in touch to see what we can produce for your brand."
+    },
+    "backToWork": "Back",
+    "credits": "Credits",
+    "relatedPackages": "Related Packages"
   },
   "serviceDetail": {
     "whoItsFor": "Who It's For",

@@ -1,0 +1,22 @@
+import { requireAdmin } from '../../../utils/require-admin'
+import { getSupabaseClient } from '../../../utils/supabase'
+
+export default defineEventHandler(async (event) => {
+  await requireAdmin(event)
+
+  const supabase = getSupabaseClient()
+  if (!supabase) {
+    throw createError({ statusCode: 500, statusMessage: 'Supabase not configured' })
+  }
+
+  const { data, error } = await supabase
+    .from('clients')
+    .select('*')
+    .order('order_index', { ascending: true })
+
+  if (error) {
+    throw createError({ statusCode: 500, statusMessage: 'Could not load clients' })
+  }
+
+  return data
+})

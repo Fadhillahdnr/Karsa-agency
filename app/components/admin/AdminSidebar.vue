@@ -35,7 +35,19 @@ const navGroups: NavGroup[] = [
   {
     label: 'Content',
     items: [
+      { label: 'Services', to: '/admin/services', icon: 'projects', roles: ['super_admin', 'content_editor', 'viewer'] },
+      { label: 'Packages', to: '/admin/packages', icon: 'projects', roles: ['super_admin', 'content_editor', 'viewer'] },
       { label: 'Work / Case Studies', to: '/admin/projects', icon: 'projects', roles: ['super_admin', 'content_editor', 'viewer'] },
+      { label: 'Clients', to: '/admin/clients', icon: 'building', roles: ['super_admin', 'content_editor', 'viewer'] },
+      { label: 'Testimonials', to: '/admin/testimonials', icon: 'mail', roles: ['super_admin', 'content_editor', 'viewer'] },
+    ],
+  },
+  {
+    label: 'Portfolio / Evidence',
+    items: [
+      { label: 'Design Showcase', to: '/admin/portfolio/design', icon: 'image', roles: ['super_admin', 'content_editor', 'viewer'] },
+      { label: 'Photography Portfolio', to: '/admin/portfolio/photography', icon: 'image', roles: ['super_admin', 'content_editor', 'viewer'] },
+      { label: 'Videography Portfolio', to: '/admin/portfolio/videography', icon: 'image', roles: ['super_admin', 'content_editor', 'viewer'] },
     ],
   },
   {

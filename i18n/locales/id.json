@@ -16,6 +16,7 @@
   "nav": {
     "work": "Karya",
     "services": "Layanan",
+    "packages": "Paket",
     "about": "Tentang",
     "startProject": "Mulai Proyek"
   },
@@ -153,7 +154,51 @@
     "eyebrow": "Layanan",
     "title": "Website, desain, fotografi, dan film — dalam satu atap.",
     "description": "Setiap proyek berada di bawah salah satu pilar kreatif kami, dijalankan melalui Metode Karsa dari pemahaman hingga serah terima.",
-    "metaDescription": "Website, desain, fotografi, dan video dari Karsa Agency — satu arah kreatif untuk kehadiran digital dan visual bisnis Anda."
+    "metaDescription": "Website, desain, fotografi, dan video dari Karsa Agency — satu arah kreatif untuk kehadiran digital dan visual bisnis Anda.",
+    "categories": {
+      "web": "Web",
+      "design": "Desain",
+      "photo": "Foto",
+      "film": "Film",
+      "integrated": "Terintegrasi"
+    },
+    "empty": "Layanan sedang disiapkan. Hubungi kami untuk melihat apa yang bisa kami kerjakan untukmu."
+  },
+  "packagesIndex": {
+    "eyebrow": "Paket",
+    "title": "Layanan tunggal, kombo, dan paket signature.",
+    "description": "Karsa Launch Pricing — harga perkenalan untuk proyek mitra awal terpilih.",
+    "metaDescription": "Paket harga dari Karsa Agency untuk website, desain, fotografi, dan film.",
+    "empty": "Paket sedang difinalisasi. Hubungi kami dan kami akan susunkan proposal untuk proyekmu.",
+    "startingFrom": "Mulai dari",
+    "custom": "Harga custom",
+    "monthly": "/bulan"
+  },
+  "portfolio": {
+    "design": {
+      "eyebrow": "Desain",
+      "title": "Desain brand dan produk yang sudah kami kerjakan.",
+      "description": "Sistem identitas, visual kampanye, dan antarmuka produk — karya nyata, bukan mockup template.",
+      "metaDescription": "Karya desain dari Karsa Agency — identitas brand, visual kampanye, dan antarmuka produk.",
+      "empty": "Karya desain sedang disiapkan. Hubungi kami untuk melihat apa yang bisa kami buat untuk brand-mu."
+    },
+    "photography": {
+      "eyebrow": "Fotografi",
+      "title": "Fotografi yang dibuat untuk menjual dan bercerita.",
+      "description": "Fotografi produk, brand, dan acara — dipotret sesuai kebutuhan pemakaiannya.",
+      "metaDescription": "Karya fotografi dari Karsa Agency — fotografi produk, brand, dan acara.",
+      "empty": "Karya fotografi sedang disiapkan. Hubungi kami untuk melihat apa yang bisa kami potret untuk brand-mu."
+    },
+    "videography": {
+      "eyebrow": "Film",
+      "title": "Video yang menggerakkan orang dan bisnis.",
+      "description": "Brand film, video produk, dan cutdown media sosial yang dibuat sesuai cara orang benar-benar menonton.",
+      "metaDescription": "Karya video dan film dari Karsa Agency — brand film, video produk, dan cutdown media sosial.",
+      "empty": "Karya video sedang disiapkan. Hubungi kami untuk melihat apa yang bisa kami produksi untuk brand-mu."
+    },
+    "backToWork": "Kembali",
+    "credits": "Kredit",
+    "relatedPackages": "Paket Terkait"
   },
   "serviceDetail": {
     "whoItsFor": "Untuk Siapa",
