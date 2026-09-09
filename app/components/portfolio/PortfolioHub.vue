@@ -58,13 +58,13 @@ useSeoMeta({
           class="group"
         >
           <div class="overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-surface)]">
-            <img
+            <NuxtImg
               v-if="item.coverUrl"
               :src="item.coverUrl"
               :alt="item.title"
               loading="lazy"
               class="aspect-[4/3] w-full object-cover transition-transform duration-[var(--duration-slow)] group-hover:scale-[1.03]"
-            >
+            />
             <div
               v-else
               class="aspect-[4/3] w-full bg-[var(--color-surface-raised)]"

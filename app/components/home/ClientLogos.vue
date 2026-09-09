@@ -28,13 +28,13 @@ const { data: clients } = await useAsyncData(`home-clients-${locale.value}`, () 
         :rel="client.websiteUrl ? 'noopener noreferrer' : undefined"
         class="opacity-60 grayscale transition-opacity duration-[var(--duration-base)] hover:opacity-100 hover:grayscale-0"
       >
-        <img
+        <NuxtImg
           v-if="client.logoUrl"
           :src="client.logoUrl"
           :alt="client.name"
           class="h-8 w-auto object-contain"
           loading="lazy"
-        >
+        />
         <span
           v-else
           class="font-display text-sm font-medium uppercase"

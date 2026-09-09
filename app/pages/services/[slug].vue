@@ -26,6 +26,7 @@ useSeoMeta({
   description: service.value.seoDescription || service.value.summary || undefined,
   ogTitle: service.value.title,
   ogDescription: service.value.summary || undefined,
+  ogImage: service.value.coverImageUrl || undefined,
 })
 
 useSchemaOrg([

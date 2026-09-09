@@ -22,12 +22,12 @@ const featured = computed(() => {
       “{{ featured.quote }}”
     </blockquote>
     <div class="mt-8 flex items-center gap-3">
-      <img
+      <NuxtImg
         v-if="featured.avatarUrl"
         :src="featured.avatarUrl"
         :alt="featured.personName"
         class="h-12 w-12 rounded-full object-cover"
-      >
+      />
       <div>
         <p class="font-medium">
           {{ featured.personName }}

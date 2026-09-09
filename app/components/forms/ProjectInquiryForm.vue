@@ -99,6 +99,7 @@ function goNext() {
 
   attemptedStepAdvance.value = false
   trackStartOnce()
+  track('inquiry_step', { step: currentStep.value + 1, key: step })
   if (currentStep.value < stepKeys.length - 1) currentStep.value += 1
 }
 

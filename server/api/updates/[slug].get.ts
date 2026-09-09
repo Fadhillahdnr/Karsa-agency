@@ -1,6 +1,8 @@
 import { getSupabaseClient } from '../../utils/supabase'
-import type { Locale } from '../../utils/supabase'
+import type { CompanyUpdateRow, Locale } from '../../utils/supabase'
 import { renderRichText } from '../../utils/render-rich-text'
+
+type CompanyUpdateWithCover = CompanyUpdateRow & { cover: { secure_url: string | null, url: string } | null }
 
 export type CompanyUpdateDetailApiItem = {
   path: string
@@ -11,6 +13,7 @@ export type CompanyUpdateDetailApiItem = {
   contentHtml: string
   seoTitle: string | null
   seoDescription: string | null
+  ogImageUrl: string | null
 }
 
 export default defineEventHandler(async (event): Promise<CompanyUpdateDetailApiItem | null> => {
@@ -25,7 +28,7 @@ export default defineEventHandler(async (event): Promise<CompanyUpdateDetailApiI
 
   const { data: update, error } = await supabase
     .from('company_updates')
-    .select('*')
+    .select('*, cover:media_assets!company_updates_cover_media_id_fkey(secure_url, url)')
     .eq('slug', slug)
     .eq('status', 'published')
     .lte('published_at', new Date().toISOString())
@@ -33,23 +36,26 @@ export default defineEventHandler(async (event): Promise<CompanyUpdateDetailApiI
 
   if (error || !update) return null
 
+  const row = update as unknown as CompanyUpdateWithCover
+
   const { data: translation } = await supabase
     .from('company_update_translations')
     .select('*')
-    .eq('update_id', update.id)
+    .eq('update_id', row.id)
     .eq('locale', locale)
     .maybeSingle()
 
   if (!translation) return null
 
   return {
-    path: `/updates/${update.slug}`,
-    slug: update.slug,
-    publishedAt: update.published_at,
+    path: `/updates/${row.slug}`,
+    slug: row.slug,
+    publishedAt: row.published_at,
     title: translation.title,
     excerpt: translation.excerpt,
     contentHtml: renderRichText(translation.content as unknown as Parameters<typeof renderRichText>[0]),
     seoTitle: translation.seo_title,
     seoDescription: translation.seo_description,
+    ogImageUrl: row.cover ? (row.cover.secure_url || row.cover.url) : null,
   }
 })

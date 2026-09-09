@@ -23,7 +23,23 @@ useSeoMeta({
   description: item.value.seoDescription || item.value.summary || undefined,
   ogTitle: item.value.title,
   ogDescription: item.value.summary || undefined,
+  ogImage: item.value.ogImageUrl || undefined,
 })
+
+const disciplineLabel: Record<typeof props.discipline, string> = {
+  design: 'Design',
+  photography: 'Photography',
+  videography: 'Videography',
+}
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      { name: disciplineLabel[props.discipline], item: `/${props.discipline}` },
+      { name: item.value.title },
+    ],
+  }),
+])
 
 /** YouTube/Vimeo URL -> embeddable iframe src. Falls back to the raw URL (opens as a plain link) for anything else. */
 function embedSrc(url: string): string {
@@ -90,13 +106,13 @@ function embedSrc(url: string): string {
           class="overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-surface)]"
           :class="{ 'sm:col-span-2': media.featured }"
         >
-          <img
+          <NuxtImg
             v-if="media.itemType === 'image' || media.itemType === 'mockup' || media.itemType === 'before' || media.itemType === 'after'"
             :src="media.url ?? undefined"
             :alt="media.altText || item.title"
             loading="lazy"
             class="w-full object-cover"
-          >
+          />
 
           <video
             v-else-if="media.itemType === 'video' && media.url"

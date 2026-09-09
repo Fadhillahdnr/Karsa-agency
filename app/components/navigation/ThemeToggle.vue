@@ -9,6 +9,7 @@
  */
 const { t } = useI18n()
 const colorMode = useColorMode()
+const { track } = useAnalytics()
 
 type Preference = 'system' | 'light' | 'dark'
 
@@ -33,7 +34,9 @@ function next(current: Preference): Preference {
 }
 
 function cycle() {
-  preference.value = next(preference.value)
+  const value = next(preference.value)
+  preference.value = value
+  track('theme_change', { preference: value })
 }
 
 const nextLabel = computed(() => labels[next(preference.value)]())

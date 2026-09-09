@@ -2,6 +2,11 @@
 const { site, navLinks, primaryCta, contactChannels } = useKarsaConfig()
 const year = new Date().getFullYear()
 const { t } = useI18n()
+const { track } = useAnalytics()
+
+function trackChannelClick(label: string) {
+  if (label === 'WhatsApp') track('contact_whatsapp')
+}
 
 // Computed (not plain arrays) for the same reason navLinks is computed in
 // useKarsaConfig — this component persists across locale-only navigation.
@@ -84,6 +89,7 @@ const legalLinks = computed(() => [
               <a
                 :href="channel.href"
                 class="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+                @click="trackChannelClick(channel.label)"
               >
                 {{ channel.label }}
               </a>

@@ -2,10 +2,15 @@
 import type { PackageApiItem } from '../../../server/api/packages/index.get'
 
 const { t, locale } = useI18n()
+const { track } = useAnalytics()
 
 const { data: packages } = await useAsyncData(`packages-listing-${locale.value}`, () =>
   $fetch<PackageApiItem[]>('/api/packages', { query: { locale: locale.value } }),
 )
+
+onMounted(() => {
+  for (const pkg of packages.value ?? []) track('package_view', { package: pkg.slug })
+})
 
 function priceLabel(pkg: PackageApiItem) {
   if (pkg.priceType === 'custom' || pkg.price == null) return t('packagesIndex.custom')
@@ -111,6 +116,7 @@ useSeoMeta({
             <BaseButton
               to="/start-a-project"
               variant="secondary"
+              @click="track('package_cta_click', { package: pkg.slug })"
             >
               {{ pkg.ctaLabel || t('startAProject.eyebrow') }} ↗
             </BaseButton>

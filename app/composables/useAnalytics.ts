@@ -3,7 +3,13 @@ type AnalyticsEvent
     | 'cta_view_work'
     | 'project_view'
     | 'service_view'
+    | 'package_view'
+    | 'insight_view'
+    | 'theme_change'
+    | 'contact_whatsapp'
+    | 'package_cta_click'
     | 'inquiry_start'
+    | 'inquiry_step'
     | 'inquiry_submit_success'
     | 'inquiry_submit_error'
 

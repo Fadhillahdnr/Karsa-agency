@@ -19,7 +19,22 @@ useSeoMeta({
   description: update.value.seoDescription || update.value.excerpt || undefined,
   ogTitle: update.value.title,
   ogDescription: update.value.excerpt || undefined,
+  ogImage: update.value.ogImageUrl || undefined,
 })
+
+useSchemaOrg([
+  defineArticle({
+    headline: update.value.title,
+    description: update.value.excerpt || undefined,
+    datePublished: update.value.publishedAt || undefined,
+  }),
+  defineBreadcrumb({
+    itemListElement: [
+      { name: 'Updates', item: '/updates' },
+      { name: update.value.title },
+    ],
+  }),
+])
 </script>
 
 <template>

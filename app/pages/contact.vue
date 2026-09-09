@@ -5,6 +5,11 @@ import type { FaqApiItem } from '../../server/api/faqs/index.get'
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const { site, contactChannels } = useKarsaConfig()
+const { track } = useAnalytics()
+
+function trackChannelClick(label: string) {
+  if (label === 'WhatsApp') track('contact_whatsapp')
+}
 
 const [{ data: services }, { data: faqs }] = await Promise.all([
   useAsyncData(`contact-services-${locale.value}`, () =>
@@ -60,6 +65,7 @@ useSeoMeta({
               <a
                 :href="channel.href"
                 class="text-sm font-medium text-[var(--color-text)] hover:text-[var(--color-accent)]"
+                @click="trackChannelClick(channel.label)"
               >
                 {{ channel.label }}
               </a>

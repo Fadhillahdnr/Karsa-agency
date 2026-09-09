@@ -1,6 +1,10 @@
 <script setup lang="ts">
 const { site } = useKarsaConfig()
 const i18nHead = useLocaleHead()
+const { public: publicConfig } = useRuntimeConfig()
+// og:image must be an absolute URL for social crawlers to fetch it — a
+// site-relative path silently fails to unfurl on most platforms.
+const defaultOgImage = `${publicConfig.siteUrl}/og/default.png`
 
 useHead(() => ({
   titleTemplate: title => (title ? `${title} — ${site.value.name}` : `${site.value.name} — ${site.value.title}`),
@@ -12,6 +16,14 @@ useHead(() => ({
 useSeoMeta({
   ogSiteName: () => site.value.name,
   twitterCard: 'summary_large_image',
+  // Site-wide fallback so every page has a social-preview image even
+  // without a specific cover (pages with a real cover/og media asset
+  // override this with their own ogImage call — see insights/services/
+  // work detail pages). public/og/default.png is a minimal wordmark+
+  // tagline card built from the real brand tokens (tokens.css) — not a
+  // polished marketing asset. TODO: business input — swap in a proper
+  // designed 1200x630 card when one exists.
+  ogImage: defaultOgImage,
 })
 
 useSchemaOrg([

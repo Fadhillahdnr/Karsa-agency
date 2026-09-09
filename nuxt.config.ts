@@ -68,7 +68,11 @@ export default defineNuxtConfig({
     karsaInquiryEmail: process.env.KARSA_INQUIRY_EMAIL || '',
     supabaseUrl: process.env.SUPABASE_URL || '',
     public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://karsastudio.com',
+      // Same fallback domain as `site.url`/`i18n.baseUrl` above — these three
+      // all read NUXT_PUBLIC_SITE_URL and must never disagree when it's
+      // unset, since absolute URLs (og:image, sitemap, schema.org) are built
+      // from whichever one a given call site happens to use.
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://karsa-agency.vercel.app',
       turnstileSiteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY || '',
       gaMeasurementId: process.env.NUXT_PUBLIC_GA_MEASUREMENT_ID || '',
       // Anon key is safe to expose: it only authenticates against Supabase
@@ -93,6 +97,10 @@ export default defineNuxtConfig({
     // page, so both forms need this rule.
     '/admin/**': { ssr: false, robots: false },
     '/id/admin/**': { ssr: false, robots: false },
+    // Server API routes are never meant to be crawled — disallow the
+    // whole /api/** tree explicitly for certainty (§73 singles out
+    // /api/admin, which this also covers).
+    '/api/**': { robots: false },
   },
 
   experimental: {
@@ -155,5 +163,21 @@ export default defineNuxtConfig({
 
   image: {
     format: ['webp', 'avif'],
+  },
+
+  // §73 — without this, routeRules' `robots: false` (below) only sets the
+  // X-Robots-Tag header per-page; it never turns into an actual
+  // robots.txt Disallow line, which is what "/admin -> disallow" means.
+  robots: {
+    disallowNonIndexableRoutes: true,
+  },
+
+  // §72 — file-based routes (home, /services, /packages, /work, etc.) are
+  // discovered automatically; this adds the DB-backed detail slugs those
+  // index pages link to (services/work/insights/updates/careers/
+  // design+photography+videography), published-only, EN+ID both.
+  sitemap: {
+    sources: ['/api/__sitemap__/urls'],
+    autoLastmod: true,
   },
 })

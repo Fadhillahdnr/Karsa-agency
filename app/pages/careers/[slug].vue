@@ -61,6 +61,12 @@ useSchemaOrg([
         jobLocationType: 'TELECOMMUTE',
         applicantLocationRequirements: [{ name: 'Indonesia' }],
       }),
+  defineBreadcrumb({
+    itemListElement: [
+      { name: 'Careers', item: '/careers' },
+      { name: career.value.title },
+    ],
+  }),
 ])
 </script>
 

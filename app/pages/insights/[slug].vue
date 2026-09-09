@@ -19,6 +19,7 @@ useSeoMeta({
   description: article.value.seoDescription || article.value.excerpt || undefined,
   ogTitle: article.value.title,
   ogDescription: article.value.excerpt || undefined,
+  ogImage: article.value.ogImageUrl || undefined,
 })
 
 if (article.value.canonicalUrl) {
@@ -31,7 +32,16 @@ useSchemaOrg([
     description: article.value.excerpt || undefined,
     datePublished: article.value.publishedAt || undefined,
   }),
+  defineBreadcrumb({
+    itemListElement: [
+      { name: 'Insights', item: '/insights' },
+      { name: article.value.title },
+    ],
+  }),
 ])
+
+const { track } = useAnalytics()
+onMounted(() => track('insight_view', { insight: slug }))
 </script>
 
 <template>

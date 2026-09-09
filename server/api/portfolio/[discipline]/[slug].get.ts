@@ -11,6 +11,7 @@ export type PortfolioDetailItem = {
   credits: string | null
   seoTitle: string | null
   seoDescription: string | null
+  ogImageUrl: string | null
   items: {
     itemType: string
     url: string | null
@@ -39,7 +40,7 @@ export default defineEventHandler(async (event): Promise<PortfolioDetailItem | n
 
   const { data: collection, error } = await supabase
     .from('portfolio_collections')
-    .select('id, slug, category')
+    .select('id, slug, category, cover:media_assets!portfolio_collections_cover_media_id_fkey(secure_url, url)')
     .eq('discipline', discipline)
     .eq('slug', slug)
     .eq('status', 'published')
@@ -49,12 +50,15 @@ export default defineEventHandler(async (event): Promise<PortfolioDetailItem | n
 
   if (error || !collection) return null
 
+  type CollectionRow = { id: string, slug: string, category: string | null, cover: { secure_url: string | null, url: string } | null }
+  const row = collection as unknown as CollectionRow
+
   const [{ data: translation }, { data: itemRows }] = await Promise.all([
-    supabase.from('portfolio_collection_translations').select('*').eq('collection_id', collection.id).eq('locale', locale).maybeSingle(),
+    supabase.from('portfolio_collection_translations').select('*').eq('collection_id', row.id).eq('locale', locale).maybeSingle(),
     supabase
       .from('portfolio_items')
       .select('*, media:media_assets!portfolio_items_media_id_fkey(secure_url, url), poster:media_assets!portfolio_items_poster_media_id_fkey(secure_url, url)')
-      .eq('collection_id', collection.id)
+      .eq('collection_id', row.id)
       .order('order_index'),
   ])
 
@@ -66,15 +70,16 @@ export default defineEventHandler(async (event): Promise<PortfolioDetailItem | n
   }
 
   return {
-    path: `/${discipline}/${collection.slug}`,
-    slug: collection.slug,
-    category: collection.category,
+    path: `/${discipline}/${row.slug}`,
+    slug: row.slug,
+    category: row.category,
     title: translation.title,
     summary: translation.summary,
     description: translation.description,
     credits: translation.credits,
     seoTitle: translation.seo_title,
     seoDescription: translation.seo_description,
+    ogImageUrl: row.cover ? (row.cover.secure_url || row.cover.url) : null,
     items: ((itemRows as unknown as ItemRow[]) ?? []).map(item => ({
       itemType: item.item_type,
       url: item.media ? (item.media.secure_url || item.media.url) : null,
