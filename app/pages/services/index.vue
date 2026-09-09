@@ -1,15 +1,17 @@
 <script setup lang="ts">
+import type { ServiceApiItem } from '../../../server/api/services/index.get'
+
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
+
 const { data: services } = await useAsyncData(`services-listing-${locale.value}`, () =>
-  queryCollection(locale.value === 'id' ? 'servicesId' : 'services').order('order', 'ASC').all(),
+  $fetch<ServiceApiItem[]>('/api/services', { query: { locale: locale.value } }),
 )
 
-// Stable English identifiers matching content.config.ts's `pillar` enum —
-// content frontmatter is filtered against these regardless of locale.
-const pillarKeys = ['Design', 'Build', 'Grow'] as const
-const pillarsData = useTmList<{ name: string }[]>('servicesPillars.pillars')
-const pillarLabels = computed(() => pillarsData.value.map(p => p.name))
+const categoryOrder = ['web', 'design', 'photo', 'film', 'integrated'] as const
+const categoriesWithServices = computed(() =>
+  categoryOrder.filter(category => services.value?.some(s => s.category === category)),
+)
 
 useSeoMeta({
   title: t('servicesIndex.title'),
@@ -36,17 +38,27 @@ useSeoMeta({
     </BaseSection>
 
     <BaseSection
-      v-for="(pillar, i) in pillarKeys"
-      :key="pillar"
+      v-if="!categoriesWithServices.length"
       tight
-      class="pt-0"
+      class="border-t border-[var(--color-border)]"
+    >
+      <p class="text-sm text-[var(--color-text-muted)]">
+        {{ t('servicesIndex.empty') }}
+      </p>
+    </BaseSection>
+
+    <BaseSection
+      v-for="category in categoriesWithServices"
+      :key="category"
+      tight
+      class="border-t border-[var(--color-border)]"
     >
       <p class="text-eyebrow mb-6">
-        {{ pillarLabels[i] }}
+        {{ t(`servicesIndex.categories.${category}`) }}
       </p>
       <div class="grid grid-cols-1 gap-px overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-border)] sm:grid-cols-2">
         <NuxtLink
-          v-for="service in services?.filter((s) => s.pillar === pillar)"
+          v-for="service in services?.filter((s) => s.category === category)"
           :key="service.path"
           :to="localePath(service.path)"
           class="group bg-[var(--color-bg)] p-8 transition-colors duration-[var(--duration-base)] hover:bg-[var(--color-accent-soft)]"
@@ -54,7 +66,10 @@ useSeoMeta({
           <h2 class="font-display text-2xl font-medium">
             {{ service.title }}
           </h2>
-          <p class="mt-3 text-sm text-[var(--color-text-muted)]">
+          <p
+            v-if="service.summary"
+            class="mt-3 text-sm text-[var(--color-text-muted)]"
+          >
             {{ service.summary }}
           </p>
           <span class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium group-hover:text-[var(--color-accent)]">

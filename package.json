@@ -19,7 +19,8 @@
     "test:e2e": "playwright test",
     "postinstall": "nuxt prepare",
     "seed:admin": "node --env-file=.env scripts/seed-admin-user.mjs",
-    "seed:projects": "node --env-file=.env scripts/seed-projects.mjs"
+    "seed:projects": "node --env-file=.env scripts/seed-projects.mjs",
+    "seed:services": "node --env-file=.env scripts/seed-services.mjs"
   },
   "dependencies": {
     "@nuxt/content": "^3.15.2",

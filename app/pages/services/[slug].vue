@@ -1,58 +1,50 @@
 <script setup lang="ts">
+import type { ServiceDetailApiItem } from '../../../server/api/services/[slug].get'
+import type { WorkApiItem } from '../../../server/api/work/index.get'
+
 const route = useRoute()
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
-const path = `/services/${route.params.slug}`
-const servicesCollection = computed(() => locale.value === 'id' ? 'servicesId' : 'services')
-const workCollection = computed(() => locale.value === 'id' ? 'workId' : 'work')
+const slug = route.params.slug as string
 
-const { data: service } = await useAsyncData(`service-${route.params.slug}-${locale.value}`, () =>
-  queryCollection(servicesCollection.value).path(path).first(),
+const { data: service } = await useAsyncData(`service-${slug}-${locale.value}`, () =>
+  $fetch<ServiceDetailApiItem | null>(`/api/services/${slug}`, { query: { locale: locale.value } }),
 )
 
 if (!service.value) {
   throw createError({ statusCode: 404, statusMessage: 'Service not found', fatal: true })
 }
 
-const { data: relatedWork } = await useAsyncData(`service-related-work-${route.params.slug}-${locale.value}`, async () => {
-  const all = await queryCollection(workCollection.value).order('order', 'ASC').all()
-  const matched = all.filter(item => item.services.includes(service.value!.title))
-  return matched.length ? matched : all.slice(0, 2)
+const { data: relatedWork } = await useAsyncData(`service-related-work-${slug}`, async () => {
+  const all = await $fetch<WorkApiItem[]>('/api/work')
+  const matched = all.filter(item => item.services.some(s => s.toLowerCase() === service.value!.title.toLowerCase()))
+  return matched.length ? matched.slice(0, 2) : all.slice(0, 2)
 })
 
 useSeoMeta({
-  title: service.value?.title,
-  description: service.value?.summary,
-  ogTitle: service.value?.title,
-  ogDescription: service.value?.summary,
+  title: service.value.seoTitle || service.value.title,
+  description: service.value.seoDescription || service.value.summary || undefined,
+  ogTitle: service.value.title,
+  ogDescription: service.value.summary || undefined,
 })
 
 useSchemaOrg([
   defineService({
-    name: service.value!.title,
-    description: service.value!.summary,
-    serviceType: service.value!.title,
+    name: service.value.title,
+    description: service.value.summary || undefined,
+    serviceType: service.value.title,
     provider: { '@type': 'Organization', 'name': 'Karsa Agency' },
   }),
   defineBreadcrumb({
     itemListElement: [
       { name: 'Services', item: '/services' },
-      { name: service.value!.title },
+      { name: service.value.title },
     ],
   }),
 ])
 
 const { track } = useAnalytics()
-onMounted(() => track('service_view', { service: route.params.slug as string }))
-
-// Stable English identifiers matching content.config.ts's `pillar` enum —
-// `service.pillar` itself is never translated (see services/index.vue).
-const pillarKeys = ['Design', 'Build', 'Grow'] as const
-const pillarsData = useTmList<{ name: string }[]>('servicesPillars.pillars')
-const pillarLabel = computed(() => {
-  const index = pillarKeys.indexOf(service.value!.pillar as typeof pillarKeys[number])
-  return pillarsData.value[index]?.name ?? service.value!.pillar
-})
+onMounted(() => track('service_view', { service: slug }))
 </script>
 
 <template>
@@ -62,7 +54,7 @@ const pillarLabel = computed(() => {
       class="pt-32"
     >
       <p class="text-eyebrow">
-        {{ pillarLabel }}
+        {{ t(`servicesIndex.categories.${service.category}`) }}
       </p>
       <BaseHeading
         size="display-2"
@@ -71,8 +63,19 @@ const pillarLabel = computed(() => {
       >
         {{ service.title }}
       </BaseHeading>
-      <p class="mt-6 max-w-xl text-[length:var(--text-body-lg)] text-[var(--color-text-muted)]">
+      <p
+        v-if="service.summary"
+        class="mt-6 max-w-xl text-[length:var(--text-body-lg)] text-[var(--color-text-muted)]"
+      >
         {{ service.summary }}
+      </p>
+      <p
+        v-if="service.showPrice && service.startingPrice"
+        class="mt-4 text-sm text-[var(--color-text-muted)]"
+      >
+        {{ service.priceType === 'starting_from' ? t('packagesIndex.startingFrom') : '' }}
+        {{ service.currency }} {{ service.startingPrice.toLocaleString(locale) }}
+        {{ service.priceType === 'monthly' ? t('packagesIndex.monthly') : '' }}
       </p>
       <div class="mt-10">
         <BaseButton to="/start-a-project">
@@ -82,10 +85,11 @@ const pillarLabel = computed(() => {
     </BaseSection>
 
     <BaseSection
+      v-if="service.whoItsFor.length || service.problems.length"
       tight
       class="grid grid-cols-1 gap-12 border-t border-[var(--color-border)] pt-16 md:grid-cols-2"
     >
-      <div>
+      <div v-if="service.whoItsFor.length">
         <p class="text-eyebrow mb-4">
           {{ t('serviceDetail.whoItsFor') }}
         </p>
@@ -102,7 +106,7 @@ const pillarLabel = computed(() => {
           </li>
         </ul>
       </div>
-      <div>
+      <div v-if="service.problems.length">
         <p class="text-eyebrow mb-4">
           {{ t('serviceDetail.businessProblems') }}
         </p>
@@ -122,15 +126,34 @@ const pillarLabel = computed(() => {
     </BaseSection>
 
     <BaseSection
+      v-if="service.intro.length || service.process"
       tight
       narrow
+      class="border-t border-[var(--color-border)]"
     >
-      <div class="prose prose-invert max-w-none prose-headings:font-display prose-headings:font-medium prose-p:text-[var(--color-text-muted)] prose-li:text-[var(--color-text-muted)]">
-        <ContentRenderer :value="service" />
+      <div
+        v-if="service.intro.length"
+        class="prose prose-invert max-w-none prose-headings:font-display prose-headings:font-medium prose-p:text-[var(--color-text-muted)] prose-li:text-[var(--color-text-muted)]"
+      >
+        <ul>
+          <li
+            v-for="item in service.intro"
+            :key="item"
+          >
+            {{ item }}
+          </li>
+        </ul>
       </div>
+      <p
+        v-if="service.process"
+        class="mt-8 text-sm text-[var(--color-text-muted)]"
+      >
+        {{ service.process }}
+      </p>
     </BaseSection>
 
     <BaseSection
+      v-if="service.deliverables.length"
       tight
       class="border-t border-[var(--color-border)]"
     >
@@ -181,7 +204,7 @@ const pillarLabel = computed(() => {
     </BaseSection>
 
     <BaseSection
-      v-if="service.faq?.length"
+      v-if="service.faqs.length"
       tight
       class="border-t border-[var(--color-border)]"
     >
@@ -190,7 +213,7 @@ const pillarLabel = computed(() => {
       </p>
       <div class="flex flex-col divide-y divide-[var(--color-border)] border-t border-[var(--color-border)]">
         <details
-          v-for="item in service.faq"
+          v-for="item in service.faqs"
           :key="item.question"
           class="group py-6"
         >

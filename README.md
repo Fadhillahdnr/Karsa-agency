@@ -102,7 +102,7 @@ All four are green as of this handover — see [§10 Testing Executed](#10-testi
 
 ## 9. Content Management
 
-Content lives in `content/work/*.md` and `content/services/*.md`, validated against the schemas in `content.config.ts`. Nuxt Content hot-reloads new/edited files in dev.
+Work case studies still live in `content/work/*.md`, validated against the schema in `content.config.ts`; Nuxt Content hot-reloads new/edited files in dev. Services moved to the database in Milestone 04 (see §7 below) — there's no `content/services/*.md` anymore.
 
 ### Adding a case study
 
@@ -130,9 +130,9 @@ outcome: "..."
 
 Only add real, honestly-labeled projects — do not invent clients, metrics, or testimonials (see the blueprint's anti-fabrication rules, carried through in `content/work/aanaya.md` as the working example).
 
-### Adding a service
+### Adding a service or package
 
-Create `content/services/<slug>.md` matching the schema in `content.config.ts` (`pillar`, `summary`, `whoItsFor`, `problems`, `deliverables`, `faq`, plus a markdown body for "What Karsa Can Build" / "Process"). The route is derived from the filename: `content/services/api-integration.md` → `/services/api-integration`.
+Services and packages are fully database-backed (`services`/`service_translations`/`service_faqs` and `packages`/`package_translations`/`package_items`, see `supabase/migrations/0008_create_services.sql` and `0009_create_packages.sql`) — manage them at `/admin/services` and `/admin/packages`, not by editing files. `pnpm seed:services` re-seeds the real service content that used to live in `content/services/*.md` (see `scripts/seed-services.mjs`) into a fresh database.
 
 ### Adding a project via the admin panel
 

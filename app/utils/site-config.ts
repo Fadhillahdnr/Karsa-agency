@@ -21,5 +21,5 @@ export const siteConfig = {
 
 // Route paths are intentionally identical across locales (no per-locale URL
 // translation) — only the displayed label changes, sourced from i18n.
-export const navRoutes = ['/work', '/services', '/about'] as const
+export const navRoutes = ['/work', '/services', '/packages', '/about'] as const
 export const primaryCtaRoute = '/start-a-project'

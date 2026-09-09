@@ -17,17 +17,6 @@ const workSchema = z.object({
   order: z.number().default(0),
 })
 
-const serviceSchema = z.object({
-  title: z.string(),
-  pillar: z.enum(['Design', 'Build', 'Grow']),
-  summary: z.string(),
-  whoItsFor: z.array(z.string()),
-  problems: z.array(z.string()),
-  deliverables: z.array(z.string()),
-  faq: z.array(z.object({ question: z.string(), answer: z.string() })).default([]),
-  order: z.number().default(0),
-})
-
 export default defineContentConfig({
   collections: {
     work: defineCollection({
@@ -44,15 +33,10 @@ export default defineContentConfig({
       source: { include: 'id/work/*.md', prefix: '/work' },
       schema: workSchema,
     }),
-    services: defineCollection({
-      type: 'page',
-      source: 'services/*.md',
-      schema: serviceSchema,
-    }),
-    servicesId: defineCollection({
-      type: 'page',
-      source: { include: 'id/services/*.md', prefix: '/services' },
-      schema: serviceSchema,
-    }),
+    // Services used to live here (`services`/`servicesId` collections) but
+    // moved to the database in Milestone 04 (see supabase/migrations/
+    // 0008_create_services.sql and scripts/seed-services.mjs) — the public
+    // /services pages now read from /api/services instead. Removed rather
+    // than kept as a second source of truth per master prompt §59.
   },
 })
