@@ -1,17 +1,65 @@
 <script setup lang="ts">
 import type { AdminIconName } from './AdminIcon.vue'
+import type { AdminRole } from '../../../server/utils/supabase'
 
 const props = defineProps<{ open: boolean }>()
 const emit = defineEmits<{ close: [] }>()
 
 const route = useRoute()
 const asideRef = ref<HTMLElement | null>(null)
+const { hasRole } = useAdminAuth()
 
-const navItems: { label: string, to: string, icon: AdminIconName }[] = [
-  { label: 'Dashboard', to: '/admin', icon: 'dashboard' },
-  { label: 'Projects', to: '/admin/projects', icon: 'projects' },
-  { label: 'Leads', to: '/admin/leads', icon: 'leads' },
+interface NavItem {
+  label: string
+  to: string
+  icon: AdminIconName
+  /** Roles that can see this item. Omit for "every active admin". */
+  roles?: AdminRole[]
+}
+
+interface NavGroup {
+  label: string
+  items: NavItem[]
+}
+
+// Mirrors the target sidebar IA (master prompt §27) — groups that don't
+// have any real page yet are left out entirely rather than linking to
+// pages that don't exist. Add groups back as each milestone builds them.
+const navGroups: NavGroup[] = [
+  {
+    label: 'Overview',
+    items: [
+      { label: 'Dashboard', to: '/admin', icon: 'dashboard' },
+    ],
+  },
+  {
+    label: 'Content',
+    items: [
+      { label: 'Work / Case Studies', to: '/admin/projects', icon: 'projects', roles: ['super_admin', 'content_editor', 'viewer'] },
+    ],
+  },
+  {
+    label: 'Sales',
+    items: [
+      { label: 'Leads', to: '/admin/leads', icon: 'leads', roles: ['super_admin', 'sales', 'viewer'] },
+    ],
+  },
+  {
+    label: 'Media',
+    items: [
+      { label: 'Media Library', to: '/admin/media', icon: 'image', roles: ['super_admin', 'content_editor', 'viewer'] },
+    ],
+  },
 ]
+
+const visibleGroups = computed(() =>
+  navGroups
+    .map(group => ({
+      ...group,
+      items: group.items.filter(item => !item.roles || hasRole(...item.roles)),
+    }))
+    .filter(group => group.items.length > 0),
+)
 
 function isActive(to: string) {
   if (to === '/admin') return route.path === '/admin'
@@ -94,21 +142,31 @@ onUnmounted(() => {
       </button>
     </div>
 
-    <nav class="flex flex-1 flex-col gap-1 px-3">
-      <NuxtLink
-        v-for="item in navItems"
-        :key="item.to"
-        :to="item.to"
-        class="flex min-h-[44px] items-center gap-3 rounded-[var(--radius-sm)] px-3 text-sm font-medium transition-colors"
-        :class="isActive(item.to)
-          ? 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]'
-          : 'text-[var(--color-text-muted)] hover:bg-[var(--color-surface-raised)] hover:text-[var(--color-text)]'"
-        :aria-current="isActive(item.to) ? 'page' : undefined"
-        @click="emit('close')"
+    <nav class="flex flex-1 flex-col gap-5 overflow-y-auto px-3 pb-4">
+      <div
+        v-for="group in visibleGroups"
+        :key="group.label"
       >
-        <AdminIcon :name="item.icon" />
-        {{ item.label }}
-      </NuxtLink>
+        <p class="px-3 pb-2 text-xs font-medium tracking-widest text-[var(--color-text-muted)] uppercase">
+          {{ group.label }}
+        </p>
+        <div class="flex flex-col gap-1">
+          <NuxtLink
+            v-for="item in group.items"
+            :key="item.to"
+            :to="item.to"
+            class="flex min-h-[44px] items-center gap-3 rounded-[var(--radius-sm)] px-3 text-sm font-medium transition-colors"
+            :class="isActive(item.to)
+              ? 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]'
+              : 'text-[var(--color-text-muted)] hover:bg-[var(--color-surface-raised)] hover:text-[var(--color-text)]'"
+            :aria-current="isActive(item.to) ? 'page' : undefined"
+            @click="emit('close')"
+          >
+            <AdminIcon :name="item.icon" />
+            {{ item.label }}
+          </NuxtLink>
+        </div>
+      </div>
     </nav>
 
     <div class="border-t border-[var(--color-border)] px-6 py-4 text-xs text-[var(--color-text-muted)]">

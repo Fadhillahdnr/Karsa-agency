@@ -51,6 +51,45 @@ export type ProjectRow = {
 export type ProjectInsert = Omit<ProjectRow, 'id' | 'created_at' | 'updated_at'>
 export type ProjectUpdate = Partial<ProjectInsert>
 
+export type MediaAssetRow = {
+  id: string
+  provider: 'cloudinary' | 'external'
+  public_id: string | null
+  resource_type: 'image' | 'video' | 'document' | 'external_video'
+  url: string
+  secure_url: string | null
+  thumbnail_url: string | null
+  alt_text: string | null
+  caption: string | null
+  width: number | null
+  height: number | null
+  duration: number | null
+  format: string | null
+  bytes: number | null
+  folder: string | null
+  rights_status: string | null
+  credit: string | null
+  source: string | null
+  created_by: string | null
+  created_at: string
+}
+
+export type MediaAssetInsert = Omit<MediaAssetRow, 'id' | 'created_at'>
+export type MediaAssetUpdate = Partial<Pick<MediaAssetRow, 'alt_text' | 'caption' | 'rights_status' | 'credit' | 'source'>>
+
+export type AdminRole = 'super_admin' | 'content_editor' | 'sales' | 'viewer'
+
+export type AdminProfileRow = {
+  user_id: string
+  display_name: string
+  role: AdminRole
+  avatar_url: string | null
+  is_active: boolean
+  last_seen_at: string | null
+  created_at: string
+  updated_at: string
+}
+
 type Database = {
   public: {
     Tables: {
@@ -64,6 +103,18 @@ type Database = {
         Row: ProjectRow
         Insert: ProjectInsert
         Update: ProjectUpdate
+        Relationships: []
+      }
+      admin_profiles: {
+        Row: AdminProfileRow
+        Insert: Omit<AdminProfileRow, 'created_at' | 'updated_at'>
+        Update: Partial<Omit<AdminProfileRow, 'user_id'>>
+        Relationships: []
+      }
+      media_assets: {
+        Row: MediaAssetRow
+        Insert: MediaAssetInsert
+        Update: MediaAssetUpdate
         Relationships: []
       }
     }

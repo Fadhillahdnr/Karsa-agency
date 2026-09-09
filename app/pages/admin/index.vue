@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import type { LeadRow, ProjectRow } from '../../../server/utils/supabase'
+import type { LeadRow, MediaAssetRow, ProjectRow } from '../../../server/utils/supabase'
 
 definePageMeta({ layout: 'admin', middleware: 'admin-auth' })
 
-const { authFetch } = useAdminAuth()
+const { authFetch, hasRole } = useAdminAuth()
 
 const projects = ref<ProjectRow[]>([])
 const leads = ref<LeadRow[]>([])
+const mediaCount = ref(0)
 const loading = ref(true)
 const errorMessage = ref('')
 
@@ -14,12 +15,16 @@ async function loadOverview() {
   loading.value = true
   errorMessage.value = ''
   try {
-    const [projectsResult, leadsResult] = await Promise.all([
+    const [projectsResult, leadsResult, mediaResult] = await Promise.all([
       authFetch<ProjectRow[]>('/api/admin/projects'),
       authFetch<LeadRow[]>('/api/admin/leads'),
+      hasRole('super_admin', 'content_editor', 'viewer')
+        ? authFetch<MediaAssetRow[]>('/api/admin/media')
+        : Promise.resolve([]),
     ])
     projects.value = projectsResult
     leads.value = leadsResult
+    mediaCount.value = mediaResult.length
   }
   catch {
     errorMessage.value = 'Could not load dashboard data.'
@@ -91,6 +96,13 @@ onMounted(loadOverview)
           hint="Awaiting first contact"
           to="/admin/leads"
         />
+        <StatCard
+          v-if="hasRole('super_admin', 'content_editor', 'viewer')"
+          label="Media assets"
+          :value="mediaCount"
+          icon="image"
+          to="/admin/media"
+        />
       </div>
 
       <div class="mt-10 flex items-center justify-between">
@@ -153,6 +165,13 @@ onMounted(loadOverview)
           variant="secondary"
         >
           Review leads
+        </BaseButton>
+        <BaseButton
+          v-if="hasRole('super_admin', 'content_editor')"
+          to="/admin/media"
+          variant="ghost"
+        >
+          Upload media
         </BaseButton>
       </div>
     </template>
