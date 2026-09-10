@@ -1,29 +1,33 @@
-# Karsa Agency — Website
+# Karsa Agency — Website & CMS
 
 **Creative & Digital Agency.** _Dari Karsa Menjadi Karya._
 
 ## 1. Overview
 
-The official marketing, CMS/admin, and lead-generation website for Karsa Agency: a minimal, editorial Nuxt 4 site — Website · Design · Photography · Film — with a Karsa-mark 3D hero, a Karsa Method process narrative, honestly-labeled work and services, and a project-inquiry pipeline (Zod validation → Turnstile → Supabase → Resend).
+The official marketing site, headless CMS, admin panel, and lead-generation pipeline for Karsa Agency: a minimal, editorial Nuxt 4 site — Website · Design · Photography · Film — with a Karsa-mark 3D hero, a Karsa Method process narrative, honestly-labeled work/services/case studies, an insights blog, careers, legal pages, and a 5-step project-inquiry wizard (Zod validation → Turnstile → Supabase → Resend), all backed by a bilingual (EN/ID) database-driven CMS with role-gated admin access.
 
-Originally built against `Karsa_Studio_Website_AI_Agent_Blueprint_v1.0.md` under the prior "Karsa Studio / digital product & software studio" positioning, now being extended against `Karsa_Agency_Full_Website_CMS_Admin_AI_Agent_Master_Prompt_v2.1.md` (full CMS/admin revamp under the Karsa Agency repositioning — see that document's Milestone plan, §127, for the in-progress roadmap). Where business information doesn't exist yet (contact channels, additional case studies, real clients/testimonials), the site hides those elements gracefully instead of fabricating them — see [§20 Known Limitations](#20-known-limitations).
+Built against `Karsa_Agency_Full_Website_CMS_Admin_AI_Agent_Master_Prompt_v2.1.md` — a 13-milestone rebrand + CMS/admin build-out (00-Audit through 12-Production Handover, see that document's §127 milestone plan). Originally scaffolded against an earlier `Karsa_Studio_Website_AI_Agent_Blueprint_v1.0.md` under the prior "Karsa Studio / digital product & software studio" positioning; the repositioning to "Karsa Agency" and the full CMS revamp are what this document now describes. Where business information doesn't exist yet (contact channels, some legal/registration details), the site hides those elements gracefully instead of fabricating them — see [§20 Known Limitations](#20-known-limitations).
 
 ## 2. Stack
 
 - **Core:** Nuxt 4, Vue 3, TypeScript, pnpm
-- **Styling:** Tailwind CSS v4, CSS custom-property design tokens
+- **Styling:** Tailwind CSS v4, CSS custom-property design tokens (`app/assets/css/tokens.css`)
+- **Theme:** `@nuxtjs/color-mode` — light/dark/system, `data-theme` attribute on `<html>` (see §17)
+- **i18n:** `@nuxtjs/i18n` — English (default, unprefixed) / Indonesian (`/id/**`), see §16
 - **Motion:** GSAP + ScrollTrigger, Lenis
 - **3D:** TresJS (Three.js), procedural geometry (no GLB dependency)
-- **Content:** Nuxt Content v3 (work + services collections)
-- **Backend:** Nuxt Server API (Nitro), Zod, Supabase, Resend, Cloudflare Turnstile
-- **SEO:** `@nuxtjs/sitemap`, `@nuxtjs/robots`, `nuxt-schema-org`
+- **Content (file-based):** Nuxt Content v3 (work case studies only — everything else moved to the database, see §9)
+- **Content (database):** Supabase Postgres — services, packages, projects, portfolio evidence, articles/insights, company updates, careers, legal pages, FAQs, clients, testimonials, leads, site settings/navigation, page sections, media assets, audit log, redirects, admin profiles (16 migrations, see §11)
+- **Rich text:** TipTap (admin editor) → server-side `sanitize-html` render (see §9)
+- **Backend:** Nuxt Server API (Nitro), Zod, Supabase (Auth + Postgres + Storage), Cloudinary (media uploads), Resend (email), Cloudflare Turnstile (bot protection)
+- **SEO:** `@nuxtjs/sitemap` (dynamic per-locale sources), `@nuxtjs/robots`, `nuxt-schema-org` (Organization/WebSite/Article/JobPosting/Question/Service/Breadcrumb)
 - **Testing:** Vitest (unit), Playwright (e2e)
-- **Deployment:** Vercel (primary)
+- **Deployment:** Vercel (primary), Nitro `vercel` preset
 
 ## 3. Prerequisites
 
-- Node.js (version pinned in `.nvmrc`)
-- pnpm (`corepack enable` or `npm i -g pnpm`)
+- Node.js (version pinned in `.nvmrc`, and `engines.node: 22.x` in `package.json`)
+- pnpm (`corepack enable` or `npm i -g pnpm`; `packageManager` pins `pnpm@11.9.0`)
 
 ## 4. Install
 
@@ -47,14 +51,17 @@ cp .env.example .env
 
 | Variable | Required for | Notes |
 |---|---|---|
-| `NUXT_PUBLIC_SITE_URL` | Canonical URLs, sitemap, OG tags | Defaults to `https://karsastudio.com` if unset |
-| `NUXT_PUBLIC_TURNSTILE_SITE_KEY` | Bot verification widget | Widget is skipped entirely if unset (see §15) |
+| `NUXT_PUBLIC_SITE_URL` | Canonical URLs, sitemap, hreflang, OG tags, schema.org | Defaults to `https://karsa-agency.vercel.app` if unset |
+| `NUXT_PUBLIC_TURNSTILE_SITE_KEY` | Bot verification widget | Widget is skipped entirely if unset (see §14) |
 | `NUXT_PUBLIC_GA_MEASUREMENT_ID` | Analytics | `useAnalytics()` no-ops if unset |
-| `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` | Lead storage | Inquiry API skips storage (still emails) if unset |
+| `NUXT_PUBLIC_SUPABASE_URL` / `NUXT_PUBLIC_SUPABASE_ANON_KEY` | Admin login (Supabase Auth, client-side) | Safe to expose — anon key only authenticates against Auth + RLS-gated Storage policies |
+| `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` | All CMS reads/writes, lead storage, admin RBAC | **Server-only.** Every public and admin API route needs this to return real data — without it, public pages render empty-state, admin routes 500 |
+| `CLOUDINARY_CLOUD_NAME` / `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` | Admin media uploads (`/admin/media`, cover images/videos) | **Server-only.** Upload endpoint 500s if unset |
 | `TURNSTILE_SECRET_KEY` | Server-side bot verification | Verification is skipped if unset |
 | `RESEND_API_KEY` / `RESEND_FROM_EMAIL` / `KARSA_INQUIRY_EMAIL` | Lead notification/confirmation emails | Emails are skipped if unset |
+| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Optional env-var alternative to CLI args for `pnpm seed:admin` | Not read anywhere else at runtime |
 
-The site **runs and the inquiry form still returns a reference ID** with all of the above unset — every integration degrades gracefully rather than crashing the request. Server-only keys are never exposed to the client.
+The **public marketing pages** still render (with empty states, not crashes) if Supabase env vars are unset — every integration degrades gracefully rather than throwing. The **admin panel and full CMS content are not usable** without `SUPABASE_URL`/`SUPABASE_SERVICE_ROLE_KEY` — this is a hard requirement as of the Milestone 04+ database migration, unlike the original Milestone 00 blueprint where Supabase was fully optional. Server-only keys are never exposed to the client.
 
 ## 6. Development
 
@@ -62,7 +69,7 @@ The site **runs and the inquiry form still returns a reference ID** with all of 
 pnpm dev
 ```
 
-Runs on `http://localhost:3000` (or the next free port).
+Runs on `http://localhost:3000` (or the next free port). If another dev server already holds the Nuxt dev lock (common when running `pnpm test:e2e` right after `pnpm dev`), either stop it or set `NUXT_IGNORE_LOCK=1`.
 
 ### Docker (alternative)
 
@@ -89,22 +96,32 @@ pnpm build
 pnpm preview   # serve the production build locally
 ```
 
+To verify a Vercel-targeting build locally (catches ESM/CJS dependency bugs a plain `pnpm build` can miss — see §15's caveat):
+
+```bash
+NITRO_PRESET=vercel pnpm build
+```
+
 ## 8. Tests
 
 ```bash
 pnpm lint          # ESLint
 pnpm typecheck     # nuxt typecheck (vue-tsc)
 pnpm test          # Vitest unit tests
-pnpm test:e2e      # Playwright e2e (spins up its own dev server)
+pnpm test:e2e      # Playwright e2e (spins up its own dev server on :4123)
 ```
 
-All four are green as of this handover — see [§10 Testing Executed](#10-testing-executed-and-results).
+All are green as of this handover — see [§10 Testing Executed](#10-testing-executed-and-results).
 
 ## 9. Content Management
 
-Work case studies still live in `content/work/*.md`, validated against the schema in `content.config.ts`; Nuxt Content hot-reloads new/edited files in dev. Services moved to the database in Milestone 04 (see §7 below) — there's no `content/services/*.md` anymore.
+Almost all content is database-backed and managed through `/admin` — no file edits or redeploys needed to publish. The one exception is **work case studies**, which still live in `content/work/*.md` (Nuxt Content, file-based).
 
-### Adding a case study
+### Publishing model
+
+Most CMS tables (`services`, `packages`, `portfolio_evidence`, `articles`, `company_updates`, `careers`, `legal_pages`, `faqs`) share a `status` column — `draft` / `scheduled` / `published` / `archived` — plus a `published_at` timestamp; public API routes only return rows where `status = 'published' AND published_at <= now()`. The `projects` table predates this pattern and instead uses a simple `published` boolean (see §20 Known Limitations). Set status/publish state from the corresponding `/admin/<entity>` list or detail page.
+
+### Adding a case study (file-based)
 
 Create `content/work/<slug>.md`:
 
@@ -130,23 +147,42 @@ outcome: "..."
 
 Only add real, honestly-labeled projects — do not invent clients, metrics, or testimonials (see the blueprint's anti-fabrication rules, carried through in `content/work/aanaya.md` as the working example).
 
-### Adding a service or package
+### Everything else (database-backed, via `/admin`)
 
-Services and packages are fully database-backed (`services`/`service_translations`/`service_faqs` and `packages`/`package_translations`/`package_items`, see `supabase/migrations/0008_create_services.sql` and `0009_create_packages.sql`) — manage them at `/admin/services` and `/admin/packages`, not by editing files. `pnpm seed:services` re-seeds the real service content that used to live in `content/services/*.md` (see `scripts/seed-services.mjs`) into a fresh database.
+| Entity | Admin route | Migration |
+|---|---|---|
+| Projects | `/admin/projects` | `0002_create_projects.sql`, `0004_add_project_links.sql` |
+| Services & FAQs per service | `/admin/services` | `0008_create_services.sql` |
+| Packages | `/admin/packages` | `0009_create_packages.sql` |
+| Clients & logos | `/admin/clients` | `0007_create_clients_testimonials.sql` |
+| Testimonials | `/admin/testimonials` | `0007_create_clients_testimonials.sql` |
+| Portfolio evidence (design/photography/videography) | `/admin/portfolio/[discipline]` | `0013_create_portfolio_evidence.sql` |
+| Insights articles | `/admin/articles` | `0014_create_insights_updates_faq.sql` |
+| Company updates | `/admin/updates` | `0014_create_insights_updates_faq.sql` |
+| Site-wide FAQs | `/admin/faqs` | `0014_create_insights_updates_faq.sql` |
+| Careers | `/admin/careers` | `0015_create_careers_legal_pages.sql` |
+| Legal pages | `/admin/legal` | `0015_create_careers_legal_pages.sql` |
+| Media library (Cloudinary-backed) | `/admin/media` | `0006_create_media_assets.sql` |
+| Homepage sections | `/admin/content/home` | `0010_create_pages_sections.sql` |
+| Leads (5-step inquiry CRM) | `/admin/leads` | `0001_create_leads.sql`, `0016_lead_crm_expansion.sql` |
 
-### Adding a project via the admin panel
+Rich text fields use a TipTap editor in the admin UI; content is sanitized server-side (`server/utils/render-rich-text.ts`, via `sanitize-html`) before being persisted/rendered — never trust the client-submitted HTML directly.
 
-`/admin` is a Supabase-Auth-gated dashboard for adding work projects without touching the codebase or redeploying. Projects created there are stored in a `projects` table (Supabase) and merged at request time with the file-based `content/work/*.md` collection on `/work` and `/work/[slug]` — both sources render through the same templates.
+Bilingual entities (services, packages, articles, careers, legal pages, etc.) follow a base + translation table pattern (e.g. `services` + `service_translations`), so each row of translatable copy exists once per locale while non-translatable fields (slugs, media, ordering) live on the base row.
 
-**One-time setup:**
+### One-time setup (Supabase + first admin user)
 
-1. Run `supabase/migrations/0002_create_projects.sql` against your Supabase project (SQL Editor, or `supabase db push` if the CLI is linked). It creates the `projects` table and the public `project-covers` Storage bucket (with RLS policies: public read, authenticated-only write).
-2. Set `NUXT_PUBLIC_SUPABASE_URL` and `NUXT_PUBLIC_SUPABASE_ANON_KEY` in `.env` (Project Settings → API in the Supabase dashboard). These are safe to expose — the anon key only authenticates against Supabase Auth and the Storage policies above, it does not bypass RLS the way the service role key does.
-3. Create at least one admin user. There's no public sign-up — either use `pnpm seed:admin -- <email> <password>` (uses `SUPABASE_SERVICE_ROLE_KEY` to provision/reset the account, re-running it with the same email updates the password instead of erroring), or add one manually in Supabase Dashboard → Authentication → Users → Add user.
+1. Run all migrations in `supabase/migrations/` (in numeric order) against your Supabase project — SQL Editor, `supabase db push` if the CLI is linked, or the `mcp__supabase__apply_migration` tool if working with Claude Code. See §11.
+2. Set `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` (server) and `NUXT_PUBLIC_SUPABASE_URL` / `NUXT_PUBLIC_SUPABASE_ANON_KEY` (client) in `.env`.
+3. Create an admin user: `pnpm seed:admin -- <email> <password>` (uses the service role key to provision/reset the account; re-running with the same email updates the password instead of erroring).
+4. **`pnpm seed:admin` only creates the Supabase Auth user — it does not grant admin access.** Insert a matching row into `admin_profiles` (RLS-gated, no public policy — insert via SQL Editor or the service role key) with the desired `role`:
+   ```sql
+   insert into admin_profiles (user_id, display_name, role)
+   values ('<auth-user-uuid-from-step-3>', 'Your Name', 'super_admin');
+   ```
+   Until this row exists, the account can authenticate via Supabase Auth but every `/admin` API call returns 403 (`requireAdmin`, see §13).
 
-Then sign in at `/admin/login`. From `/admin/projects` you can create, edit, publish/unpublish, and delete projects, including uploading a cover image directly to Storage. Changes appear on `/work` immediately — no rebuild needed, unlike the markdown-based flow above.
-
-Run `pnpm seed:projects` to insert a couple of placeholder projects (`scripts/seed-projects.mjs`) for exercising the admin panel and `/work` listing locally — upserted by `slug`, safe to re-run.
+Then sign in at `/admin/login`. `pnpm seed:projects` and `pnpm seed:services` insert placeholder content for exercising those two sections locally (upserted by slug, safe to re-run) — there are no seed scripts yet for the other entities (careers, legal pages, articles, updates, FAQs, clients, testimonials, packages, portfolio evidence); populate those through the admin UI (see §20).
 
 ## 10. Testing Executed (and Results)
 
@@ -156,19 +192,21 @@ Run against this codebase at handover time:
 |---|---|
 | `pnpm lint` | 0 errors, 0 warnings |
 | `pnpm typecheck` | 0 errors |
-| `pnpm test` (Vitest) | 8/8 passed — `inquirySchema` validation coverage |
-| `pnpm test:e2e` (Playwright, chromium + mobile-chrome) | 22/22 passed — home, work, services, inquiry (validation/success/server-failure), mobile menu, reduced motion |
-| `pnpm build` | Succeeds; client + server bundles built, 4 routes prerendered |
-| Production smoke test | All routes 200, unknown routes 404 via `error.vue`, `/api/inquiry` end-to-end (validation → success), `/sitemap.xml` and `/robots.txt` served |
+| `pnpm test` (Vitest) | 52/52 passed — schema validation (inquiry/lead/career/legal-page), reading-time, text-list, lead-status, relative-date formatting |
+| `pnpm test:e2e` (Playwright, chromium + mobile-chrome) | 22/22 passed — home, work, services, inquiry wizard (validation/success/server-failure), mobile menu, reduced motion |
+| `NITRO_PRESET=vercel pnpm build` | Succeeds; client + server bundles built, `.vercel/output/functions/*` produced |
+| Production smoke test | All public/admin routes verified live on Vercel post-deploy; `/sitemap.xml` and `/robots.txt` served correctly with per-locale hreflang alternates |
 
-The e2e suite caught and led to a real fix: `backdrop-blur-md` on `<header>` was establishing a CSS containing block for its `position: fixed` mobile-menu child, collapsing the menu to zero height. Fixed by teleporting the menu overlay to `<body>` (`app/components/navigation/SiteMenu.vue`).
+Two real regressions were caught and fixed by re-running the full suite before this handover (not by manual review): `tests/e2e/inquiry.spec.ts` had gone stale against the 5-step wizard rewrite (Milestone 09) and was rewritten; `tests/e2e/reduced-motion.spec.ts` asserted pre-rebrand hero copy. Both are now passing against current behavior. This is also why e2e is now a mandatory step in this project's per-milestone verification routine, not an occasional check.
 
 ## 11. Supabase Setup
 
 1. Create a Supabase project.
-2. Run the migration in `supabase/migrations/0001_create_leads.sql` (via the SQL editor or `supabase db push`).
-3. Set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (service role, **never** the anon key — this is used server-only in `server/utils/supabase.ts`).
-4. RLS is enabled on `leads` with zero policies, which denies all anon/authenticated access by design; the server bypasses RLS via the service role key.
+2. Run all 16 migrations in `supabase/migrations/`, in order:
+   `0001_create_leads.sql` → `0002_create_projects.sql` → `0003_fix_function_search_path.sql` → `0004_add_project_links.sql` → `0005_create_admin_profiles.sql` → `0006_create_media_assets.sql` → `0007_create_clients_testimonials.sql` → `0008_create_services.sql` → `0009_create_packages.sql` → `0010_create_pages_sections.sql` → `0011_create_site_settings_navigation.sql` → `0012_create_audit_log_redirects.sql` → `0013_create_portfolio_evidence.sql` → `0014_create_insights_updates_faq.sql` → `0015_create_careers_legal_pages.sql` → `0016_lead_crm_expansion.sql`.
+3. Set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (service role, **never** the anon key server-side — used in `server/utils/supabase.ts`).
+4. RLS is enabled on every data table with **zero public policies** — this denies all anon/authenticated direct access by design; every read and write goes through server API routes using the service role key, which bypasses RLS. There is no scenario where a browser talks to Postgres directly.
+5. See §9 for the required `admin_profiles` row after creating an Auth user.
 
 ## 12. Resend Setup
 
@@ -177,77 +215,75 @@ The e2e suite caught and led to a real fix: `backdrop-blur-md` on `<header>` was
 3. Set `KARSA_INQUIRY_EMAIL` to the inbox that should receive new-inquiry notifications.
 4. Email templates live in `server/utils/resend.ts` (`buildInternalNotificationEmail`, `buildConfirmationEmail`); both HTML-escape user input.
 
-## 13. Turnstile Setup
+## 13. Auth & RBAC
+
+Admin access is Supabase Auth (sign-in) **plus** an `admin_profiles` row (authorization) — a valid Supabase session alone is not sufficient. `server/utils/require-admin.ts` exports `requireAdmin(event, allowedRoles?)`, which every `/api/admin/**` route calls: it verifies the bearer token against Supabase Auth, then requires an active `admin_profiles` row, then (if `allowedRoles` is passed) checks the row's `role` against the allow-list.
+
+| Role | Typical access |
+|---|---|
+| `super_admin` | Everything, including destructive actions (delete projects, manage other admins) |
+| `content_editor` | Create/edit content across CMS entities; no delete on some entities, no admin-user management |
+| `sales` | Leads/CRM-focused routes |
+| `viewer` | Read-only across admin routes |
+
+The exact allow-list is per-route (see each `server/api/admin/**/*.ts` handler's `requireAdmin(event, [...])` call) — `super_admin` is a superset of every other role's access. Inactive profiles (`is_active = false`) are rejected regardless of role.
+
+## 14. Turnstile Setup
 
 1. Create a Turnstile widget in the Cloudflare dashboard.
 2. Set `NUXT_PUBLIC_TURNSTILE_SITE_KEY` (client) and `TURNSTILE_SECRET_KEY` (server).
-3. Until both are set, the widget doesn't render and the server skips verification — this keeps local development unblocked but means **bot protection is inactive until configured**. Configure both before taking real public traffic.
+3. Until both are set, the widget doesn't render and the server skips verification — this keeps local development unblocked but means **bot protection is inactive until configured**. Configure both before taking real public traffic (see §20 — this is currently unset in production).
 
-## 14. Inquiry Flow
+## 15. Inquiry Flow (Lead CRM)
 
 ```
-Browser (ProjectInquiryForm.vue)
+Browser (5-step ProjectInquiryForm wizard, useProjectInquiry.ts)
   → POST /api/inquiry
   → Zod validation        (server/validation/inquiry.ts)
   → Turnstile verification (server/utils/turnstile.ts)
   → Rate limiting          (server/utils/rate-limit.ts)
-  → Supabase insert        (server/utils/supabase.ts)
+  → Supabase insert        (leads + leads_activities "created" event)
   → Resend emails          (server/utils/resend.ts)
   → { success, referenceId } or { success: false, code, message }
 ```
 
-The client (`useProjectInquiry.ts`) preserves all entered form data on failure and surfaces the server's actual error message (not a generic one) by reading `error.data` from the thrown `$fetch` rejection. No stack traces reach the browser.
+The client preserves all entered form data on failure and surfaces the server's actual error message (not a generic one) by reading `error.data` from the thrown `$fetch` rejection. No stack traces reach the browser.
 
-## 15. Deployment (Vercel)
+Once stored, a lead moves through `/admin/leads`: status transitions (`new → contacted → qualified → discovery → proposal → won/lost/archived`), assignee, notes (`lead_notes`), and a full activity timeline (`lead_activities` — created/status_changed/note_added/email_sent/follow_up_set/assigned) are all tracked and visible per-lead at `/admin/leads/[id]`.
 
-`vercel.json` pins the framework to `nuxt`; `package.json` pins `engines.node` (`22.x`) and `packageManager` (`pnpm@11.9.0`) so Vercel's build image matches local dev. Verified locally with `NITRO_PRESET=vercel pnpm build` — produces `.vercel/output/functions/*` as expected, no build errors.
+## 16. Internationalization (i18n)
+
+- Locales: English (`en`, default, **unprefixed** URLs) and Indonesian (`id`, prefixed `/id/**`) — strategy `prefix_except_default`.
+- Locale detection via cookie (`karsa_locale`), redirecting only at the root route.
+- `useLocaleHead()` (in `app/app.vue`) emits self-referencing canonical + hreflang alternates + `og:locale` globally on every page — no per-page boilerplate needed.
+- The admin panel (`/admin/**`) is intentionally **not localized** — it's an internal tool, not public-facing content.
+- Bilingual database content uses the base + translation table pattern described in §9.
+- **Known limitation:** the default locale remains English rather than Indonesian, an explicit scope decision made mid-project (see §20) — swapping the default would require changing `defaultLocale` and re-verifying every hardcoded route assumption.
+
+## 17. Theme (Light / Dark / System)
+
+`@nuxtjs/color-mode` drives a `data-theme="light"|"dark"` attribute on `<html>` (not Tailwind's `.dark` class strategy), which `app/assets/css/tokens.css` keys its CSS custom properties off of. Default preference is `system` (falls back to `light` if unresolvable), user choice persisted under the `karsa-color-mode` localStorage key. All color tokens (background, text, borders, accents) are defined for both modes — there is no page or component that hardcodes a light-only or dark-only color.
+
+## 18. Deployment (Vercel)
+
+`vercel.json` pins the framework to `nuxt`; `package.json` pins `engines.node` (`22.x`) and `packageManager` (`pnpm@11.9.0`) so Vercel's build image matches local dev.
 
 1. Connect the repository to Vercel.
-2. Set all variables from `.env.example` in the Vercel project's Environment Variables (Production **and** Preview — the admin panel and inquiry flow need Supabase/Resend/Turnstile in both).
-3. Deploy — Nuxt's Vercel preset is auto-detected from `VERCEL=1` at build time (confirmed via a local `NITRO_PRESET=vercel` build); `@nuxt/image` also switches to the Vercel image provider automatically in that environment, so the local "sharp binaries built for darwin-arm64" build warning does not carry over.
+2. Set every variable from `.env.example` in the Vercel project's Environment Variables (Production **and** Preview — the admin panel and inquiry flow need Supabase/Cloudinary/Resend/Turnstile in both).
+3. Deploy — Nuxt's Vercel preset is auto-detected from `VERCEL=1` at build time; `@nuxt/image` also switches to the Vercel image provider automatically in that environment.
 4. Post-deploy checklist:
    - [ ] Custom domain + HTTPS
-   - [ ] `NUXT_PUBLIC_SITE_URL` matches the live domain (affects sitemap/OG/canonical)
-   - [ ] `/sitemap.xml` and `/robots.txt` resolve
-   - [ ] Submit a real test inquiry end-to-end (Supabase row + both emails arrive)
-   - [ ] Run both `supabase/migrations/*.sql` (including `0002_create_projects.sql` for the admin panel — see §9) against the production Supabase project
-   - [ ] Sign in at `/admin/login` with a provisioned admin user and confirm a test project appears on `/work`
+   - [ ] `NUXT_PUBLIC_SITE_URL` matches the live domain (affects sitemap/OG/canonical/hreflang)
+   - [ ] `/sitemap.xml` and `/robots.txt` resolve, `/id/sitemap.xml` variants included
+   - [ ] Submit a real test inquiry end-to-end (Supabase `leads` row + both emails arrive)
+   - [ ] Run all 16 `supabase/migrations/*.sql` against the production Supabase project (see §11)
+   - [ ] Insert the first `admin_profiles` row for a real admin (see §9 step 4)
+   - [ ] Sign in at `/admin/login` and confirm content management works end-to-end
    - [ ] Run Lighthouse against the live URL
 
+**Critical deployment lesson (learned from two production incidents this project):** Vercel's Nitro server bundles **every** server route into a single serverless function. One bad `require()` of an ESM-only dependency anywhere in that dependency graph crashes **every** route, not just the one that imports it. A plain local `pnpm build` + boot test is **not sufficient** to catch this — local Node ≥22.12 silently interoperates `require()` of ESM packages in a way Vercel's runtime does not, so a broken bundle can boot fine locally and still crash 100% of production traffic. Before upgrading or adding any server-side dependency, check its `package.json` `exports` map for an actual `require` condition; if it's missing, the package is unrequireable regardless of local Node version. Always verify with `NITRO_PRESET=vercel pnpm build` at minimum (see §7), and treat that as necessary but not sufficient — the exports-map check is the reliable one.
+
 **Known deployment caveat:** the in-memory rate limiter (`server/utils/rate-limit.ts`) is per-instance. On serverless platforms with multiple concurrent function instances, each instance tracks its own counters — it's a best-effort abuse guard, not a hard limit. A distributed store (Upstash Redis, Vercel KV) would be needed for a hard guarantee.
-
-## 16. 3D Optimization
-
-- Procedural geometry only (two tori + cylinder + sphere) — no GLB asset, so there's no model-loading cost. Documented limitation: the brand mark is a placeholder geometric symbol (ring + tick, echoing the `KARSA°` wordmark), not an official 3D logo — swap `KarsaLogoModel.vue`'s geometry for a proper extruded/GLB mark once one exists.
-- DPR capped per tier: `1.75` (high) / `1.1` (medium+low), see `KarsaLogoScene.vue`.
-- Geometry segment count scales down on non-`high` tiers.
-- `useDevicePerformance()` classifies HIGH/MEDIUM/LOW from `deviceMemory`, `hardwareConcurrency`, viewport width, DPR, WebGL support, and reduced-motion — LOW and no-WebGL both fall back to a static `karsa-mark.svg` image (`KarsaCanvas.client.vue`), never a blank screen.
-- Pointer-parallax is gated to `tier === 'high'` **and** `(hover: hover) and (pointer: fine)` — no expensive pointer physics on touch devices.
-- Geometry/material disposal on unmount (`KarsaLogoModel.vue`'s `onUnmounted`).
-- Canvas render loop is `render-mode="always"` intentionally (not `manual`) — see the comment in `KarsaLogoScene.vue` for why `manual` mode silently produces a blank canvas here.
-
-## 17. Performance Rules Applied
-
-- `.client.vue` suffix + `Lazy` prefix on the 3D canvas — it never blocks SSR or the initial paint of the (HTML, not canvas) hero text.
-- Single Lenis instance, created once in a plugin (`plugins/lenis.client.ts`), not per-component.
-- All GSAP animations scoped via `useGsapContext()` (wraps `gsap.context`), reverted on unmount — prevents duplicate timelines on route revisit.
-- `@nuxt/image` for `format: ['webp', 'avif']`.
-- Two font families only (Space Grotesk display, Inter body), loaded via a single Google Fonts request.
-- `prefers-reduced-motion` collapses all transition/animation durations to ~0 globally (`main.css`) in addition to component-level gating.
-
-Not yet measured against a deployed target: **Lighthouse scores** (see §20 — requires a live/production-like URL, not run in this environment).
-
-## 18. Accessibility
-
-- Semantic landmarks (`header`, `main`, `nav[aria-label]`, `footer`), skip-to-content link.
-- Mobile menu: focus moves in on open, focus-trapped via `Tab`/`Shift+Tab`, closes on `Escape`, restores body scroll lock, `role="dialog"` + `aria-modal`.
-- All form inputs have associated `<label>`; errors are linked via `aria-describedby` and `aria-invalid`, announced inline (not just at the top of the form).
-- Decorative 3D canvas and its static fallback image are `aria-hidden`; the marquee's duplicated (looping) copy is `aria-hidden` while the first copy stays in the accessibility tree.
-- Focus-visible outline on all interactive elements (`main.css`).
-- No content is hover-only; the desktop nav's mobile equivalent (burger menu) carries the same links.
-- Verified via Playwright: keyboard focus order in the mobile menu, and full content visibility under `prefers-reduced-motion: reduce`.
-
-Not yet run: a full axe/Lighthouse accessibility audit against a deployed build.
 
 ## 19. Environment Variables Reference
 
@@ -255,16 +291,34 @@ See `.env.example` for the authoritative list and §5 above for what each unlock
 
 ## 20. Known Limitations
 
-- **Brand mark is a placeholder.** No official Karsa vector logo was supplied. The 3D hero symbol and favicon are an original geometric mark (ring + tick), not a redesign of anything existing — swap for the real mark once available (see §16).
-- **Only one real case study.** `content/work/aanaya.md` is the one project with a factual basis available at build time (the Aanaya e-commerce project, from the blueprint's own content example). No other client/project work was fabricated to pad the portfolio — add more `content/work/*.md` files as real projects become available.
-- **Contact channels are empty.** `email`, `whatsapp`, `instagram`, `linkedin` in `app/utils/site-config.ts` are blank pending business input; the UI hides each one gracefully rather than showing a broken link. Fill them in once official channels are confirmed.
-- **Turnstile/Supabase/Resend are unconfigured by default.** The app runs and the inquiry flow still works end-to-end (returns a reference ID) without them, but bot protection, lead storage, and email notifications are inactive until real credentials are supplied.
-- **Rate limiting is per-instance**, not distributed (see §15).
-- **Lighthouse/axe audits were not run** — this environment has no way to serve a public/production URL to test against. Run them post-deploy per the §15 checklist.
-- **No response-time SLA is promised anywhere in the copy**, intentionally — the blueprint prohibits promising one that isn't officially set.
-- **`/admin` has no automated test coverage yet** and was verified with `pnpm lint`/`pnpm typecheck`/`pnpm test` plus manual `curl` smoke checks (unauthenticated `/api/admin/*` correctly returns 401, `/work` and `/work/[slug]` still render with Supabase unconfigured) — it was not click-tested in a browser against a live Supabase project, since `NUXT_PUBLIC_SUPABASE_ANON_KEY` isn't set in this environment. Verify the login → create → publish flow manually once real Supabase credentials are in place.
-- **Admin access has no role distinction.** Any Supabase Auth user that can sign in counts as a full admin (create/edit/delete/publish) — there's no separate roles table. Only provision Supabase Auth accounts for people who should have full project-editing access.
+- **`TURNSTILE_SECRET_KEY` and `RESEND_API_KEY` are not currently set in production.** The site runs and the inquiry form still returns a reference ID, but bot protection is inactive and neither the internal-notification nor confirmation emails send until these are configured on Vercel. This is a deliberate, user-deferred item, not an oversight — see §14/§12.
+- **`projects` uses a legacy `published` boolean** instead of the `status`/`published_at` pattern every later CMS table uses (see §9). Functionally fine (both gate on "is this visible publicly"), but inconsistent — a future migration could normalize `projects` onto the same pattern.
+- **No seed scripts for most CMS entities.** `pnpm seed:projects` and `pnpm seed:services` exist; careers, legal pages, articles, company updates, FAQs, clients, testimonials, packages, and portfolio evidence have no equivalent — populate them via `/admin` after deployment.
+- **Package ↔ service taxonomy mismatch.** `packages.category` (solo/combo/signature/maintenance) and `services.category` are separate vocabularies and are not cross-filtered in the inquiry form's package selector.
+- **English remains the default locale**, not Indonesian, per an explicit scope decision (see §16) — this was a deliberate call, not a gap to close later.
+- **`/work` does not yet aggregate the newer portfolio-evidence disciplines** (design/photography/videography galleries) — those live at their own `/design`, `/photography`, `/videography` routes rather than being pulled into the original file-based `/work` case-study listing.
+- **Photography lightbox is not implemented** — photography portfolio items link out to their detail page rather than opening an in-page lightbox.
+- **`page_sections.theme_variant` is stored but not consumed** by any public component yet — the column exists for future per-section theme overrides.
+- **OG image is a single global placeholder card** (`public/og/default.png`), not per-entity designed marketing assets. Careers and legal pages have no `cover_media_id` field, so they always fall back to this default — acceptable for internal/legal pages, worth revisiting for articles/projects if a designer produces real OG art.
+- **Rate limiting is per-instance**, not distributed (see §18).
+- **No response-time SLA is promised anywhere in the copy**, intentionally.
+- **Brand mark is a placeholder.** No official Karsa vector logo was supplied. The 3D hero symbol and favicon are an original geometric mark (ring + tick), not a redesign of anything existing.
+- **Contact channels are empty.** `email`, `whatsapp`, `instagram`, `linkedin` in `app/utils/site-config.ts` are blank pending business input; the UI hides each one gracefully rather than showing a broken link.
+- **Admin panel has automated test coverage via schema/unit tests but not a full Playwright e2e suite** — e2e coverage focuses on the public site (§10); manually verify the full `/admin` login → create → publish flow against production after any RBAC or CMS-entity change.
 
-## Recommended Phase 2
+## 21. Recommended Phase 2
 
-Per the blueprint's own Phase 2 list (§59): non-technical content editing is now covered by the `/admin` panel (see §9); still open are an `/insights` blog once there's material worth publishing, multilingual ID/EN, and a real GLB-based 3D brand mark once official brand assets exist. None of these block this v1 launch.
+- Configure real `TURNSTILE_SECRET_KEY`/site key and `RESEND_API_KEY` in production (see §20 — currently the only genuinely "unfinished" item blocking full production readiness).
+- Normalize `projects` onto the `status`/`published_at` pattern used by every other CMS table.
+- Add seed scripts (or a documented manual-import path) for the remaining CMS entities listed in §20.
+- Real per-entity OG images (articles, projects) once a designer produces them, replacing the single global placeholder.
+- A photography lightbox and a unified `/work` view that pulls in design/photography/videography portfolio evidence alongside file-based case studies.
+- Distributed rate limiting (Upstash Redis / Vercel KV) if inquiry-endpoint abuse becomes a real concern.
+- A real GLB-based 3D brand mark once official brand assets exist.
+- Admin-panel Playwright e2e coverage (login → create → publish per entity), matching the public-site suite's rigor.
+
+## Further Documentation
+
+- [`docs/admin-guide.md`](docs/admin-guide.md) — non-developer walkthrough of the admin panel: logging in, roles, and managing each content type.
+- [`docs/content-model.md`](docs/content-model.md) — full database schema reference: every table, its purpose, and how it relates to the public site.
+- [`docs/deployment.md`](docs/deployment.md) — step-by-step Vercel + Supabase production deployment and redeployment procedure.
