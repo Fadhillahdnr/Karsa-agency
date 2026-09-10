@@ -10,6 +10,8 @@ const sections = ref<PageSectionRow[]>([])
 const loading = ref(true)
 const errorMessage = ref('')
 const savingId = ref<string | null>(null)
+const draggedIndex = ref<number | null>(null)
+const dragOverIndex = ref<number | null>(null)
 
 const labels: Record<string, string> = {
   hero: 'Hero',
@@ -67,24 +69,61 @@ function setTheme(section: PageSectionRow, theme: string) {
   patchSection(section, { themeVariant: theme })
 }
 
+async function persistOrder(previous: PageSectionRow[]) {
+  const changed = sections.value
+    .map((section, index) => ({ section, index }))
+    .filter(({ section, index }) => previous.find(p => p.id === section.id)?.order_index !== index)
+
+  sections.value = sections.value.map((section, index) => ({ ...section, order_index: index }))
+
+  await Promise.all(
+    changed.map(({ section, index }) => patchSection(section, { orderIndex: index })),
+  )
+}
+
 async function moveSection(index: number, direction: -1 | 1) {
   const target = index + direction
   if (target < 0 || target >= sections.value.length) return
 
-  const a = sections.value[index]!
-  const b = sections.value[target]!
-  const aOrder = a.order_index
-  const bOrder = b.order_index
+  const previous = sections.value
+  const reordered = [...sections.value]
+  const [moved] = reordered.splice(index, 1)
+  reordered.splice(target, 0, moved!)
+  sections.value = reordered
 
-  // Swap locally first so the UI reorders instantly, then persist both.
-  sections.value[index] = { ...b, order_index: aOrder }
-  sections.value[target] = { ...a, order_index: bOrder }
-  sections.value.sort((x, y) => x.order_index - y.order_index)
+  await persistOrder(previous)
+}
 
-  await Promise.all([
-    patchSection(a, { orderIndex: bOrder }),
-    patchSection(b, { orderIndex: aOrder }),
-  ])
+function onDragStart(index: number, event: DragEvent) {
+  draggedIndex.value = index
+  event.dataTransfer?.setData('text/plain', String(index))
+  if (event.dataTransfer) event.dataTransfer.effectAllowed = 'move'
+}
+
+function onDragOver(index: number, event: DragEvent) {
+  event.preventDefault()
+  if (event.dataTransfer) event.dataTransfer.dropEffect = 'move'
+  dragOverIndex.value = index
+}
+
+async function onDrop(index: number) {
+  const from = draggedIndex.value
+  draggedIndex.value = null
+  dragOverIndex.value = null
+  if (from === null || from === index) return
+
+  const previous = sections.value
+  const reordered = [...sections.value]
+  const [moved] = reordered.splice(from, 1)
+  reordered.splice(index, 0, moved!)
+  sections.value = reordered
+
+  await persistOrder(previous)
+}
+
+function onDragEnd() {
+  draggedIndex.value = null
+  dragOverIndex.value = null
 }
 
 onMounted(loadSections)
@@ -126,9 +165,26 @@ onMounted(loadSections)
       <li
         v-for="(section, index) in sections"
         :key="section.id"
-        class="flex flex-wrap items-center gap-3 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] p-4"
-        :class="{ 'opacity-50': !section.enabled }"
+        draggable="true"
+        class="flex flex-wrap items-center gap-3 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] p-4 transition-colors"
+        :class="{
+          'opacity-50': !section.enabled,
+          'opacity-40': draggedIndex === index,
+          'border-[var(--color-accent)]': dragOverIndex === index && draggedIndex !== index,
+        }"
+        @dragstart="onDragStart(index, $event)"
+        @dragover="onDragOver(index, $event)"
+        @drop="onDrop(index)"
+        @dragend="onDragEnd"
       >
+        <span
+          class="cursor-grab select-none text-[var(--color-text-muted)] active:cursor-grabbing"
+          aria-hidden="true"
+          title="Drag to reorder"
+        >
+          ⠿
+        </span>
+
         <div class="flex items-center gap-1">
           <button
             type="button"
