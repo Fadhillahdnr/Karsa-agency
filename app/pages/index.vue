@@ -48,6 +48,13 @@ const { data: sections } = await useAsyncData('home-sections', () =>
 )
 
 const activeSections = computed(() => sections.value?.length ? sections.value : fallbackSections)
+
+const forcedThemes = new Set(['light', 'dark', 'neutral'])
+
+/** 'auto' (or unset) means "inherit the site-wide theme" — no override attribute. */
+function themeAttr(themeVariant: string | null) {
+  return themeVariant && forcedThemes.has(themeVariant) ? themeVariant : undefined
+}
 </script>
 
 <template>
@@ -56,6 +63,8 @@ const activeSections = computed(() => sections.value?.length ? sections.value : 
       :is="componentMap[section.componentType]"
       v-for="section in activeSections"
       :key="section.sectionKey"
+      :data-theme="themeAttr(section.themeVariant)"
+      class="bg-[var(--color-bg)]"
     />
   </div>
 </template>

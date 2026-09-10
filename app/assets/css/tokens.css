@@ -24,20 +24,6 @@
   --karsa-accent-soft: rgba(139, 134, 106, 0.12);
   --karsa-on-accent: #0a0a0a;
 
-  /* Semantic surface tokens — every component reads these, never the
-     --karsa-* values above directly. */
-  --color-bg: var(--karsa-bg);
-  --color-surface: var(--karsa-surface);
-  --color-surface-raised: var(--karsa-surface-2);
-  --color-text: var(--karsa-text);
-  --color-text-muted: var(--karsa-text-muted);
-  --color-border: var(--karsa-border);
-  --color-accent: var(--karsa-accent);
-  --color-accent-strong: var(--karsa-accent-strong);
-  --color-accent-soft: var(--karsa-accent-soft);
-  --color-on-accent: var(--karsa-on-accent);
-  --color-danger: #e5484d;
-
   /* Spacing scale (rem, 4px base) */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -95,6 +81,78 @@
   --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.45);
 
   color-scheme: dark;
+}
+
+/**
+ * Per-section theme overrides (§117 REORDER / admin "Homepage" theme_variant
+ * picker) — applied as a `data-theme` attribute on an individual homepage
+ * section's root element (see app/pages/index.vue), independent of the
+ * site-wide light/dark/system preference above. `[data-theme='light']`
+ * mirrors :root exactly so a section can force light even inside an
+ * otherwise-dark page. `[data-theme='neutral']` is a fixed warm-greige
+ * panel tone (not tied to the light/dark toggle) for a deliberate visual
+ * break between sections — same palette regardless of site theme.
+ */
+[data-theme='light'] {
+  --karsa-bg: #f4f1ea;
+  --karsa-surface: #ffffff;
+  --karsa-surface-2: #ebe8e1;
+  --karsa-text: #080808;
+  --karsa-text-muted: #64645f;
+  --karsa-border: rgba(8, 8, 8, 0.14);
+  --karsa-accent: #8b866a;
+  --karsa-accent-strong: #6f6a52;
+  --karsa-accent-soft: rgba(139, 134, 106, 0.12);
+  --karsa-on-accent: #0a0a0a;
+
+  --shadow-sm: 0 1px 2px rgba(8, 8, 8, 0.08);
+  --shadow-md: 0 8px 24px rgba(8, 8, 8, 0.1);
+  --shadow-lg: 0 24px 64px rgba(8, 8, 8, 0.14);
+
+  color-scheme: light;
+}
+
+/**
+ * Semantic surface tokens — every component reads these, never the
+ * --karsa-* values directly. Re-declared (not just set once on :root) so
+ * that var(--karsa-*) is re-resolved at every themed element: a custom
+ * property's inherited value is the already-substituted string from
+ * wherever it was last declared, so without this repeated here, a nested
+ * [data-theme] override on a single section would update --karsa-bg but
+ * --color-bg would keep inheriting the page-level color unchanged.
+ */
+:root,
+[data-theme] {
+  --color-bg: var(--karsa-bg);
+  --color-surface: var(--karsa-surface);
+  --color-surface-raised: var(--karsa-surface-2);
+  --color-text: var(--karsa-text);
+  --color-text-muted: var(--karsa-text-muted);
+  --color-border: var(--karsa-border);
+  --color-accent: var(--karsa-accent);
+  --color-accent-strong: var(--karsa-accent-strong);
+  --color-accent-soft: var(--karsa-accent-soft);
+  --color-on-accent: var(--karsa-on-accent);
+  --color-danger: #e5484d;
+}
+
+[data-theme='neutral'] {
+  --karsa-bg: #eae5d9;
+  --karsa-surface: #f5f1e8;
+  --karsa-surface-2: #ddd6c5;
+  --karsa-text: #16150f;
+  --karsa-text-muted: #5c5748;
+  --karsa-border: rgba(22, 21, 15, 0.14);
+  --karsa-accent: #8b866a;
+  --karsa-accent-strong: #6f6a52;
+  --karsa-accent-soft: rgba(139, 134, 106, 0.14);
+  --karsa-on-accent: #0a0a0a;
+
+  --shadow-sm: 0 1px 2px rgba(8, 8, 8, 0.08);
+  --shadow-md: 0 8px 24px rgba(8, 8, 8, 0.1);
+  --shadow-lg: 0 24px 64px rgba(8, 8, 8, 0.14);
+
+  color-scheme: light;
 }
 
 @media (prefers-reduced-motion: reduce) {
