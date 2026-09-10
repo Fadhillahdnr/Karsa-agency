@@ -6,8 +6,8 @@ const localePath = useLocalePath()
 
 const { data: projects } = await useAsyncData(`work-listing-${locale.value}`, async () => {
   const [contentItems, dbItems] = await Promise.all([
-    queryCollection(locale.value === 'id' ? 'workId' : 'work').order('order', 'ASC').all(),
-    $fetch<WorkApiItem[]>('/api/work').catch(() => []),
+    queryCollection(locale.value === 'id' ? 'workId' : 'work').order('order', 'ASC').all().catch(() => []),
+    $fetch<WorkApiItem[]>('/api/work', { query: { locale: locale.value } }).catch(() => []),
   ])
 
   return [...contentItems, ...dbItems].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
@@ -73,12 +73,15 @@ useSeoMeta({
                 {{ project.title }}
               </h2>
               <p class="mt-2 text-sm text-[var(--color-text-muted)]">
-                {{ project.category }} · {{ project.year }}
+                {{ project.year ? `${project.category} · ${project.year}` : project.category }}
               </p>
               <p class="mt-4 max-w-md text-[length:var(--text-body)] text-[var(--color-text-muted)]">
                 {{ project.description }}
               </p>
-              <p class="mt-4 text-sm text-[var(--color-text-muted)]">
+              <p
+                v-if="project.services?.length"
+                class="mt-4 text-sm text-[var(--color-text-muted)]"
+              >
                 {{ project.services.join(' · ') }}
               </p>
               <span class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-text)] group-hover:text-[var(--color-accent)]">
