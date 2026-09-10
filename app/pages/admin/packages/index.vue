@@ -9,23 +9,10 @@ const { authFetch } = useAdminAuth()
 const toast = useToast()
 const { confirm } = useConfirm()
 
-const packages = ref<PackageListItem[]>([])
-const loading = ref(true)
-const errorMessage = ref('')
-
-async function loadPackages() {
-  loading.value = true
-  errorMessage.value = ''
-  try {
-    packages.value = await authFetch<PackageListItem[]>('/api/admin/packages')
-  }
-  catch {
-    errorMessage.value = 'Could not load packages.'
-  }
-  finally {
-    loading.value = false
-  }
-}
+const { items: packages, loading, error: errorMessage, load: loadPackages } = useAdminList<PackageListItem>(
+  () => authFetch<PackageListItem[]>('/api/admin/packages'),
+  'Could not load packages.',
+)
 
 async function deletePackage(pkg: PackageListItem) {
   const ok = await confirm({
@@ -52,68 +39,20 @@ onMounted(loadPackages)
 </script>
 
 <template>
-  <div>
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <div>
-        <h1 class="font-display text-2xl font-medium">
-          Packages
-        </h1>
-        <p class="mt-1 text-sm text-[var(--color-text-muted)]">
-          Pricing tiers shown on /packages. Only real, owner-approved pricing.
-        </p>
-      </div>
-      <BaseButton
-        to="/admin/packages/new"
-        variant="primary"
-      >
-        <AdminIcon
-          name="plus"
-          :size="16"
-        /> New package
-      </BaseButton>
-    </div>
-
-    <p
-      v-if="errorMessage"
-      role="alert"
-      class="mt-6 rounded-[var(--radius-md)] border border-[var(--color-danger)] bg-[var(--color-danger)]/10 p-4 text-sm"
-    >
-      {{ errorMessage }}
-    </p>
-
-    <div
-      v-if="loading"
-      class="mt-6 flex flex-col gap-3"
-    >
-      <SkeletonBlock
-        v-for="i in 3"
-        :key="i"
-        height="3.5rem"
-        rounded="var(--radius-md)"
-      />
-    </div>
-
-    <EmptyState
-      v-else-if="!packages.length"
-      class="mt-6"
-      icon="projects"
-      title="No packages yet"
-      description="Create a package once real, owner-approved pricing is ready — never publish placeholder prices."
-    >
-      <template #action>
-        <BaseButton
-          to="/admin/packages/new"
-          variant="secondary"
-        >
-          New package
-        </BaseButton>
-      </template>
-    </EmptyState>
-
-    <ul
-      v-else
-      class="mt-6 flex flex-col gap-2"
-    >
+  <AdminListPage
+    title="Packages"
+    description="Pricing tiers shown on /packages. Only real, owner-approved pricing."
+    new-to="/admin/packages/new"
+    new-label="New package"
+    :loading="loading"
+    :error="errorMessage"
+    :empty="!packages.length"
+    empty-icon="projects"
+    empty-title="No packages yet"
+    empty-description="Create a package once real, owner-approved pricing is ready — never publish placeholder prices."
+    :skeleton-count="3"
+  >
+    <ul class="mt-6 flex flex-col gap-2">
       <li
         v-for="pkg in packages"
         :key="pkg.id"
@@ -147,5 +86,5 @@ onMounted(loadPackages)
         </button>
       </li>
     </ul>
-  </div>
+  </AdminListPage>
 </template>

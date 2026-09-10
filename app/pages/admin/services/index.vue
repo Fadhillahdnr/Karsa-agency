@@ -8,10 +8,6 @@ type ServiceListItem = ServiceRow & { title: string }
 const { authFetch } = useAdminAuth()
 const toast = useToast()
 const { confirm } = useConfirm()
-
-const services = ref<ServiceListItem[]>([])
-const loading = ref(true)
-const errorMessage = ref('')
 const categoryFilter = ref<'all' | ServiceRow['category']>('all')
 
 const categoryTabs: { label: string, value: 'all' | ServiceRow['category'] }[] = [
@@ -23,23 +19,14 @@ const categoryTabs: { label: string, value: 'all' | ServiceRow['category'] }[] =
   { label: 'Integrated', value: 'integrated' },
 ]
 
+const { items: services, loading, error: errorMessage, load: loadServices } = useAdminList<ServiceListItem>(
+  () => authFetch<ServiceListItem[]>('/api/admin/services'),
+  'Could not load services.',
+)
+
 const filtered = computed(() =>
   categoryFilter.value === 'all' ? services.value : services.value.filter(s => s.category === categoryFilter.value),
 )
-
-async function loadServices() {
-  loading.value = true
-  errorMessage.value = ''
-  try {
-    services.value = await authFetch<ServiceListItem[]>('/api/admin/services')
-  }
-  catch {
-    errorMessage.value = 'Could not load services.'
-  }
-  finally {
-    loading.value = false
-  }
-}
 
 async function deleteService(service: ServiceListItem) {
   const ok = await confirm({
@@ -66,83 +53,37 @@ onMounted(loadServices)
 </script>
 
 <template>
-  <div>
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <div>
-        <h1 class="font-display text-2xl font-medium">
-          Services
-        </h1>
-        <p class="mt-1 text-sm text-[var(--color-text-muted)]">
-          Website, design, photography, and film offerings shown on /services.
-        </p>
-      </div>
-      <BaseButton
-        to="/admin/services/new"
-        variant="primary"
-      >
-        <AdminIcon
-          name="plus"
-          :size="16"
-        /> New service
-      </BaseButton>
-    </div>
-
-    <div class="mt-6 flex flex-wrap gap-2">
-      <button
-        v-for="tab in categoryTabs"
-        :key="tab.value"
-        type="button"
-        class="min-h-[36px] rounded-full border px-3.5 text-xs font-medium uppercase transition-colors"
-        :class="categoryFilter === tab.value
-          ? 'border-[var(--color-accent)] bg-[var(--color-accent)]/10 text-[var(--color-accent)]'
-          : 'border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-[var(--color-text)]'"
-        @click="categoryFilter = tab.value"
-      >
-        {{ tab.label }}
-      </button>
-    </div>
-
-    <p
-      v-if="errorMessage"
-      role="alert"
-      class="mt-6 rounded-[var(--radius-md)] border border-[var(--color-danger)] bg-[var(--color-danger)]/10 p-4 text-sm"
-    >
-      {{ errorMessage }}
-    </p>
-
-    <div
-      v-if="loading"
-      class="mt-6 flex flex-col gap-3"
-    >
-      <SkeletonBlock
-        v-for="i in 4"
-        :key="i"
-        height="3.5rem"
-        rounded="var(--radius-md)"
-      />
-    </div>
-
-    <EmptyState
-      v-else-if="!filtered.length"
-      class="mt-6"
-      icon="projects"
-      title="No services yet"
-      description="Create the first service to publish it on /services."
-    >
-      <template #action>
-        <BaseButton
-          to="/admin/services/new"
-          variant="secondary"
+  <AdminListPage
+    title="Services"
+    description="Website, design, photography, and film offerings shown on /services."
+    new-to="/admin/services/new"
+    new-label="New service"
+    :loading="loading"
+    :error="errorMessage"
+    :empty="!filtered.length"
+    empty-icon="projects"
+    empty-title="No services yet"
+    empty-description="Create the first service to publish it on /services."
+    :skeleton-count="4"
+  >
+    <template #filters>
+      <div class="mt-6 flex flex-wrap gap-2">
+        <button
+          v-for="tab in categoryTabs"
+          :key="tab.value"
+          type="button"
+          class="min-h-[36px] rounded-full border px-3.5 text-xs font-medium uppercase transition-colors"
+          :class="categoryFilter === tab.value
+            ? 'border-[var(--color-accent)] bg-[var(--color-accent)]/10 text-[var(--color-accent)]'
+            : 'border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-[var(--color-text)]'"
+          @click="categoryFilter = tab.value"
         >
-          New service
-        </BaseButton>
-      </template>
-    </EmptyState>
+          {{ tab.label }}
+        </button>
+      </div>
+    </template>
 
-    <ul
-      v-else
-      class="mt-6 flex flex-col gap-2"
-    >
+    <ul class="mt-6 flex flex-col gap-2">
       <li
         v-for="service in filtered"
         :key="service.id"
@@ -176,5 +117,5 @@ onMounted(loadServices)
         </button>
       </li>
     </ul>
-  </div>
+  </AdminListPage>
 </template>

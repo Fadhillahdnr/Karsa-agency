@@ -9,23 +9,10 @@ const { authFetch } = useAdminAuth()
 const toast = useToast()
 const { confirm } = useConfirm()
 
-const updates = ref<ListItem[]>([])
-const loading = ref(true)
-const errorMessage = ref('')
-
-async function loadUpdates() {
-  loading.value = true
-  errorMessage.value = ''
-  try {
-    updates.value = await authFetch<ListItem[]>('/api/admin/updates')
-  }
-  catch {
-    errorMessage.value = 'Could not load updates.'
-  }
-  finally {
-    loading.value = false
-  }
-}
+const { items: updates, loading, error: errorMessage, load: loadUpdates } = useAdminList<ListItem>(
+  () => authFetch<ListItem[]>('/api/admin/updates'),
+  'Could not load updates.',
+)
 
 async function deleteUpdate(item: ListItem) {
   const ok = await confirm({
@@ -52,68 +39,20 @@ onMounted(loadUpdates)
 </script>
 
 <template>
-  <div>
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <div>
-        <h1 class="font-display text-2xl font-medium">
-          Updates
-        </h1>
-        <p class="mt-1 text-sm text-[var(--color-text-muted)]">
-          Project launches, agency news, and milestones shown on /updates.
-        </p>
-      </div>
-      <BaseButton
-        to="/admin/updates/new"
-        variant="primary"
-      >
-        <AdminIcon
-          name="plus"
-          :size="16"
-        /> New update
-      </BaseButton>
-    </div>
-
-    <p
-      v-if="errorMessage"
-      role="alert"
-      class="mt-6 rounded-[var(--radius-md)] border border-[var(--color-danger)] bg-[var(--color-danger)]/10 p-4 text-sm"
-    >
-      {{ errorMessage }}
-    </p>
-
-    <div
-      v-if="loading"
-      class="mt-6 flex flex-col gap-3"
-    >
-      <SkeletonBlock
-        v-for="i in 3"
-        :key="i"
-        height="3.5rem"
-        rounded="var(--radius-md)"
-      />
-    </div>
-
-    <EmptyState
-      v-else-if="!updates.length"
-      class="mt-6"
-      icon="edit"
-      title="No updates yet"
-      description="Share a real project launch, collaboration, or milestone."
-    >
-      <template #action>
-        <BaseButton
-          to="/admin/updates/new"
-          variant="secondary"
-        >
-          New update
-        </BaseButton>
-      </template>
-    </EmptyState>
-
-    <ul
-      v-else
-      class="mt-6 flex flex-col gap-2"
-    >
+  <AdminListPage
+    title="Updates"
+    description="Project launches, agency news, and milestones shown on /updates."
+    new-to="/admin/updates/new"
+    new-label="New update"
+    :loading="loading"
+    :error="errorMessage"
+    :empty="!updates.length"
+    empty-icon="edit"
+    empty-title="No updates yet"
+    empty-description="Share a real project launch, collaboration, or milestone."
+    :skeleton-count="3"
+  >
+    <ul class="mt-6 flex flex-col gap-2">
       <li
         v-for="item in updates"
         :key="item.id"
@@ -142,5 +81,5 @@ onMounted(loadUpdates)
         </button>
       </li>
     </ul>
-  </div>
+  </AdminListPage>
 </template>
