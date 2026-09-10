@@ -31,7 +31,7 @@ useSchemaOrg([
     name: () => site.value.name,
     description: () => site.value.description,
     url: useRuntimeConfig().public.siteUrl,
-    logo: '/brand/karsa-mark.svg',
+    logo: '/logo/Karsa_Agency_Hitam.png',
   }),
   defineWebSite({
     name: () => site.value.name,

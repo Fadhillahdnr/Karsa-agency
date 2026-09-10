@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { navLinks, primaryCta, site } = useKarsaConfig()
+const { navLinks, primaryCta } = useKarsaConfig()
 const route = useRoute()
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -45,10 +45,9 @@ function toggleMenu() {
       <div class="flex h-[72px] items-center justify-between">
         <NuxtLink
           :to="localePath('/')"
-          class="font-display text-lg font-semibold tracking-tight"
           aria-label="Karsa Agency — home"
         >
-          {{ (site.name.split(' ')[0] ?? site.name).toUpperCase() }}°
+          <BrandLogo height="1.75rem" />
         </NuxtLink>
 
         <nav

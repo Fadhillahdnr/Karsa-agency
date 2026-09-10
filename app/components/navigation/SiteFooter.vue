@@ -29,10 +29,11 @@ const legalLinks = computed(() => [
     <BaseContainer>
       <div class="grid grid-cols-1 gap-12 md:grid-cols-[2fr_1fr_1fr]">
         <div>
-          <p class="font-display text-2xl font-semibold">
-            {{ site.name.toUpperCase() }}
-          </p>
-          <p class="mt-2 text-sm text-[var(--color-text-muted)]">
+          <BrandLogo
+            height="2rem"
+            :alt="site.name"
+          />
+          <p class="mt-4 text-sm text-[var(--color-text-muted)]">
             {{ site.title }}
           </p>
           <p class="mt-6 text-sm text-[var(--color-text-muted)]">
