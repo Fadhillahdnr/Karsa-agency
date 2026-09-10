@@ -1,9 +1,9 @@
 import type { SitemapUrlInput } from '#sitemap/types'
 import { getSupabaseClient } from '../../utils/supabase'
 
-// Locales this site actually serves — 'en' is the unprefixed default
-// (strategy: prefix_except_default in nuxt.config.ts), 'id' is under /id.
-const LOCALE_PREFIXES = ['', '/id'] as const
+// Locales this site actually serves — 'id' is the unprefixed default
+// (strategy: prefix_except_default in nuxt.config.ts), 'en' is under /en.
+const LOCALE_PREFIXES = ['', '/en'] as const
 
 function urlsFor(path: string, lastmod?: string | null): SitemapUrlInput[] {
   return LOCALE_PREFIXES.map(prefix => ({

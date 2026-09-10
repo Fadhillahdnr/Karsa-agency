@@ -3,6 +3,7 @@ const { site, navLinks, primaryCta, contactChannels } = useKarsaConfig()
 const year = new Date().getFullYear()
 const { t } = useI18n()
 const { track } = useAnalytics()
+const localePath = useLocalePath()
 
 function trackChannelClick(label: string) {
   if (label === 'WhatsApp') track('contact_whatsapp')
@@ -11,15 +12,15 @@ function trackChannelClick(label: string) {
 // Computed (not plain arrays) for the same reason navLinks is computed in
 // useKarsaConfig — this component persists across locale-only navigation.
 const secondaryLinks = computed(() => [
-  { label: t('process.eyebrow'), to: '/process' },
-  { label: t('contact.eyebrow'), to: '/contact' },
-  { label: t('careersIndex.eyebrow'), to: '/careers' },
+  { label: t('process.eyebrow'), to: localePath('/process') },
+  { label: t('contact.eyebrow'), to: localePath('/contact') },
+  { label: t('careersIndex.eyebrow'), to: localePath('/careers') },
 ])
 
 const legalLinks = computed(() => [
-  { label: t('footer.privacy'), to: '/privacy' },
-  { label: t('footer.terms'), to: '/terms' },
-  { label: t('footer.termsOfService'), to: '/terms-of-service' },
+  { label: t('footer.privacy'), to: localePath('/privacy') },
+  { label: t('footer.terms'), to: localePath('/terms') },
+  { label: t('footer.termsOfService'), to: localePath('/terms-of-service') },
 ])
 </script>
 

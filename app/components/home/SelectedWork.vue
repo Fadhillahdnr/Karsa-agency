@@ -16,7 +16,7 @@ const { data: projects } = await useAsyncData(`home-selected-work-${locale.value
         {{ t('selectedWork.title') }}
       </BaseHeading>
       <BaseLink
-        to="/work"
+        :to="localePath('/work')"
         show-arrow
       >
         {{ t('selectedWork.viewAll') }}

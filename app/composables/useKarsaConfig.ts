@@ -15,6 +15,7 @@ interface MethodStep {
  */
 export function useKarsaConfig() {
   const { t } = useI18n()
+  const localePath = useLocalePath()
 
   const contactChannels = computed(() =>
     [
@@ -29,10 +30,10 @@ export function useKarsaConfig() {
 
   const navLinks = computed(() => {
     const labels = [t('nav.work'), t('nav.services'), t('nav.packages'), t('nav.insights'), t('nav.about')]
-    return navRoutes.map((to, i) => ({ label: labels[i]!, to }))
+    return navRoutes.map((to, i) => ({ label: labels[i]!, to: localePath(to) }))
   })
 
-  const primaryCta = computed(() => ({ label: t('nav.startProject'), to: primaryCtaRoute }))
+  const primaryCta = computed(() => ({ label: t('nav.startProject'), to: localePath(primaryCtaRoute) }))
 
   const site = computed(() => ({
     ...siteConfig,

@@ -79,7 +79,7 @@ onMounted(() => track('service_view', { service: slug }))
         {{ service.priceType === 'monthly' ? t('packagesIndex.monthly') : '' }}
       </p>
       <div class="mt-10">
-        <BaseButton to="/start-a-project">
+        <BaseButton :to="localePath('/start-a-project')">
           {{ t('serviceDetail.start') }} ↗
         </BaseButton>
       </div>

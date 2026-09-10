@@ -3,6 +3,7 @@ import type { PackageApiItem } from '../../../server/api/packages/index.get'
 
 const { t, locale } = useI18n()
 const { track } = useAnalytics()
+const localePath = useLocalePath()
 
 const { data: packages } = await useAsyncData(`packages-listing-${locale.value}`, () =>
   $fetch<PackageApiItem[]>('/api/packages', { query: { locale: locale.value } }),
@@ -114,7 +115,7 @@ useSeoMeta({
 
           <div class="mt-8">
             <BaseButton
-              to="/start-a-project"
+              :to="localePath('/start-a-project')"
               variant="secondary"
               @click="track('package_cta_click', { package: pkg.slug })"
             >

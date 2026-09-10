@@ -22,7 +22,7 @@ async function fillThroughToReview(page: Page) {
 
 test.describe('Start a Project inquiry form', () => {
   test('blocks progression at each step until it is valid', async ({ page }) => {
-    await gotoReady(page, '/start-a-project')
+    await gotoReady(page, '/en/start-a-project')
 
     await expect(page.getByText('Step 1 of 5')).toBeVisible()
     await page.getByRole('button', { name: 'Next' }).click()
@@ -66,7 +66,7 @@ test.describe('Start a Project inquiry form', () => {
       })
     })
 
-    await gotoReady(page, '/start-a-project')
+    await gotoReady(page, '/en/start-a-project')
     await fillThroughToReview(page)
 
     await page.getByRole('checkbox').check()
@@ -88,7 +88,7 @@ test.describe('Start a Project inquiry form', () => {
       })
     })
 
-    await gotoReady(page, '/start-a-project')
+    await gotoReady(page, '/en/start-a-project')
     await fillThroughToReview(page)
 
     await page.getByRole('checkbox').check()

@@ -5,7 +5,7 @@ test.use({ viewport: { width: 390, height: 844 } })
 
 test.describe('Mobile menu', () => {
   test('opens, moves focus into the menu, and closes on Escape', async ({ page }) => {
-    await gotoReady(page, '/')
+    await gotoReady(page, '/en')
 
     const menuButton = page.getByRole('button', { name: 'Open menu' })
     await menuButton.click()
@@ -21,7 +21,7 @@ test.describe('Mobile menu', () => {
   })
 
   test('locks body scroll while open', async ({ page }) => {
-    await gotoReady(page, '/')
+    await gotoReady(page, '/en')
 
     await page.getByRole('button', { name: 'Open menu' }).click()
     const overflow = await page.evaluate(() => document.body.style.overflow)

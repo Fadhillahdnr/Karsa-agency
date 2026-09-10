@@ -2,6 +2,7 @@
 const { site } = useKarsaConfig()
 const { track } = useAnalytics()
 const { t } = useI18n()
+const localePath = useLocalePath()
 </script>
 
 <template>
@@ -33,14 +34,14 @@ const { t } = useI18n()
 
       <div class="mt-10 flex flex-wrap gap-4">
         <BaseButton
-          to="/work"
+          :to="localePath('/work')"
           variant="secondary"
           @click="track('cta_view_work')"
         >
           {{ t('hero.ctaExplore') }}
         </BaseButton>
         <BaseButton
-          to="/start-a-project"
+          :to="localePath('/start-a-project')"
           variant="primary"
           @click="track('cta_start_project')"
         >

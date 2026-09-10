@@ -5,7 +5,7 @@ test.use({ reducedMotion: 'reduce' })
 
 test.describe('Reduced motion', () => {
   test('homepage content is fully visible and accessible', async ({ page }) => {
-    await gotoReady(page, '/')
+    await gotoReady(page, '/en')
 
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Dari Karsa')

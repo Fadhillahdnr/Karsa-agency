@@ -5,13 +5,14 @@ const props = defineProps<{ error: NuxtError }>()
 
 const isNotFound = computed(() => props.error.statusCode === 404)
 const { t } = useI18n()
+const localePath = useLocalePath()
 
 useSeoMeta({
   title: isNotFound.value ? 'Page Not Found' : 'Something Went Wrong',
 })
 
 function handleRetry() {
-  clearError({ redirect: '/' })
+  clearError({ redirect: localePath('/') })
 }
 </script>
 
@@ -47,7 +48,7 @@ function handleRetry() {
             {{ t('error.backHome') }}
           </BaseButton>
           <BaseButton
-            to="/work"
+            :to="localePath('/work')"
             variant="secondary"
           >
             {{ t('error.exploreWork') }}

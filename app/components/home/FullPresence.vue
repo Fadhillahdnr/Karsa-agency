@@ -2,6 +2,7 @@
 import type { PackageApiItem } from '../../../server/api/packages/index.get'
 
 const { t, locale } = useI18n()
+const localePath = useLocalePath()
 
 const { data: packages } = await useAsyncData(`home-full-presence-${locale.value}`, () =>
   $fetch<PackageApiItem[]>('/api/packages', { query: { locale: locale.value } }),
@@ -59,7 +60,7 @@ function priceLabel(pkg: PackageApiItem) {
     </ul>
 
     <div class="mt-8">
-      <BaseButton to="/start-a-project">
+      <BaseButton :to="localePath('/start-a-project')">
         {{ featured.ctaLabel || t('startAProject.eyebrow') }} ↗
       </BaseButton>
     </div>

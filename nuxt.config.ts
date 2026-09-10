@@ -85,18 +85,21 @@ export default defineNuxtConfig({
   routeRules: {
     '/privacy': { prerender: true },
     // /studio was renamed to /about (Karsa Agency repositioning, see
-    // app/pages/about.vue). Redirect both locale forms — 'en' is currently
-    // the unprefixed default locale (see i18n config below), 'id' is
-    // prefixed — to preserve any indexed/bookmarked /studio links.
+    // app/pages/about.vue). Redirect both locale forms — 'id' is the
+    // unprefixed default locale (see i18n config below), 'en' is prefixed —
+    // to preserve any indexed/bookmarked /studio links. Old /id/studio
+    // links are handled generically by server/middleware/
+    // legacy-id-prefix-redirect.ts (redirects to /studio first, which then
+    // hits this rule).
     '/studio': { redirect: { to: '/about', statusCode: 301 } },
-    '/id/studio': { redirect: { to: '/id/about', statusCode: 301 } },
+    '/en/studio': { redirect: { to: '/en/about', statusCode: 301 } },
     // Admin panel is behind Supabase Auth and rendered client-only — no
     // point prerendering/indexing an auth-gated dashboard. The admin panel
     // is intentionally not localized (see i18n config below), but
-    // prefix_except_default still generates a /id/admin/** alias for every
+    // prefix_except_default still generates a /en/admin/** alias for every
     // page, so both forms need this rule.
     '/admin/**': { ssr: false, robots: false },
-    '/id/admin/**': { ssr: false, robots: false },
+    '/en/admin/**': { ssr: false, robots: false },
     // Server API routes are never meant to be crawled — disallow the
     // whole /api/** tree explicitly for certainty (§73 singles out
     // /api/admin, which this also covers).
@@ -152,7 +155,13 @@ export default defineNuxtConfig({
       { code: 'en', language: 'en-US', name: 'English', file: 'en.json' },
       { code: 'id', language: 'id-ID', name: 'Indonesia', file: 'id.json' },
     ],
-    defaultLocale: 'en',
+    // §11/master-prompt default-locale: 'id' serves at the bare path,
+    // 'en' is prefixed at /en/... — was 'en' as default (Milestone 01-11
+    // deliberately deferred flipping this, see the CMS revamp progress
+    // memory) until Milestone 13 swapped it, paired with
+    // server/middleware/legacy-id-prefix-redirect.ts so old /id/** URLs
+    // 301 instead of 404.
+    defaultLocale: 'id',
     strategy: 'prefix_except_default',
     detectBrowserLanguage: {
       useCookie: true,

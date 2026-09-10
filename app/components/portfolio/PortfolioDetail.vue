@@ -96,7 +96,7 @@ const openLightboxIndex = ref<number | null>(null)
         {{ item.summary }}
       </p>
       <div class="mt-10">
-        <BaseButton to="/start-a-project">
+        <BaseButton :to="localePath('/start-a-project')">
           {{ t('serviceDetail.start') }} ↗
         </BaseButton>
       </div>

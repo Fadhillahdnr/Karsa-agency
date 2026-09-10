@@ -3,7 +3,7 @@ import { gotoReady } from './utils'
 
 test.describe('Work', () => {
   test('listing links through to a case study', async ({ page }) => {
-    await gotoReady(page, '/work')
+    await gotoReady(page, '/en/work')
 
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
 

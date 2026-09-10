@@ -2,6 +2,7 @@
 const { navLinks, primaryCta, site } = useKarsaConfig()
 const route = useRoute()
 const { t } = useI18n()
+const localePath = useLocalePath()
 
 const scrolled = ref(false)
 const menuOpen = ref(false)
@@ -43,7 +44,7 @@ function toggleMenu() {
     <BaseContainer>
       <div class="flex h-[72px] items-center justify-between">
         <NuxtLink
-          to="/"
+          :to="localePath('/')"
           class="font-display text-lg font-semibold tracking-tight"
           aria-label="Karsa Agency — home"
         >

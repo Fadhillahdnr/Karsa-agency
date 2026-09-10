@@ -3,7 +3,7 @@ import { gotoReady } from './utils'
 
 test.describe('Home', () => {
   test('loads with primary heading and navigation', async ({ page, isMobile }) => {
-    await gotoReady(page, '/')
+    await gotoReady(page, '/en')
 
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Dari Karsa')
 
@@ -21,7 +21,7 @@ test.describe('Home', () => {
   })
 
   test('primary CTA navigates to Start a Project', async ({ page }) => {
-    await gotoReady(page, '/')
+    await gotoReady(page, '/en')
 
     await page.getByRole('link', { name: /Start a Project/ }).first().click()
     await expect(page).toHaveURL(/\/start-a-project/)
@@ -29,7 +29,7 @@ test.describe('Home', () => {
   })
 
   test('Explore Work navigates to the work listing', async ({ page }) => {
-    await gotoReady(page, '/')
+    await gotoReady(page, '/en')
 
     await page.getByRole('link', { name: 'Explore Work' }).click()
     await expect(page).toHaveURL(/\/work/)

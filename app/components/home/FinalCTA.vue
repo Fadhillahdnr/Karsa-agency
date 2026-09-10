@@ -3,6 +3,7 @@ const { contactChannels } = useKarsaConfig()
 const secondaryChannel = computed(() => contactChannels.value[0])
 const { track } = useAnalytics()
 const { t } = useI18n()
+const localePath = useLocalePath()
 </script>
 
 <template>
@@ -23,7 +24,7 @@ const { t } = useI18n()
 
     <div class="mt-10 flex flex-wrap gap-4">
       <BaseButton
-        to="/start-a-project"
+        :to="localePath('/start-a-project')"
         variant="primary"
         @click="track('cta_start_project')"
       >
