@@ -49,6 +49,25 @@ function embedSrc(url: string): string {
   if (vimeo) return `https://player.vimeo.com/video/${vimeo[1]}`
   return url
 }
+
+const imageTypes = new Set(['image', 'mockup', 'before', 'after'])
+
+const lightboxImages = computed(() =>
+  (item.value?.items ?? [])
+    .filter(media => imageTypes.has(media.itemType) && media.url)
+    .map(media => ({ url: media.url as string, alt: media.altText || item.value!.title, caption: media.caption })),
+)
+
+/** Maps an index in `item.items` (all media types) to its position in `lightboxImages` (images only), for click-to-open. */
+function lightboxIndexFor(index: number): number {
+  let count = 0
+  for (let i = 0; i < index; i++) {
+    if (imageTypes.has(item.value!.items[i]!.itemType) && item.value!.items[i]!.url) count++
+  }
+  return count
+}
+
+const openLightboxIndex = ref<number | null>(null)
 </script>
 
 <template>
@@ -106,13 +125,20 @@ function embedSrc(url: string): string {
           class="overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-surface)]"
           :class="{ 'sm:col-span-2': media.featured }"
         >
-          <NuxtImg
-            v-if="media.itemType === 'image' || media.itemType === 'mockup' || media.itemType === 'before' || media.itemType === 'after'"
-            :src="media.url ?? undefined"
-            :alt="media.altText || item.title"
-            loading="lazy"
-            class="w-full object-cover"
-          />
+          <button
+            v-if="imageTypes.has(media.itemType) && media.url"
+            type="button"
+            class="block w-full cursor-zoom-in"
+            :aria-label="t('portfolio.lightbox.open')"
+            @click="openLightboxIndex = lightboxIndexFor(index)"
+          >
+            <NuxtImg
+              :src="media.url ?? undefined"
+              :alt="media.altText || item.title"
+              loading="lazy"
+              class="w-full object-cover"
+            />
+          </button>
 
           <video
             v-else-if="media.itemType === 'video' && media.url"
@@ -172,5 +198,10 @@ function embedSrc(url: string): string {
     </div>
 
     <FinalCTA />
+
+    <PortfolioLightbox
+      v-model="openLightboxIndex"
+      :items="lightboxImages"
+    />
   </div>
 </template>

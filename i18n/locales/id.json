@@ -272,7 +272,14 @@
     },
     "backToWork": "Kembali",
     "credits": "Kredit",
-    "relatedPackages": "Paket Terkait"
+    "relatedPackages": "Paket Terkait",
+    "lightbox": {
+      "open": "Lihat ukuran penuh",
+      "close": "Tutup",
+      "previous": "Gambar sebelumnya",
+      "next": "Gambar berikutnya",
+      "counter": "{current} dari {total}"
+    }
   },
   "serviceDetail": {
     "whoItsFor": "Untuk Siapa",

@@ -272,7 +272,14 @@
     },
     "backToWork": "Back",
     "credits": "Credits",
-    "relatedPackages": "Related Packages"
+    "relatedPackages": "Related Packages",
+    "lightbox": {
+      "open": "View full size",
+      "close": "Close",
+      "previous": "Previous image",
+      "next": "Next image",
+      "counter": "{current} of {total}"
+    }
   },
   "serviceDetail": {
     "whoItsFor": "Who It's For",
