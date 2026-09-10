@@ -19,7 +19,16 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/brand/favicon.svg' }],
+      link: [
+        // Two variants so the tab icon stays legible in both browser/OS
+        // color schemes — this follows the *browser's* prefers-color-scheme,
+        // independent of the site's own light/dark/system toggle (favicons
+        // live in browser chrome, not the page, so they can't read
+        // @nuxtjs/color-mode's data-theme attribute).
+        { rel: 'icon', type: 'image/png', href: '/brand/favicon-light.png', media: '(prefers-color-scheme: light)' },
+        { rel: 'icon', type: 'image/png', href: '/brand/favicon-dark.png', media: '(prefers-color-scheme: dark)' },
+        { rel: 'apple-touch-icon', href: '/brand/apple-touch-icon.png' },
+      ],
     },
     pageTransition: { name: 'page', mode: 'out-in' },
   },
