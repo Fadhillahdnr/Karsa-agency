@@ -8,6 +8,7 @@ const emit = defineEmits<{ close: [] }>()
 const route = useRoute()
 const asideRef = ref<HTMLElement | null>(null)
 const { hasRole } = useAdminAuth()
+const { lock, unlock } = useScrollLock()
 
 interface NavItem {
   label: string
@@ -116,19 +117,19 @@ function handleKeydown(event: KeyboardEvent) {
 
 watch(() => props.open, async (isOpen) => {
   if (isOpen) {
-    document.body.style.overflow = 'hidden'
+    lock()
     document.addEventListener('keydown', handleKeydown)
     await nextTick()
     asideRef.value?.querySelector<HTMLElement>('a[href]')?.focus()
   }
   else {
-    document.body.style.overflow = ''
+    unlock()
     document.removeEventListener('keydown', handleKeydown)
   }
 })
 
 onUnmounted(() => {
-  document.body.style.overflow = ''
+  if (props.open) unlock()
   document.removeEventListener('keydown', handleKeydown)
 })
 </script>
@@ -144,10 +145,10 @@ onUnmounted(() => {
     ref="asideRef"
     role="navigation"
     aria-label="Admin"
-    class="fixed inset-y-0 left-0 z-50 flex w-72 -translate-x-full flex-col border-r border-[var(--color-border)] bg-[var(--color-surface)] transition-transform duration-[var(--duration-base)] lg:sticky lg:top-0 lg:z-auto lg:h-screen lg:translate-x-0"
+    class="fixed inset-y-0 left-0 z-50 flex h-full w-72 -translate-x-full flex-col border-r border-[var(--color-border)] bg-[var(--color-surface)] transition-transform duration-[var(--duration-base)] lg:static lg:z-auto lg:h-full lg:shrink-0 lg:translate-x-0"
     :class="{ 'translate-x-0': open }"
   >
-    <div class="flex items-center justify-between px-6 py-5">
+    <div class="flex shrink-0 items-center justify-between px-6 py-5">
       <NuxtLink
         to="/admin"
         class="font-display text-lg font-medium"
@@ -165,7 +166,7 @@ onUnmounted(() => {
       </button>
     </div>
 
-    <nav class="flex flex-1 flex-col gap-5 overflow-y-auto px-3 pb-4">
+    <nav class="admin-scroll-pane flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto overscroll-contain px-3 pb-4">
       <div
         v-for="group in visibleGroups"
         :key="group.label"
@@ -192,7 +193,7 @@ onUnmounted(() => {
       </div>
     </nav>
 
-    <div class="border-t border-[var(--color-border)] px-6 py-4 text-xs text-[var(--color-text-muted)]">
+    <div class="shrink-0 border-t border-[var(--color-border)] px-6 py-4 text-xs text-[var(--color-text-muted)]">
       Karsa Agency © {{ new Date().getFullYear() }}
     </div>
   </aside>

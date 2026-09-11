@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { state, answer } = useConfirm()
 const dialogRef = ref<HTMLElement | null>(null)
+const { lock, unlock } = useScrollLock()
 
 function handleKeydown(event: KeyboardEvent) {
   if (event.key === 'Escape') {
@@ -29,19 +30,19 @@ function handleKeydown(event: KeyboardEvent) {
 
 watch(() => state.value.open, async (isOpen) => {
   if (isOpen) {
-    document.body.style.overflow = 'hidden'
+    lock()
     document.addEventListener('keydown', handleKeydown)
     await nextTick()
     dialogRef.value?.querySelector<HTMLElement>('[data-confirm-cancel]')?.focus()
   }
   else {
-    document.body.style.overflow = ''
+    unlock()
     document.removeEventListener('keydown', handleKeydown)
   }
 })
 
 onUnmounted(() => {
-  document.body.style.overflow = ''
+  if (state.value.open) unlock()
   document.removeEventListener('keydown', handleKeydown)
 })
 </script>

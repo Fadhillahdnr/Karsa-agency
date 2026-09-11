@@ -2,6 +2,7 @@
 const { user, logout, isAuthenticated } = useAdminAuth()
 const route = useRoute()
 const sidebarOpen = ref(false)
+const { isLocked } = useScrollLock()
 
 watch(() => route.fullPath, () => {
   sidebarOpen.value = false
@@ -14,17 +15,24 @@ async function handleLogout() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-[var(--color-bg)] lg:flex">
+  <div class="h-dvh overflow-hidden bg-[var(--color-bg)] lg:flex">
+    <!--
+      App-shell scroll model: this root never scrolls. Each pane below
+      (sidebar nav, main content) owns its own `overflow-y-auto`, so the
+      browser only scrolls whatever pane the cursor is actually over —
+      the sidebar list, the header, and the page content all move
+      independently instead of one long document scroll.
+    -->
     <AdminSidebar
       v-if="isAuthenticated"
       :open="sidebarOpen"
       @close="sidebarOpen = false"
     />
 
-    <div class="flex min-h-screen flex-1 flex-col">
+    <div class="flex h-full min-w-0 flex-1 flex-col overflow-hidden">
       <header
         v-if="isAuthenticated"
-        class="sticky top-0 z-30 flex items-center justify-between gap-4 border-b border-[var(--color-border)] bg-[var(--color-bg)]/95 px-4 py-4 backdrop-blur sm:px-6"
+        class="flex shrink-0 items-center justify-between gap-4 border-b border-[var(--color-border)] bg-[var(--color-bg)]/95 px-4 py-4 backdrop-blur sm:px-6"
       >
         <button
           type="button"
@@ -53,8 +61,13 @@ async function handleLogout() {
         </div>
       </header>
 
-      <main class="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
-        <slot />
+      <main
+        class="admin-scroll-pane min-h-0 flex-1 overscroll-contain"
+        :class="isLocked ? 'overflow-hidden' : 'overflow-y-auto'"
+      >
+        <div class="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
+          <slot />
+        </div>
       </main>
     </div>
 
