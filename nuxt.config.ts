@@ -30,7 +30,13 @@ export default defineNuxtConfig({
         { rel: 'apple-touch-icon', href: '/brand/apple-touch-icon.png' },
       ],
     },
-    pageTransition: { name: 'page', mode: 'out-in' },
+    // No `mode: 'out-in'` — that forces the leaving page to fully finish
+    // its transition before the entering page even starts, so every click
+    // felt like a fixed ~280ms dead pause before anything happened. Cross-
+    // fading enter/leave simultaneously makes the new page start appearing
+    // the instant navigation begins, which is what actually reads as
+    // "responsive" to a click.
+    pageTransition: { name: 'page' },
   },
 
   css: ['~/assets/css/main.css'],
