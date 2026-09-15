@@ -1,5 +1,7 @@
 import tailwindcss from '@tailwindcss/vite'
 
+const usePolling = process.env.CHOKIDAR_USEPOLLING === 'true'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 
@@ -121,6 +123,15 @@ export default defineNuxtConfig({
     '/api/**': { robots: false },
   },
 
+  // Nuxt has its own project watcher for structural changes such as adding
+  // pages, layouts, middleware, and server routes. Vite's watcher below only
+  // covers modules already in its graph, so Docker needs polling in both.
+  watchers: {
+    chokidar: usePolling
+      ? { usePolling: true, interval: 100 }
+      : {},
+  },
+
   experimental: {
     payloadExtraction: true,
   },
@@ -147,7 +158,7 @@ export default defineNuxtConfig({
     // costs CPU, so it's opt-in via CHOKIDAR_USEPOLLING (set by
     // docker-compose.yml) rather than always-on for native host dev.
     server: {
-      watch: process.env.CHOKIDAR_USEPOLLING === 'true'
+      watch: usePolling
         ? { usePolling: true, interval: 100 }
         : undefined,
     },
