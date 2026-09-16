@@ -64,6 +64,8 @@ useSeoMeta({
             >
               <a
                 :href="channel.href"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="text-sm font-medium text-[var(--color-text)] hover:text-[var(--color-accent)]"
                 @click="trackChannelClick(channel.label)"
               >

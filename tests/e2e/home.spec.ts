@@ -34,4 +34,15 @@ test.describe('Home', () => {
     await page.getByRole('link', { name: 'Explore Work' }).click()
     await expect(page).toHaveURL(/\/work/)
   })
+
+  test('contact channels open in a new window', async ({ page }) => {
+    await gotoReady(page, '/en')
+
+    const footer = page.getByRole('contentinfo')
+    for (const channel of ['Email', 'WhatsApp']) {
+      const link = footer.getByRole('link', { name: channel, exact: true })
+      await expect(link).toHaveAttribute('target', '_blank')
+      await expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+    }
+  })
 })

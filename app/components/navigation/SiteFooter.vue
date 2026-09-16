@@ -90,6 +90,8 @@ const legalLinks = computed(() => [
             >
               <a
                 :href="channel.href"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
                 @click="trackChannelClick(channel.label)"
               >
