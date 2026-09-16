@@ -13,8 +13,8 @@ export const siteConfig = {
 
   // TODO: business input — populate once official channels are confirmed.
   // Any field left empty is hidden gracefully in the UI (see useKarsaConfig).
-  email: '',
-  whatsapp: '',
+  email: 'karsaagensi@gmail.com',
+  whatsapp: '6287811744347',
   instagram: '',
   linkedin: '',
 } as const
