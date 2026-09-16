@@ -20,7 +20,8 @@
     "postinstall": "nuxt prepare",
     "seed:admin": "node --env-file=.env scripts/seed-admin-user.mjs",
     "seed:projects": "node --env-file=.env scripts/seed-projects.mjs",
-    "seed:services": "node --env-file=.env scripts/seed-services.mjs"
+    "seed:services": "node --env-file=.env scripts/seed-services.mjs",
+    "seed:pricing": "node --env-file=.env scripts/seed-pricing.mjs"
   },
   "dependencies": {
     "@nuxt/content": "^3.15.2",

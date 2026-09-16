@@ -173,6 +173,49 @@ onMounted(() => track('service_view', { service: slug }))
     </BaseSection>
 
     <BaseSection
+      v-if="service.included.length || service.excluded.length"
+      tight
+      class="grid grid-cols-1 gap-10 border-t border-[var(--color-border)] md:grid-cols-2"
+    >
+      <div v-if="service.included.length">
+        <p class="text-eyebrow mb-5">
+          {{ t('serviceDetail.included') }}
+        </p>
+        <ul class="flex flex-col gap-3">
+          <li
+            v-for="item in service.included"
+            :key="item"
+            class="flex items-start gap-3 text-sm text-[var(--color-text-muted)]"
+          >
+            <span
+              aria-hidden="true"
+              class="mt-1 text-[var(--color-accent)]"
+            >—</span>
+            <span>{{ item }}</span>
+          </li>
+        </ul>
+      </div>
+      <div v-if="service.excluded.length">
+        <p class="text-eyebrow mb-5">
+          {{ t('serviceDetail.excluded') }}
+        </p>
+        <ul class="flex flex-col gap-3">
+          <li
+            v-for="item in service.excluded"
+            :key="item"
+            class="flex items-start gap-3 text-sm text-[var(--color-text-muted)]"
+          >
+            <span
+              aria-hidden="true"
+              class="mt-1 text-[var(--color-accent)]"
+            >—</span>
+            <span>{{ item }}</span>
+          </li>
+        </ul>
+      </div>
+    </BaseSection>
+
+    <BaseSection
       v-if="relatedWork?.length"
       tight
       class="border-t border-[var(--color-border)]"

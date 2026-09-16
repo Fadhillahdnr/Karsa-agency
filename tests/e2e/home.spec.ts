@@ -25,7 +25,7 @@ test.describe('Home', () => {
 
     await page.getByRole('link', { name: /Start a Project/ }).first().click()
     await expect(page).toHaveURL(/\/start-a-project/)
-    await expect(page.getByRole('heading', { level: 1 })).toContainText('Tell us')
+    await expect(page.getByRole('heading', { level: 1, name: /Tell us/ })).toBeVisible()
   })
 
   test('Explore Work navigates to the work listing', async ({ page }) => {

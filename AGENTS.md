@@ -426,7 +426,7 @@ These are documented, deliberate, or at least known-and-accepted states — don'
 
 - **`projects` uses a legacy `published` boolean** instead of the `status`/`published_at` pattern every later table uses. Functionally equivalent, structurally inconsistent. A future normalization migration is possible but not scheduled.
 - **`packages.category`** (solo/combo/signature/maintenance) and **`services.category`** are separate vocabularies, not cross-filtered anywhere.
-- **No seed scripts** for most CMS entities beyond `pnpm seed:projects`/`pnpm seed:services` — everything else is populated via `/admin` UI only.
+- **No seed scripts** for most CMS entities beyond `pnpm seed:projects` and the owner-approved pricing import (`pnpm seed:pricing`; `pnpm seed:services` is its service-only compatibility entrypoint) — everything else is populated via `/admin` UI only.
 - **Rate limiting is per-instance** (in-memory), not distributed — best-effort abuse guard on `/api/inquiry`, not a hard limit, given Vercel's multi-instance serverless model.
 - **OG image is a single global placeholder** (`public/og/default.png`) except where real per-entity `cover_media_id`/`og_media_id` covers exist (services/articles/updates/portfolio) — careers and legal pages have no OG field and always use the global fallback.
 - **Brand mark is a placeholder** — an original geometric ring+tick mark, not an official supplied logo. `siteConfig` contact channels (`email`/`whatsapp`/`instagram`/`linkedin`) are empty pending real business input; UI hides each gracefully rather than showing broken links (see §1 anti-fabrication rule).
@@ -464,5 +464,7 @@ pnpm test:e2e                         # Playwright (spins up its own server on :
 pnpm build                            # default Nitro preset — NOT sufficient to catch Vercel-only bugs, see §9.1
 NITRO_PRESET=vercel pnpm build        # the check that actually matters before shipping server-dependency changes
 pnpm seed:admin -- <email> <password> # provisions/resets a Supabase Auth user — still needs an admin_profiles row (§8.2)
-pnpm seed:projects / pnpm seed:services   # placeholder content for local exercising, safe to re-run (upsert by slug)
+pnpm seed:projects                       # placeholder projects for local exercising
+pnpm seed:pricing                        # approved PDF-derived services + packages; idempotent upsert
+pnpm seed:services                       # service-only compatibility entrypoint for seed:pricing
 ```

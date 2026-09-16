@@ -80,14 +80,13 @@
   },
   "karsaMethod": {
     "eyebrow": "Karsa Method",
-    "title": "A process built for clarity, not ceremony.",
+    "title": "Clear scope. Clear process. Clear investment.",
     "steps": [
-      { "step": "01", "name": "Discover", "description": "Understanding the business, audience, and project goals." },
-      { "step": "02", "name": "Define", "description": "Scope, deliverables, and timeline." },
-      { "step": "03", "name": "Create", "description": "Designing and producing — website, visuals, photography, or video." },
-      { "step": "04", "name": "Review", "description": "Staged approvals and revisions per agreed rules." },
-      { "step": "05", "name": "Deliver", "description": "Asset handover and public release." },
-      { "step": "06", "name": "Support", "description": "Warranty, maintenance, and continued development where relevant." }
+      { "step": "01", "name": "Discovery", "description": "Goals, audience, requirements, references, assets, location, and timeline." },
+      { "step": "02", "name": "Scope & Quotation", "description": "Deliverables, exclusions, revision allowance, investment, and milestones." },
+      { "step": "03", "name": "Creative / Production", "description": "Design, development, shooting, or editing according to scope." },
+      { "step": "04", "name": "Review & Validation", "description": "Consolidated feedback, revisions, QA/UAT, selection, and approval." },
+      { "step": "05", "name": "Final Delivery", "description": "Deployment, final design files, photo/video exports, and handover." }
     ]
   },
   "capabilities": {
@@ -158,8 +157,8 @@
   },
   "servicesIndex": {
     "eyebrow": "Services",
-    "title": "Website, design, photography, and film — under one roof.",
-    "description": "Every engagement sits under one of our creative pillars, moved through the Karsa Method from understanding to handover.",
+    "title": "Four services. One brand direction.",
+    "description": "Choose the service you need most or combine Website, Design, Photography, and Videography + Editing under one creative direction.",
     "metaDescription": "Website, design, photography, and video from Karsa Agency — one creative direction for your business's digital and visual presence.",
     "categories": {
       "web": "Web",
@@ -172,13 +171,56 @@
   },
   "packagesIndex": {
     "eyebrow": "Packages",
-    "title": "Solo services, combos, and signature bundles.",
-    "description": "Karsa Launch Pricing — introductory rates for selected early partner projects.",
+    "title": "Choose one service or bring everything together.",
+    "description": "Karsa Launch Pricing 2026 — introductory pricing for selected early-partner projects. Every price is a starting price and the final scope is confirmed after a short discovery.",
     "metaDescription": "Pricing packages from Karsa Agency across website, design, photography, and film.",
     "empty": "Packages are being finalized. Get in touch and we'll put together a proposal for your project.",
     "startingFrom": "Starting from",
     "custom": "Custom pricing",
-    "monthly": "/month"
+    "monthly": "/month",
+    "recommendedFor": "Recommended for",
+    "duration": "Duration / allocation",
+    "scopeNote": "Scope note",
+    "groups": {
+      "solo": { "eyebrow": "Standalone", "title": "Packages by service", "description": "For a specific Website, Design, Photography, or Videography + Editing need." },
+      "combo": { "eyebrow": "Combo", "title": "One direction, multiple touchpoints", "description": "Planning, production, assets, and handover are combined so the website and visuals feel consistent from day one." },
+      "maintenance": { "eyebrow": "Ongoing Support", "title": "Support after launch", "description": "Monthly technical upkeep and creative support with a clear allocation." }
+    },
+    "addOns": {
+      "eyebrow": "Add-ons",
+      "title": "Add what the project needs.",
+      "description": "Pricing is recalculated according to working hours, staffing, complexity, and production requirements.",
+      "items": [
+        { "name": "Extra website page", "price": "IDR 400,000+ / page" },
+        { "name": "Copywriting support", "price": "IDR 350,000+ / page" },
+        { "name": "Payment/API integration", "price": "By quotation" },
+        { "name": "Additional design adaptation", "price": "IDR 150,000+ / size" },
+        { "name": "Additional revision round beyond package allowance", "price": "IDR 250,000+ / round" },
+        { "name": "Photography overtime", "price": "IDR 500,000 / hour" },
+        { "name": "Advanced photo retouch", "price": "IDR 35,000+ / photo" },
+        { "name": "Videography overtime", "price": "IDR 600,000 / hour" },
+        { "name": "Additional video output from the same production", "price": "IDR 750,000+ / video" },
+        { "name": "Editing-only short/reel", "price": "IDR 500,000+ / video" },
+        { "name": "Long-form editing up to ±5 minutes", "price": "IDR 1,250,000+" },
+        { "name": "Special studio/location, talent/model, custom props, or specific equipment", "price": "By quotation" },
+        { "name": "Express / priority delivery", "price": "+15% to +30%" },
+        { "name": "Out-of-area travel", "price": "At cost / quotation" }
+      ]
+    },
+    "terms": {
+      "eyebrow": "Commercial Terms",
+      "title": "Clear scope. Clear process. Clear investment.",
+      "items": [
+        { "label": "Payment", "value": "Standalone projects up to IDR 5 million: 50% kickoff, 50% before final handover. Combo/multi-service: 40% kickoff, 40% after main creative/production approval, 20% before handover. Custom projects follow quotation milestones." },
+        { "label": "Revisions", "value": "A maximum of 1-2 rounds according to the package/agreement; additional revisions become an add-on or Change Request." },
+        { "label": "Proposal", "value": "The final quotation is valid for 14 days. Timeline begins after kickoff payment and minimum materials/dependencies are available." },
+        { "label": "Ownership", "value": "Final project-specific deliverables are handed over after full payment; third-party assets remain subject to their licences." },
+        { "label": "Raw / source files", "value": "RAW photos and unedited/raw video footage are excluded unless agreed in writing." },
+        { "label": "Production exclusions", "value": "Domain/hosting, premium licences, printing, studio/location, talent/model/MUA, custom props, permits, travel, extra cameras, special lighting, drone, and specific equipment are priced separately." },
+        { "label": "Tax & warranty", "value": "Prices exclude required taxes where applicable. Websites include 14 days of in-scope technical bug fixes; creative files include 7 days for export/file-error corrections." }
+      ],
+      "launchNote": "Launch Pricing 2026 applies to selected early-partner projects and may be updated. Final pricing is confirmed only once the scope is sufficiently clear; revenue, SEO ranking, lead volume, views, or engagement are not guaranteed."
+    }
   },
   "insightsIndex": {
     "eyebrow": "Insights",
@@ -217,8 +259,8 @@
   },
   "process": {
     "eyebrow": "Process",
-    "title": "How a project moves from idea to launch.",
-    "subtitle": "The same method underlies every engagement — website, design, photography, or film — adapted to what each discipline actually requires.",
+    "title": "Clear scope. Clear process. Clear investment.",
+    "subtitle": "The process is kept simple so clients understand what is being done, when feedback is needed, and when each deliverable is considered complete.",
     "metaDescription": "The Karsa Method — how a project moves from discovery to delivery and support.",
     "disciplinesEyebrow": "By Discipline",
     "disciplinesTitle": "What changes per discipline.",
@@ -285,6 +327,8 @@
     "whoItsFor": "Who It's For",
     "businessProblems": "Business Problems",
     "deliverables": "Typical Deliverables",
+    "included": "Included in Scope",
+    "excluded": "Not Included",
     "relatedWork": "Related Work",
     "faq": "FAQ",
     "start": "Start a Project"

@@ -182,7 +182,7 @@ Bilingual entities (services, packages, articles, careers, legal pages, etc.) fo
    ```
    Until this row exists, the account can authenticate via Supabase Auth but every `/admin` API call returns 403 (`requireAdmin`, see §13).
 
-Then sign in at `/admin/login`. `pnpm seed:projects` and `pnpm seed:services` insert placeholder content for exercising those two sections locally (upserted by slug, safe to re-run) — there are no seed scripts yet for the other entities (careers, legal pages, articles, updates, FAQs, clients, testimonials, packages, portfolio evidence); populate those through the admin UI (see §20).
+Then sign in at `/admin/login`. `pnpm seed:projects` inserts placeholder projects for local exercising. `pnpm seed:pricing` idempotently loads the owner-approved services and packages from `docs/Karsa_Agency_Creative_Services_Launch_Pricing.pdf`; `pnpm seed:services` remains as a service-only compatibility command. Other entities (careers, legal pages, articles, updates, FAQs, clients, testimonials, and portfolio evidence) are populated through the admin UI (see §20).
 
 ## 10. Testing Executed (and Results)
 
@@ -293,7 +293,7 @@ See `.env.example` for the authoritative list and §5 above for what each unlock
 
 - **`TURNSTILE_SECRET_KEY` and `RESEND_API_KEY` are not currently set in production.** The site runs and the inquiry form still returns a reference ID, but bot protection is inactive and neither the internal-notification nor confirmation emails send until these are configured on Vercel. This is a deliberate, user-deferred item, not an oversight — see §14/§12.
 - **`projects` uses a legacy `published` boolean** instead of the `status`/`published_at` pattern every later CMS table uses (see §9). Functionally fine (both gate on "is this visible publicly"), but inconsistent — a future migration could normalize `projects` onto the same pattern.
-- **No seed scripts for most CMS entities.** `pnpm seed:projects` and `pnpm seed:services` exist; careers, legal pages, articles, company updates, FAQs, clients, testimonials, packages, and portfolio evidence have no equivalent — populate them via `/admin` after deployment.
+- **No seed scripts for most CMS entities.** `pnpm seed:projects` and the owner-approved `pnpm seed:pricing` exist; careers, legal pages, articles, company updates, FAQs, clients, testimonials, and portfolio evidence have no equivalent — populate them via `/admin` after deployment.
 - **Package ↔ service taxonomy mismatch.** `packages.category` (solo/combo/signature/maintenance) and `services.category` are separate vocabularies and are not cross-filtered in the inquiry form's package selector.
 - **English remains the default locale**, not Indonesian, per an explicit scope decision (see §16) — this was a deliberate call, not a gap to close later.
 - **`/work` does not yet aggregate the newer portfolio-evidence disciplines** (design/photography/videography galleries) — those live at their own `/design`, `/photography`, `/videography` routes rather than being pulled into the original file-based `/work` case-study listing.

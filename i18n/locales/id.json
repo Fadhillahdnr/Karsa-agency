@@ -80,14 +80,13 @@
   },
   "karsaMethod": {
     "eyebrow": "Metode Karsa",
-    "title": "Proses yang dibangun untuk kejelasan, bukan formalitas.",
+    "title": "Scope jelas. Proses jelas. Investment jelas.",
     "steps": [
-      { "step": "01", "name": "Discover", "description": "Memahami bisnis, audiens, dan tujuan proyek." },
-      { "step": "02", "name": "Define", "description": "Menentukan ruang lingkup, deliverable, dan timeline." },
-      { "step": "03", "name": "Create", "description": "Mendesain dan memproduksi — website, visual, foto, atau video." },
-      { "step": "04", "name": "Review", "description": "Persetujuan bertahap dan revisi sesuai kesepakatan." },
-      { "step": "05", "name": "Deliver", "description": "Serah terima aset dan rilis ke publik." },
-      { "step": "06", "name": "Support", "description": "Garansi, maintenance, dan pengembangan lanjutan bila diperlukan." }
+      { "step": "01", "name": "Discovery", "description": "Tujuan, audience, kebutuhan, reference, asset, lokasi, dan timeline." },
+      { "step": "02", "name": "Scope & Quotation", "description": "Deliverable, exclusions, revision allowance, investment, dan milestone." },
+      { "step": "03", "name": "Creative / Production", "description": "Design, development, shooting, atau editing sesuai scope." },
+      { "step": "04", "name": "Review & Validation", "description": "Consolidated feedback, revision, QA/UAT, seleksi, dan approval." },
+      { "step": "05", "name": "Final Delivery", "description": "Deployment, final design files, photo/video export, dan handover." }
     ]
   },
   "capabilities": {
@@ -158,8 +157,8 @@
   },
   "servicesIndex": {
     "eyebrow": "Layanan",
-    "title": "Website, desain, fotografi, dan film — dalam satu atap.",
-    "description": "Setiap proyek berada di bawah salah satu pilar kreatif kami, dijalankan melalui Metode Karsa dari pemahaman hingga serah terima.",
+    "title": "Empat layanan. Satu arah brand.",
+    "description": "Pilih satu layanan yang paling dibutuhkan atau gabungkan Website, Design, Photography, dan Videography + Editing dalam satu creative direction.",
     "metaDescription": "Website, desain, fotografi, dan video dari Karsa Agency — satu arah kreatif untuk kehadiran digital dan visual bisnis Anda.",
     "categories": {
       "web": "Web",
@@ -172,13 +171,56 @@
   },
   "packagesIndex": {
     "eyebrow": "Paket",
-    "title": "Layanan tunggal, kombo, dan paket signature.",
-    "description": "Karsa Launch Pricing — harga perkenalan untuk proyek mitra awal terpilih.",
+    "title": "Pilih satu layanan atau satukan semuanya.",
+    "description": "Karsa Launch Pricing 2026 — harga perkenalan untuk selected early-partner projects. Semua harga adalah starting price dan final scope dikunci setelah discovery singkat.",
     "metaDescription": "Paket harga dari Karsa Agency untuk website, desain, fotografi, dan film.",
     "empty": "Paket sedang difinalisasi. Hubungi kami dan kami akan susunkan proposal untuk proyekmu.",
     "startingFrom": "Mulai dari",
     "custom": "Harga custom",
-    "monthly": "/bulan"
+    "monthly": "/bulan",
+    "recommendedFor": "Cocok untuk",
+    "duration": "Durasi / alokasi",
+    "scopeNote": "Catatan scope",
+    "groups": {
+      "solo": { "eyebrow": "Standalone", "title": "Paket per layanan", "description": "Untuk kebutuhan spesifik di Website, Design, Photography, atau Videography + Editing." },
+      "combo": { "eyebrow": "Combo", "title": "Satu arah, beberapa touchpoint", "description": "Planning, production, asset, dan handoff disatukan agar website dan visual terasa konsisten sejak awal." },
+      "maintenance": { "eyebrow": "Ongoing Support", "title": "Dukungan setelah launch", "description": "Technical upkeep dan creative support bulanan dengan alokasi yang jelas." }
+    },
+    "addOns": {
+      "eyebrow": "Add-ons",
+      "title": "Tambahkan sesuai kebutuhan.",
+      "description": "Harga dihitung kembali berdasarkan jam kerja, tenaga, kompleksitas, dan kebutuhan produksi.",
+      "items": [
+        { "name": "Extra website page", "price": "Rp400.000+ / halaman" },
+        { "name": "Copywriting support", "price": "Rp350.000+ / halaman" },
+        { "name": "Payment/API integration", "price": "Sesuai quotation" },
+        { "name": "Additional design adaptation", "price": "Rp150.000+ / ukuran" },
+        { "name": "Additional revision round setelah batas paket", "price": "Rp250.000+ / putaran" },
+        { "name": "Overtime photography", "price": "Rp500.000 / jam" },
+        { "name": "Advanced photo retouch", "price": "Rp35.000+ / foto" },
+        { "name": "Overtime videography", "price": "Rp600.000 / jam" },
+        { "name": "Tambahan output video dari produksi yang sama", "price": "Rp750.000+ / video" },
+        { "name": "Editing-only short/reel", "price": "Rp500.000+ / video" },
+        { "name": "Long-form editing hingga ±5 menit", "price": "Rp1.250.000+" },
+        { "name": "Studio/lokasi khusus, talent/model, custom props, atau alat spesifik", "price": "Sesuai quotation" },
+        { "name": "Express / priority delivery", "price": "+15% s.d. +30%" },
+        { "name": "Out-of-area travel", "price": "Biaya aktual / quotation" }
+      ]
+    },
+    "terms": {
+      "eyebrow": "Ketentuan Komersial",
+      "title": "Scope jelas. Proses jelas. Investment jelas.",
+      "items": [
+        { "label": "Pembayaran", "value": "Proyek standalone hingga Rp5 juta: 50% kickoff, 50% sebelum final handover. Combo/multi-service: 40% kickoff, 40% setelah main creative/production approval, 20% sebelum handover. Proyek custom mengikuti milestone quotation." },
+        { "label": "Revisi", "value": "Maksimal 1-2 putaran sesuai paket/kesepakatan; revisi tambahan menjadi add-on atau Change Request." },
+        { "label": "Proposal", "value": "Quotation final berlaku 14 hari. Timeline dimulai setelah pembayaran kickoff dan material/dependency minimum tersedia." },
+        { "label": "Kepemilikan", "value": "Final project-specific deliverables diserahkan setelah pembayaran lunas; third-party assets mengikuti lisensinya." },
+        { "label": "Raw / source files", "value": "RAW photo dan unedited/raw video footage tidak termasuk kecuali disepakati tertulis." },
+        { "label": "Production exclusions", "value": "Domain/hosting, premium license, printing, studio/lokasi, talent/model/MUA, custom props, permits, travel, kamera ekstra, lighting khusus, drone, dan alat spesifik dihitung terpisah." },
+        { "label": "Pajak & warranty", "value": "Harga belum termasuk pajak yang diwajibkan apabila berlaku. Website mendapat 14 hari perbaikan bug teknis dalam approved scope; creative files mendapat 7 hari koreksi kesalahan export/file." }
+      ],
+      "launchNote": "Launch Pricing 2026 berlaku untuk selected early-partner projects dan dapat diperbarui. Harga final baru dikunci setelah scope cukup jelas; tidak ada jaminan omzet, ranking SEO, jumlah leads, views, atau engagement."
+    }
   },
   "insightsIndex": {
     "eyebrow": "Insights",
@@ -217,8 +259,8 @@
   },
   "process": {
     "eyebrow": "Proses",
-    "title": "Bagaimana proyek bergerak dari ide hingga rilis.",
-    "subtitle": "Metode yang sama mendasari setiap keterlibatan — website, desain, fotografi, atau film — disesuaikan dengan kebutuhan masing-masing disiplin.",
+    "title": "Clear scope. Clear process. Clear investment.",
+    "subtitle": "Proses dibuat sederhana agar client memahami apa yang dikerjakan, kapan feedback dibutuhkan, dan kapan deliverable dianggap selesai.",
     "metaDescription": "Karsa Method — bagaimana proyek bergerak dari discovery hingga delivery dan support.",
     "disciplinesEyebrow": "Per Disiplin",
     "disciplinesTitle": "Apa yang berbeda per disiplin.",
@@ -285,6 +327,8 @@
     "whoItsFor": "Untuk Siapa",
     "businessProblems": "Masalah Bisnis",
     "deliverables": "Deliverable Umum",
+    "included": "Termasuk dalam Scope",
+    "excluded": "Tidak Termasuk",
     "relatedWork": "Karya Terkait",
     "faq": "Tanya Jawab",
     "start": "Mulai Proyek"
