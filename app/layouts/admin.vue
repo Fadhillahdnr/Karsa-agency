@@ -15,10 +15,15 @@ async function handleLogout() {
 </script>
 
 <template>
-  <div class="h-dvh overflow-hidden bg-[var(--color-bg)] lg:flex">
+  <div
+    class="admin-app-shell h-dvh overflow-hidden bg-[var(--color-bg)] lg:flex"
+    data-lenis-prevent
+  >
     <!--
       App-shell scroll model: this root never scrolls. Each pane below
-      (sidebar nav, main content) owns its own `overflow-y-auto`, so the
+      (sidebar nav, main content, and form controls) use native scrolling
+      instead of the public site's Lenis instance. Each pane owns its own
+      `overflow-y-auto`, so the
       browser only scrolls whatever pane the cursor is actually over —
       the sidebar list, the header, and the page content all move
       independently instead of one long document scroll.

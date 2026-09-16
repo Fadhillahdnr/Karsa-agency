@@ -21,6 +21,20 @@ async function fillThroughToReview(page: Page) {
 }
 
 test.describe('Start a Project inquiry form', () => {
+  test('keeps long textarea content natively scrollable', async ({ page }) => {
+    await gotoReady(page, '/en/start-a-project')
+
+    await page.getByRole('button', { name: 'Website', exact: true }).click()
+    await page.getByRole('button', { name: 'Next' }).click()
+
+    const description = page.getByLabel('Project Description', { exact: false })
+    await description.fill(Array.from({ length: 20 }, (_, index) => `Project detail ${index + 1}`).join('\n'))
+    await description.hover()
+    await page.mouse.wheel(0, 400)
+
+    await expect.poll(() => description.evaluate(element => element.scrollTop)).toBeGreaterThan(0)
+  })
+
   test('blocks progression at each step until it is valid', async ({ page }) => {
     await gotoReady(page, '/en/start-a-project')
 

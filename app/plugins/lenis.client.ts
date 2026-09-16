@@ -16,6 +16,12 @@ export default defineNuxtPlugin(() => {
     duration: prefersReduced ? 0 : 1.1,
     smoothWheel: !prefersReduced,
     syncTouch: false,
+    // Lenis owns wheel/touch input at the window level. Let controls that
+    // have their own scroll area keep native input instead (notably the
+    // public inquiry textarea; the admin shell is excluded as a whole via
+    // `data-lenis-prevent` in its layout).
+    prevent: node => node instanceof HTMLElement
+      && (node instanceof HTMLTextAreaElement || node.isContentEditable),
   })
 
   lenis.on('scroll', ScrollTrigger.update)

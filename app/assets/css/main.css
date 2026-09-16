@@ -90,6 +90,19 @@
   .admin-scroll-pane {
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /*
+   * Form fields are nested scroll containers too. Keep long textarea and
+   * rich-text content usable with a mouse wheel, trackpad, touch, and
+   * keyboard without letting the event leak into the page behind it.
+   */
+  .admin-app-shell textarea,
+  .admin-app-shell [contenteditable='true'] {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
   .admin-scroll-pane:hover,
