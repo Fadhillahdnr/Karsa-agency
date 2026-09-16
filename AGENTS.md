@@ -2,6 +2,8 @@
 
 **Purpose of this file:** this is the single primary-reference document for any AI agent (or new human contributor) picking up work on this repository. Read this file fully before making changes. It is meant to eliminate the need for the project owner to re-explain architecture, conventions, or history — everything an agent needs to act correctly and on-point should be here or linked from here.
 
+For the latest cross-session work state, also read `docs/agent-handoff.md`, especially when the owner says **"kembali ke project Karsa"**.
+
 Verify anything time-sensitive (env vars actually set, current deployment state, current DB rows) against the live system rather than trusting this document blindly — code and infra state can drift after this file was written. Re-read `git log --oneline` before assuming "what's next" — this document is updated opportunistically, not on every commit.
 
 Last verified against repo state: commit `9c12eab` (2026-09-14). Working tree at that point had only two untracked files: `docs/Karsa_Agency_Creative_Services_Launch_Pricing*.pdf` (client-facing pricing PDFs, unrelated to app code).
